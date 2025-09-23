@@ -13,22 +13,25 @@
  * @copyright 2020 Mike Pultz <mike@mikepultz.com>
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link      https://netdns2.com/
- * @since     File available since Release 0.6.0
+ * @since     File available since Release 1.3.2
  *
  */
 
 /**
- * A Resource Record - RFC1035 section 3.4.1
+ * EUI64 Resource Record - RFC7043 section 4.1
  *
- *    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
- *    |                    ADDRESS                    |
- *    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *  0                   1                   2                   3
+ *  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ * |                          EUI-64 Address                       |
+ * |                                                               |
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  *
  */
-class Net_DNS2_RR_A extends Net_DNS2_RR
+class Net_DNS2_RR_EUI64 extends Net_DNS2_RR
 {
     /*
-     * The IPv4 address in quad-dotted notation
+     * The EUI64 address, in hex format
      */
     public $address;
 
@@ -57,13 +60,31 @@ class Net_DNS2_RR_A extends Net_DNS2_RR
     {
         $value = array_shift($rdata);
 
-        if (Net_DNS2::isIPv4($value) == true) {
-            
-            $this->address = $value;
-            return true;
+        //
+        // re: RFC 7043, the field must be represented as 8 two-digit hex numbers
+        // separated by hyphens.
+        //
+        $a = explode('-', $value);
+        if (count($a) != 8) {
+
+            return false;
         }
 
-        return false;
+        //
+        // make sure they're all hex values
+        //
+        foreach ($a as $i) {
+            if (ctype_xdigit($i) == false) {
+                return false;
+            }
+        }
+
+        //
+        // store it
+        //
+        $this->address = strtolower($value);
+
+        return true;
     }
 
     /**
@@ -79,9 +100,12 @@ class Net_DNS2_RR_A extends Net_DNS2_RR
     {
         if ($this->rdlength > 0) {
 
-            $this->address = inet_ntop($this->rdata);
-            if ($this->address !== false) {
+            $x = unpack('C8', $this->rdata);
+            if (count($x) == 8) {
             
+                $this->address = vsprintf(
+                    '%02x-%02x-%02x-%02x-%02x-%02x-%02x-%02x', $x
+                );
                 return true;
             }
         }
@@ -102,7 +126,15 @@ class Net_DNS2_RR_A extends Net_DNS2_RR
      */
     protected function rrGet(Net_DNS2_Packet &$packet)
     {
-        $packet->offset += 4;
-        return inet_pton($this->address);
+        $data = '';
+
+        $a = explode('-', $this->address);
+        foreach ($a as $b) {
+
+            $data .= chr(hexdec($b));
+        }
+
+        $packet->offset += 8;
+        return $data;
     }
 }
