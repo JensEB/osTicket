@@ -53,13 +53,26 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
         <?php } ?>
     </tbody>
     <tbody>
+<!-- Anpassung Anfang: Design Korrektur
     <tr><td colspan="2"><hr />
         <div class="form-header" style="margin-bottom:0.5em">
         <b><?php echo __('Help Topic'); ?></b>
         </div>
     </td></tr>
+-->
+    <tr>
+        <td colspan="2"><hr></td>
+    </tr>
+<!-- Anpassung Ende: Design Korrektur -->
     <tr>
         <td colspan="2">
+<!-- Anpassung Anfang: Design Korrektur -->
+            <label class="required" style="width:160px; float:left;">
+                <?php echo __('Help Topic'); ?>:
+            </label>
+            <div style="padding-top: 3px; width:calc(100% - 165px); float:right;">
+                <div style="width: 100%; max-width: 268px; float: left; margin-right: 10px;">
+<!-- Anpassung Ende: Design Korrektur -->
             <select id="topicId" name="topicId" onchange="javascript:
                     var data = $(':input[name]', '#dynamic-form').serialize();
                     $.ajax(
@@ -81,7 +94,13 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
                     }
                 } ?>
             </select>
+<!-- Anpassung Anfang: Design Korrektur
             <font class="error">*&nbsp;<?php echo $errors['topicId']; ?></font>
+-->
+        </div>
+            <font class="error">*&nbsp;<?php echo $errors['topicId']; ?></font>
+    </div>
+<!-- Anpassung Ende: Design Korrektur -->
         </td>
     </tr>
     </tbody>
@@ -99,6 +118,7 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
             $errors['captcha']=__('Please re-enter the text again');
         ?>
     <tr class="captchaRow">
+<!-- Anpassung Anfang: Design Korrektur - Captcha-Feld
         <td class="required"><?php echo __('CAPTCHA Text');?>:</td>
         <td>
             <span class="captcha"><img src="captcha.php" border="0" align="left"></span>
@@ -107,6 +127,21 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
             <em><?php echo __('Enter the text shown on the image.');?></em>
             <font class="error">*&nbsp;<?php echo $errors['captcha']; ?></font>
         </td>
+-->
+        <td colspan="2" class="required" style="padding-top: 10px;">
+            <label class="required" style="width:160px; float:left;">
+                <?php echo __('CAPTCHA Text');?> <font class="error">*&nbsp;</font>
+            </label>
+            <div style="padding-top: 3px; width:calc(100% - 165px); float:right;">
+                <span class="captcha"><img src="captcha.php" border="0" align="left"></span>
+                &nbsp;&nbsp;
+                <input id="captcha" type="text" name="captcha" size="6" autocomplete="off" style="float: left; margin-top: 5px;">
+                <div class="clear"></div>
+                <em><?php echo __('Enter the text shown on the image.');?></em>
+                <font class="error"><?php echo $errors['captcha']?'<br>'.$errors['captcha']:''; ?></font>
+            </div>
+        </td>
+<!-- Anpassung Ende: Design Korrektur - Captcha-Feld -->
     </tr>
     <?php
     } ?>
