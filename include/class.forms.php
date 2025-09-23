@@ -3953,6 +3953,7 @@ class FileUploadField extends FormField {
 
     function getConfigurationOptions() {
         // Compute size selections
+/* Anpassung Anfang: Größe für Dateianhänge in 2MB-Schritten
         $sizes = array('262144' => '— '.__('Small').' —');
         $next = 512 << 10;
         $max = strtoupper(ini_get('upload_max_filesize'));
@@ -3971,6 +3972,29 @@ class FileUploadField extends FormField {
         // at a power of two
         if ($next < $limit * 2)
             $sizes[$limit] = Format::file_size($limit);
+*/
+        $sizes = array( '1' => '&mdash; 0B &mdash;',
+                        '262144' => '&mdash; 256 KB &mdash;',
+                        '524288' => '&mdash; 512 KB &mdash;',
+                        '1048576' => '&mdash; 1 MB &mdash;');
+        $next = 2 << 20;
+        $max = strtoupper(ini_get('upload_max_filesize'));
+        $limit = (int) $max;
+        if (!$limit) $limit = 2 << 20; # 2M default value
+        elseif (strpos($max, 'K')) $limit <<= 10;
+        elseif (strpos($max, 'M')) $limit <<= 20;
+        elseif (strpos($max, 'G')) $limit <<= 30;
+        while ($next <= $limit) {
+            // Select the closest, larger value (in case the
+            // current value is between two)
+            $sizes[$next] = '&mdash; '.strtoupper(Format::file_size($next)).' &mdash;';
+            $next += 2097152;// + 2MB
+        }
+        // Add extra option if top-limit in php.ini doesn't fall
+        // at a power of two
+        if ($next < $limit + 2097152)
+            $sizes[$limit] = '&mdash; '.strtoupper(Format::file_size($limit)).' &mdash;';
+// Anpassung Ende: Größe für Dateianhänge in 2MB-Schritten
 
         $types = array();
         foreach (self::getFileTypes() as $type=>$info) {

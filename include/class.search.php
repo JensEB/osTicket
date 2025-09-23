@@ -937,7 +937,11 @@ class SavedQueue extends CustomQueue {
             return null;
 
         // Cache TLS in seconds
+/* Anpassung Anfang: ttl von 5 auf 1 Min gesetzt
         $ttl = 5*60;
+*/
+        $ttl = 1*60;
+// Anpassung Ende: ttl von 5 auf 1 Min gesetzt
         // Cache key based on agent and salt of the installation
         $key = "counts.queues.{$agent->getId()}.".SECRET_SALT;
         if ($criteria && is_array($criteria)) // Consider additional criteria.

@@ -895,9 +895,21 @@ class Plugin extends VerySimpleModel {
         return true;
     }
 
+/* Anpassung Anfang: call update/uninstall functions from Plugin itself
     function enable() {
         return true;
     }
+*/
+    function disable() {
+        $errors = [];
+        $this->update(['isactive' => 0], $errors);
+    }
+
+    function enable() {
+        $errors = [];
+        $this->update(['isactive' => 1], $errors);
+    }
+// Anpassung Ende: call update/uninstall functions from Plugin itself
 
     /**
      * Function: __

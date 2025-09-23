@@ -24,6 +24,9 @@ if ($_REQUEST['query']) {
 
 $sortOptions = array('name' => 'name',
                      'email' => 'emails__address',
+// Anpassung Anfang: org on userlist
+                     'org' => 'org__name',
+// Anpassung Ende: org on userlist
                      'status' => 'account__status',
                      'create' => 'created',
                      'update' => 'updated');
@@ -59,6 +62,9 @@ $_SESSION[':Q:users'] = $users;
 
 $users->values('id', 'name', 'default_email__address', 'account__id',
     'account__status', 'created', 'updated');
+// Anpassung Anfang: org on userlist
+$users->values('org__name');
+// Anpassung Ende: org on userlist
 $users->order_by($order . $order_column);
 ?>
 <div id="basic_search">
@@ -157,12 +163,23 @@ else
             <th nowrap width="4%">&nbsp;</th>
             <th><a <?php echo $name_sort; ?> href="users.php?<?php
                 echo $qstr; ?>&sort=name"><?php echo __('Name'); ?></a></th>
+<!-- Anpassung Anfang: org on userlist
             <th width="22%"><a  <?php echo $status_sort; ?> href="users.php?<?php
                 echo $qstr; ?>&sort=status"><?php echo __('Status'); ?></a></th>
             <th width="20%"><a <?php echo $create_sort; ?> href="users.php?<?php
                 echo $qstr; ?>&sort=create"><?php echo __('Created'); ?></a></th>
             <th width="20%"><a <?php echo $update_sort; ?> href="users.php?<?php
                 echo $qstr; ?>&sort=update"><?php echo __('Updated'); ?></a></th>
+-->
+            <th width="15%"><a  <?php echo $status_sort; ?> href="users.php?<?php
+                echo $qstr; ?>&sort=status"><?php echo __('Status'); ?></a></th>
+            <th width="22%"><a  <?php echo $org_sort; ?> href="users.php?<?php
+                echo $qstr; ?>&sort=org"><?php echo __('Organization'); ?></a></th>
+            <th width="15%"><a <?php echo $create_sort; ?> href="users.php?<?php
+                echo $qstr; ?>&sort=create"><?php echo __('Created'); ?></a></th>
+            <th width="15%"><a <?php echo $update_sort; ?> href="users.php?<?php
+                echo $qstr; ?>&sort=update"><?php echo __('Updated'); ?></a></th>
+<!-- Anpassung Ende: org on userlist -->
         </tr>
     </thead>
     <tbody>
@@ -180,6 +197,9 @@ else
                     $status = new UserAccountStatus($U['account__status']);
                 else
                     $status = __('Guest');
+// Anpassung Anfang: org on userlist
+                $group = (strlen($U['org__name']))?$U['org__name']:__('None');
+// Anpassung Ende: org on userlist
 
                 $sel=false;
                 if($ids && in_array($U['id'], $ids))
@@ -202,6 +222,9 @@ else
                     ?>
                 </td>
                 <td><?php echo $status; ?></td>
+<!-- Anpassung Anfang: org on userlist -->
+                <td><?php echo $group; ?></td>
+<!-- Anpassung Ende: org on userlist -->
                 <td><?php echo Format::date($U['created']); ?></td>
                 <td><?php echo Format::datetime($U['updated']); ?>&nbsp;</td>
                </tr>

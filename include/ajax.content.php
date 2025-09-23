@@ -87,6 +87,7 @@ class ContentAjaxAPI extends AjaxController {
                     <tr><td>%{response}</td><td>'.__('Outgoing response').'</td></tr>
                     <tr><td>%{comments}</td><td>'.__('Assign/transfer comments').'</td></tr>
                     <tr><td>%{note}</td><td>'.__('Internal note <em>(expandable)</em>').'</td></tr>
+                    <tr><td>%{signature}</td><td>'.__('Signature').'</td></tr>
                     <tr><td>%{assignee}</td><td>'.__('Assigned Agent / Team').'</td></tr>
                     <tr><td>%{assigner}</td><td>'.__('Agent assigning the ticket').'</td></tr>
                     <tr><td>%{url}</td><td>'.__('osTicket\'s base url (FQDN)').'</td></tr>

@@ -1764,8 +1764,13 @@ implements RestrictedAccess, Threadable, Searchable {
         //Log the limit notice as a warning for admin.
         $msg=sprintf(_S('Maximum open tickets (%1$d) reached for %2$s'),
             $cfg->getMaxOpenTickets(), $this->getEmail());
+/* Anpassung Anfang: do not send an email to admin on open tickets limit alert
         $ost->logWarning(sprintf(_S('Maximum Open Tickets Limit (%s)'),$this->getEmail()),
             $msg);
+*/
+        $ost->logWarning(sprintf(_S('Maximum Open Tickets Limit (%s)'),$this->getEmail()),
+            $msg,false);
+// Anpassung Ende: do not send an email to admin on open tickets limit alert
 
         if (!$sendNotice || !$cfg->sendOverLimitNotice())
             return true;
@@ -1938,6 +1943,9 @@ implements RestrictedAccess, Threadable, Searchable {
         ) {
             $msg = $this->replaceVars($msg->asArray(),
                 array(
+// Anpassung Anfang: message-Var verfügbar on autoresponse
+                    'message' => $message,
+// Anpassung Ende: message-Var verfügbar on autoresponse
                     'recipient' => $user,
                     'signature' => ($dept && $dept->isPublic())?$dept->getSignature():''
                 )
@@ -1957,6 +1965,9 @@ implements RestrictedAccess, Threadable, Searchable {
 
     function onActivity($vars, $alert=true) {
         global $cfg, $thisstaff;
+// Anpassung Anfang: update lastupdate on Response and internal note
+        $this->lastupdate = SqlFunction::NOW();
+// Anpassung Ende: update lastupdate on Response and internal note
 
         //TODO: do some shit
         if (!$alert // Check if alert is enabled
@@ -3291,6 +3302,9 @@ implements RestrictedAccess, Threadable, Searchable {
                 $this->replaceVars($canned->getPlainText()));
 
         $info = array('msgId' => $message instanceof ThreadEntry ? $message->getId() : 0,
+// Anpassung Anfang: message-Var verfügbar on autoresponse
+                      'message' => $message ? $message : '',
+// Anpassung Ende: message-Var verfügbar on autoresponse
                       'poster' => __('SYSTEM (Canned Reply)'),
                       'response' => $response,
                       'files' => $files
@@ -3317,6 +3331,9 @@ implements RestrictedAccess, Threadable, Searchable {
 
             $msg = $this->replaceVars($msg->asArray(),
                 array(
+// Anpassung Anfang: message-Var verfügbar on autoresponse
+                    'message' => $message ? $message : '',
+// Anpassung Ende: message-Var verfügbar on autoresponse
                     'response' => $response,
                     'signature' => $signature,
                     'recipient' => $this->getOwner(),
@@ -3573,7 +3590,11 @@ implements RestrictedAccess, Threadable, Searchable {
     }
 
     // Print ticket... export the ticket thread as PDF.
+/* Anpassung Anfang: default paper size A4
     function pdfExport($psize='Letter', $notes=false, $events=false) {
+*/
+    function pdfExport($psize='A4', $notes=false, $events=false) {
+// Anpassung Ende: default paper size A4
         global $thisstaff;
 
         require_once(INCLUDE_DIR.'class.pdf.php');
@@ -3581,7 +3602,11 @@ implements RestrictedAccess, Threadable, Searchable {
             if ($_SESSION['PAPER_SIZE'])
                 $psize = $_SESSION['PAPER_SIZE'];
             elseif (!$thisstaff || !($psize = $thisstaff->getDefaultPaperSize()))
+/* Anpassung Anfang: default paper size A4
                 $psize = 'Letter';
+*/
+                $psize = 'A4';
+// Anpassung Ende: default paper size A4
         }
 
         $pdf = new Ticket2PDF($this, $psize, $notes, $events);

@@ -68,7 +68,18 @@ if ($info['error']) {
 <?php foreach ($entry->getAnswers() as $a) { ?>
     <tr><td style="width:30%;"><?php echo Format::htmlchars($a->getField()->get('label'));
          ?>:</td>
+<!-- Anpassung Anfang: Phone field on ticket view header - add support for click2dial
     <td><?php echo $a->display(); ?></td>
+ -->
+    <td><?php
+    if($a->getField()->get('name') == 'phone' && $a->getValue()) {
+        echo '<a href="tel:'.$a->display().'">'.$a->display().'</a>';
+    } else {
+        echo $a->display();
+    }
+    
+    ?></td>
+<!-- Anpassung Anfang: Phone field on ticket view header - add support for click2dial -->
     </tr>
 <?php }
 }

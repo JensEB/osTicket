@@ -53,6 +53,12 @@ $extensions = array(
             'name' => 'zip',
             'desc' => __('Used for ticket and task exporting')
             ),
+// Anpassung Anfang: check zlib php extension for mPDF
+        'zlib' => array(
+            'name' => 'zlib',
+            'desc' => __('Required for generating pdf files')
+            ),
+// Anpassung Ende: check zlib php extension for mPDF
         'apcu' => array(
             'name' => 'APCu',
             'desc' => __('Improves overall performance')
@@ -61,6 +67,12 @@ $extensions = array(
             'name' => 'Zend Opcache',
             'desc' => __('Improves overall performance')
             ),
+// Anpassung Anfang: check ldap php extension
+        'ldap' => array(
+            'name' => 'LDAP',
+            'desc' => __('Optional - used for ldap plugin')
+            ),
+// Anpassung Ende: check ldap php extension
         );
 
 ?>
@@ -125,6 +137,10 @@ if (!$lv) { ?>
         <td><span class="ltr"><?php echo db_version(); ?></span></td></tr>
     <tr><td><?php echo __('PHP Version'); ?></td>
         <td><span class="ltr"><?php echo phpversion(); ?></span></td></tr>
+<!-- Anpassung Anfang: display used php.ini -->
+    <tr><td><?php echo __('php.ini loaded'); ?></td>
+        <td><span class="ltr"><?php echo php_ini_loaded_file(); ?></span></td></tr>
+<!-- Anpassung Ende: display used php.ini -->
 </tbody>
 <thead>
     <tr><th colspan="2"><?php echo __('PHP Extensions'); ?></th></tr>
@@ -181,7 +197,17 @@ if (!$lv) { ?>
             FROM information_schema.TABLES WHERE table_schema = '
             .db_input(DBNAME);
         $space = db_result(db_query($sql));
+/* Anpassung Anfang: Format Speicherplatz Anzeige
         echo sprintf('%.2f MiB', $space); ?></td>
+*/
+        $spaceUnit = 'MiB';
+        if($space >= 1024) {
+            $space = $space/1024;
+            $spaceUnit = 'GiB';
+        }
+        echo sprintf('%.2f %s', $space, $spaceUnit); ?>
+        </td>
+<!-- Anpassung Ende: Format Speicherplatz Anzeige -->
     <tr><td><?php echo __('Space for Attachments'); ?></td>
         <td><?php
         $sql = 'SELECT
@@ -196,7 +222,17 @@ if (!$lv) { ?>
                     (DATA_LENGTH + INDEX_LENGTH)
                 DESC';
         $space = db_result(db_query($sql));
+/* Anpassung Anfang: Format Speicherplatz Anzeige
         echo sprintf('%.2f MiB', $space); ?></td></tr>
+*/
+        $spaceUnit = 'MiB';
+        if($space >= 1024) {
+            $space = $space/1024;
+            $spaceUnit = 'GiB';
+        }
+        echo sprintf('%.2f %s', $space, $spaceUnit); ?>
+        </td></tr>
+<!-- Anpassung Ende: Format Speicherplatz Anzeige -->
     <tr><td><?php echo __('Timezone'); ?></td>
         <td><?php echo $dbtz = db_timezone(); ?>
           <?php if ($cfg->getDbTimezone() != $dbtz) { ?>
@@ -227,7 +263,7 @@ if (!$lv) { ?>
 <?php   if ($manifest) { ?>
             <br/> <?php echo __('Version'); ?>: <?php echo $manifest['Version'];
                 ?>, <?php echo sprintf(__('for version %s'),
-                    'v'.($manifest['Phrases-Version'] ?: '1.9')); ?>
+                    'v'.($manifest['Phrases-Version'] ?: '1.18')); ?>
             <br/> <?php echo __('Built'); ?>: <?php echo $manifest['Build-Date']; ?>
 <?php   } ?>
         </div>

@@ -688,6 +688,9 @@ class FA_SendEmail extends TriggerAction {
         return array(
             'recipients' => new TextboxField(array(
                 'label' => __('Recipients'), 'required' => true,
+// Anpassung Anfang: set hint for ticket owner variable
+                'hint'=>__('Use variable %{user} for ticket owner').'.',
+// Anpassung Ende: set hint for ticket owner variable
                 'configuration' => array(
                     'size' => 80, 'length' => 1000,
                 ),

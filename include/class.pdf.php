@@ -67,7 +67,11 @@ class Ticket2PDF extends mPDFWithLocalImages
 
     var $ticket = null;
 
+/* Anpassung Anfang: default paper size A4
 	function __construct($ticket, $psize='Letter', $notes=false, $events=false) {
+*/
+	function __construct($ticket, $psize='A4', $notes=false, $events=false) {
+// Anpassung Ende: default paper size A4
         global $thisstaff;
 
         $this->ticket = $ticket;

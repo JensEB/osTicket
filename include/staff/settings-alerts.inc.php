@@ -29,6 +29,9 @@
             <td>
                 <input type="checkbox" name="ticket_alert_dept_members" <?php echo $config['ticket_alert_dept_members']?'checked':''; ?>>
                 <?php echo __('Department Members'); ?>
+<!-- Anpassung Anfang: hint send alert only if not assigned -->
+                <?php echo '&nbsp;('.__('only if not assigned').')'; ?>
+<!-- Anpassung Ende: hint send alert only if not assigned -->
             </td>
         </tr>
         <tr>
@@ -166,6 +169,9 @@
             <td>
               <input type="checkbox" name="transfer_alert_dept_members" <?php echo $config['transfer_alert_dept_members']?'checked':''; ?>>
                 <?php echo __('Department Members'); ?>
+<!-- Anpassung Anfang: hint send alert only if not assigned -->
+                <?php echo '&nbsp;('.__('only if not assigned').')'; ?>
+<!-- Anpassung Ende: hint send alert only if not assigned -->
             </td>
         </tr>
         <tr><th><em><b><?php echo __('Overdue Ticket Alert'); ?></b>:
@@ -196,6 +202,9 @@
             <td>
               <input type="checkbox" name="overdue_alert_dept_members" <?php
                 echo $config['overdue_alert_dept_members']?'checked':''; ?>> <?php echo __('Department Members'); ?>
+<!-- Anpassung Anfang: hint send alert only if not assigned -->
+                <?php echo '&nbsp;('.__('only if not assigned').')'; ?>
+<!-- Anpassung Ende: hint send alert only if not assigned -->
             </td>
         </tr>
         <tr><th>

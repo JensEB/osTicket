@@ -466,6 +466,10 @@ endif;
 if ($redirect) {
     if ($msg)
         Messages::success($msg);
+// Anpassung Anfang: store error message too
+    if ($errors['err'])
+        Messages::error($errors['err']);
+// Anpassung Ende: store error message too
     Http::redirect($redirect);
 }
 

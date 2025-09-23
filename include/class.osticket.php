@@ -57,7 +57,7 @@ class osTicket {
 
         // Start Session
         if (!defined('SESSION_SESSID'))
-            define('SESSION_SESSID', 'OSTSESSID');
+            define('SESSION_SESSID', 'OSTSESSIONID'); // rename name for ostsession (Comodo CVE-2014-4744)
         $this->session = osTicketSession::start(SESSION_SESSID, SESSION_TTL,
                     $this->isUpgradePending());
         // CSRF Token
@@ -366,6 +366,7 @@ class osTicket {
     }
 
     static function get_path_info() {
+/* Anpassung Anfang: modify this function vor nginx
         if(isset($_SERVER['PATH_INFO']))
             return htmlentities($_SERVER['PATH_INFO']);
 
@@ -373,6 +374,24 @@ class osTicket {
             return htmlentities($_SERVER['ORIG_PATH_INFO']);
 
         //TODO: conruct possible path info.
+*/
+        // https://github.com/osTicket/osTicket-1.7/issues/538#issuecomment-16049117
+        if(isset($_SERVER['PATH_INFO']) && !empty($_SERVER['PATH_INFO']))
+            return htmlentities($_SERVER['PATH_INFO']);
+
+        if(isset($_SERVER['ORIG_PATH_INFO']) && !empty($_SERVER['ORIG_PATH_INFO']))
+            return htmlentities($_SERVER['ORIG_PATH_INFO']);
+
+        $request_uri = preg_replace('@\?.*$@', '', $_SERVER['REQUEST_URI']);
+
+        if (strpos($request_uri, $_SERVER['SCRIPT_NAME']) !== false) {
+            $guessed_pathinfo = preg_replace('#^'.preg_quote($_SERVER['SCRIPT_NAME']).'#', '', $request_uri);
+        } else {
+            $guessed_pathinfo = preg_replace('#^'.preg_quote(preg_replace('@/([^/]+)$@', '', $_SERVER['SCRIPT_NAME'])).'#', '', $request_uri);
+        }
+        if (!empty($guessed_pathinfo))
+            return $guessed_pathinfo;
+// Anpassung Ende: modify this function vor nginx
 
         return null;
     }

@@ -146,7 +146,11 @@ class FAQ extends VerySimpleModel {
         global $thisstaff;
         require_once(INCLUDE_DIR.'class.pdf.php');
 
+/* Anpassung Ende: default paper size A4
         $paper = 'Letter';
+*/
+        $paper = 'A4';
+// Anpassung Ende: default paper size A4
         if ($thisstaff)
             $paper = $thisstaff->getDefaultPaperSize();
 

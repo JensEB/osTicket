@@ -14,11 +14,19 @@ $selected = (!isset($_REQUEST['a'])  && $_REQUEST['queue'] == $this_queue->getId
   <a href="<?php echo $this_queue->getHref(); ?>"
     class="Ticket"><i class="small icon-sort-down pull-right"></i><?php echo $this_queue->getName(); ?>
 <?php if ($cfg->showTopLevelTicketCounts()) { ?>
+<!-- Anpassung Anfang: show empty bucket on page load to prevent changes on hover
     <span id="queue-count-bucket" class="hidden">
       (<span class="queue-count"
         data-queue-id="<?php echo $this_queue->id; ?>"><span class="faded-more"></span>
       </span>)
     </span>
+-->
+    <span id="queue-count-bucket">
+      (<span class="queue-count"
+             data-queue-id="<?php echo $this_queue->id; ?>" style="display: inline-block;min-width:20px; text-align: center;"><span class="faded-more"
+       >-</span></span>)
+    </span>
+<!-- Anpassung Ende: show empty bucket on page load to prevent changes on hover -->
 <?php } ?>
   </a>
   <div class="customQ-dropdown">

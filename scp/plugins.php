@@ -92,6 +92,7 @@ if ($_POST) {
         } else {
             $plugins = Plugin::objects()->filter([
                     'id__in' => array_values($_POST['ids'])]);
+/* Anpassung Anfang: call update/uninstall functions from Plugin itself
             switch(strtolower($_POST['a'])) {
             case 'enable':
                 $plugins->update(['isactive' => 1]);
@@ -104,6 +105,22 @@ if ($_POST) {
                     $p->uninstall($errors);
                 break;
             }
+*/
+            foreach ($plugins as $p) {
+                $impl = $p->getImpl() ?: $p;
+                switch(strtolower($_POST['a'])) {
+                case 'enable':
+                    $impl->enable();
+                    break;
+                case 'disable':
+                     $impl->disable();
+                    break;
+                case 'delete':
+                    $impl->uninstall($errors);
+                    break;
+                }
+            }
+// Anpassung Ende: call update/uninstall functions from Plugin itself
             // reset cached list
             PluginManager::clearCache();
             //Fixme: address sticky cache

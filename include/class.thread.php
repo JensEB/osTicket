@@ -2201,6 +2201,9 @@ class ThreadEvent extends VerySimpleModel {
         $staff = $ticket->getStaffId();
 
         $inst = self::create(array(
+// Anpassung Anfang: every ticket/task event should have a thread_id
+            'thread_id' => $ticket->getThreadId() ?: 0,
+// Anpassung Ende: every ticket/task event should have a thread_id
             'thread_type' => ObjectModel::OBJECT_TYPE_TICKET,
             'staff_id' => $staff ?: 0,
             'team_id' => $ticket->getTeamId() ?: 0,
@@ -2212,6 +2215,9 @@ class ThreadEvent extends VerySimpleModel {
 
     static function forTask($task, $state, $user=false) {
         $inst = self::create(array(
+// Anpassung Anfang: every ticket/task event should have a thread_id
+            'thread_id' => $task->getThreadId() ?: 0,
+// Anpassung Ende: every ticket/task event should have a thread_id
             'thread_type' => ObjectModel::OBJECT_TYPE_TASK,
             'staff_id' => $task->getStaffId() ?: 0,
             'team_id' => $task->getTeamId() ?: 0,
