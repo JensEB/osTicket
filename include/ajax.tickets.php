@@ -1810,6 +1810,17 @@ class TicketsAjaxAPI extends AjaxController {
 
          include STAFFINC_DIR . 'ticket-tasks.inc.php';
     }
+// Anpassung Anfang: Tab Dateianhänge im Ticketverlauf
+    function attachmentList($tid) {
+        global $thisstaff;
+
+        if (!($ticket=Ticket::lookup($tid))
+                || !$ticket->checkStaffPerm($thisstaff))
+            Http::response(404, __('Unknown ticket'));
+
+         include STAFFINC_DIR . 'ticket-attachmentlist.inc.php';
+    }
+// Anpassung Ende:  Tab Dateianhänge im Ticketverlauf
 
     function relations($tid) {
         global $thisstaff;

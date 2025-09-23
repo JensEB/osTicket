@@ -760,6 +760,25 @@ $tcount = $ticket->getThreadEntries($types) ? $ticket->getThreadEntries($types)-
     <?php
     }
     ?>
+<!-- Anpassung Anfang: Tab Dateianhänge im Ticketverlauf -->
+<?php
+$acount = 0;
+$aEntries = $ticket->getThreadEntries();
+foreach ($aEntries as $aEntry) {
+    foreach ($aEntry->attachments as $att ) {
+            if ($att->inline) continue;
+            $acount++;
+            $size = '';
+        }
+}
+if($acount) {
+?>
+    <li><a id="ticket-attachmentList-tab" href="#attachmentList"
+            data-url="<?php
+        echo sprintf('#tickets/%d/attachmentList', $ticket->getId()); ?>"><?php
+        echo sprintf(__('Attachments'.' (%d)'), $acount);?></a></li>
+<?php } ?>
+<!-- Anpassung Ende:  Tab Dateianhänge im Ticketverlauf -->
 
 </ul>
 
