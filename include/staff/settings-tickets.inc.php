@@ -263,6 +263,55 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
                 <i class="help-tip icon-question-sign" href="#ticket_attachment_settings"></i>
             </td>
         </tr>
+<!-- Anpassung Anfang: Abteilungsauswahl -->
+<?php
+require_once(INCLUDE_DIR.'class.addfunctions.php');
+$ds = new ds();
+$dsSelector_isEnabled = $ds->isEnabled();
+$dsSelector_autoHide  = $ds->isAutoHideEnabled();
+$dsSelector_alignment = $ds->getDeptAlignment();
+if($_POST??null) {
+    // save changes
+    $dsSelector_isEnabled = $ds->setConfig('isEnabled', $_POST['dsSelector_isEnabled']??false, true);
+    $dsSelector_autoHide  = $ds->setConfig('autoHideEnabled', $_POST['dsSelector_autoHideEnabled']??false, true);
+    $dsSelector_alignment = $ds->setConfig('deptAlignment', $_POST['dsSelector_deptAlignment']??false, true);
+}
+?>
+        <tr>
+            <th colspan="2">
+                <em><b><?php echo __('Department selection');?></b>:  <?php echo __('Settings for the behavior of department selection');?></em>
+            </th>
+        </tr>
+        <tr>
+            <td width="180"><?php echo __('Display Department selection');?>:</td>
+            <td>
+                <input type="checkbox" name="dsSelector_isEnabled" <?php echo $dsSelector_isEnabled?'checked="checked"':''; ?>>
+                <?php echo __('Enable'); ?>
+            </td>
+        </tr>
+        <tr>
+            <td width="180"><?php echo __('Auto-hide selection');?>:</td>
+            <td>
+                <input type="checkbox" name="dsSelector_autoHideEnabled" <?php echo $dsSelector_autoHide?'checked="checked"':''; ?>>
+                <?php echo __('Enable'); ?>
+            </td>
+        </tr>
+        <tr>
+            <td width="180"><?php echo __('Alignment of department selection');?>:</td>
+            <td>
+                <select name="dsSelector_deptAlignment">
+                <?php
+                $availableAlignments = ['h'=>__('Horizontal'), 'v'=>__('Vertical')];
+                foreach ($availableAlignments as $v=>$label) {
+                    echo sprintf('<option value="%s" %s>%s</option>',
+                             $v, $dsSelector_alignment == $v ? 'selected="selected"' : '', $label
+                         );
+                }
+                ?>
+                </select>
+            </td>
+        </tr>
+<!-- Anpassung Ende: Abteilungsauswahl -->
     </tbody>
 </table>
 </div>

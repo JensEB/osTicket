@@ -3,6 +3,7 @@
     class.addfunctions.php
 
     Enthält:
+    class ds            - department selector functions
     class jstreeElement - helptopics drop down tree
 
     Jens Eberle <jens@isohd.net>
@@ -15,6 +16,288 @@
     vim: expandtab sw=4 ts=4 sts=4:
 **********************************************************************/
 
+// Anpassung Anfang: Abteilungsauswahl
+class ds {
+
+    private $isEnabled       = true;    // display department selector
+    private $autoHideEnabled = true;    // hide selector or display every time
+    private $deptAlignment   = 'h';     // direction of dept list h=horizontal, v=vertical
+
+    private $currentDept     = false;   // 'id'
+    private $depts           = [];      // available Depts (ID=>name)
+    private $deptStats       = [];      // Stats (ID=>array(name,count))
+    private $deptChanged     = false;   // has current dept changed
+    private $currentQueue    = null;   // selected Queue
+    private $hiddenDepts     = [];      // hidden Depts (IDs), set if queue selected
+    private $restrictToDepts = [];      // show only this Depts (IDs), set if queue selected
+
+    function __construct($queue = null) {
+        global $cfg;
+
+        // set current queue
+        if($queue && is_object($queue))
+            $this->queue = $queue;
+
+        // set config
+        if($cfg && $cfg->get('dsSelector_isEnabled') != null) {
+            $this->setConfig('isEnabled', $cfg->get('dsSelector_isEnabled'));
+        }
+        if($cfg && $cfg->get('dsSelector_autoHideEnabled') != null) {
+            $this->setConfig('autoHideEnabled', $cfg->get('dsSelector_autoHideEnabled'));
+        }
+        if($cfg && $cfg->get('dsSelector_deptAlignment') != null) {
+            $this->setConfig('deptAlignment', $cfg->get('dsSelector_deptAlignment'));
+        }
+
+        if($this->isEnabled()) {
+            $this->init();
+        }
+    }
+
+    /* Setter functions */
+
+    private function init() {
+        global $thisstaff;
+
+
+        $savedDsId = $_SESSION['dsId'] ?: 0;
+        $submittedDsId = isset($_REQUEST['dsId'])?intval($_REQUEST['dsId']):false;
+        $dsId = $submittedDsId!==false ? $submittedDsId : $savedDsId;
+
+        $allDepts=Dept::getDepartments();
+        $staffDepts = $thisstaff?$thisstaff->getDepts():[];
+
+        // set available depts
+        $availableDepts = [0=>__('All')];
+        foreach($allDepts as $id => $name) {
+            if($staffDepts && !in_array($id, $staffDepts) )
+                continue;
+            if(!in_array($id, $this->hiddenDepts)) {
+                $availableDepts[$id] = $name;
+            }
+        }
+        $this->depts = $availableDepts;
+
+        // set current dept
+        $this->setCurrentDept($dsId);
+    }
+
+    public function setCurrentDept($deptID) {
+        if($deptID === $this->currentDept) {
+            return true;
+        }
+        $dsId = ($deptID && in_array($deptID, array_keys($this->depts)) )? $deptID : 0;
+        $this->currentDept = intval($dsId);
+        $_SESSION['dsId'] = $this->currentDept;
+
+        // set changed flag, if dept has changed
+        return $this->deptChanged = true;
+    }
+
+    public function setCurrentQueue($queue) {
+        $this->currentQueue = (is_object($queue)  && ($queue instanceof CustomQueue) ) ? $queue : null;
+        return $this->setQueueDepts();
+    }
+
+    public function resetCurrentQueue() {
+        $this->currentQueue = false;
+        return $this->setQueueDepts();
+    }
+
+    private function setQueueDepts() {
+        $this->hiddenDepts = [];
+        $this->restrictToDepts = [];
+        $queue = $this->currentQueue;
+
+        if(!$queue) {
+            return false;
+        }
+
+        if(($crit = $queue->getCriteria(true))) {
+            foreach($crit AS $c) {
+                list($field,$operant,$value) = $c;
+                if($field=='dept_id' && $operant=='includes') {
+                    $this->restrictToDepts = array_keys($value);
+                    $this->restrictToDepts[] = 0;
+                }elseif($field=='dept_id' && $operant=='!includes') {
+                    $this->hiddenDepts = array_keys($value);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public function setConfig($var, $value = '', $save = false) {
+        global $cfg;
+
+        switch ($var) {
+            case 'isEnabled':
+                if(!($cfg??null) || !is_object($cfg)) {
+                    return $this->isEnabled;
+                }
+                $val = $value ? 1 : 0;
+                if(!$save || $cfg->update('dsSelector_isEnabled', $val)) {
+                    $this->isEnabled = $val ? true : false;
+                }
+                return $this->isEnabled;
+                break;
+            case 'autoHideEnabled':
+                if(!($cfg??null) || !is_object($cfg)) {
+                    return $this->autoHideEnabled;
+                }
+                $val = $value ? 1 : 0;
+                if(!$save || $cfg->update('dsSelector_autoHideEnabled', $val)) {
+                    $this->autoHideEnabled = $val ? true : false;
+                }
+                return $this->autoHideEnabled;
+                break;
+            case 'deptAlignment':
+                if(   !($cfg??null) || !is_object($cfg) // no config obj
+                   || !in_array($value, ['h','v'])      // invalid input
+                   || $value == $this->deptAlignment    // nothing to do, already set
+                  ) {
+                    return $this->autoHideEnabled;
+                }
+                if(!$save || $cfg->update('dsSelector_deptAlignment', $value)) {
+                    $this->deptAlignment = $value;
+                }
+                return $this->deptAlignment;
+                break;
+        }
+        return false;
+    }
+
+    /* Getter functions */
+
+    public function isEnabled() {
+        return $this->isEnabled ? true : false;
+    }
+
+    public function isAutoHideEnabled() {
+        return $this->autoHideEnabled ? true : false;
+    }
+
+    public function getDeptAlignment() {
+        return $this->deptAlignment == 'v' ? 'v' : 'h';
+    }
+
+    public function getCurrentDept() {
+        // returns $currentDeptId, if set and available otherwise 0
+        $cdid =$this->currentDept;
+        if( !$cdid
+           || $this->hiddenDepts && in_array($cdid, $this->hiddenDepts)
+           || $this->restrictToDepts && !in_array($cdid, $this->restrictToDepts)
+          ) {
+            $cdid = 0;
+        }
+
+        return $cdid;
+    }
+
+    public function deptChanged() {
+        return $this->deptChanged;
+    }
+
+    /* Helper functions */
+
+    private function getFilteredDepts() {
+        $depts = [];
+        foreach($this->depts as $id=>$name) {
+            if(   $this->hiddenDepts && in_array($id, $this->hiddenDepts)
+               || $this->restrictToDepts && !in_array($id, $this->restrictToDepts)
+            ) continue;
+            $depts[$id] = $name;
+        }
+        return $depts;
+    }
+
+    private function createDeptStats ($source) {
+        $counter = array(0=>array('name'=>__('All'), 'count'=>0));
+        $depts = $this->getFilteredDepts();
+        
+        $source->distinct = $source->annotations = $source->values = $source->ordering = [];
+        $source->values('dept_id');
+        $source->filter(['dept_id__in' => array_keys($depts)]);
+        $source->distinct('dept_id');
+        $sql = preg_replace('/SELECT/', 'SELECT COUNT(DISTINCT A1.ticket_id) AS `total`,', $source->getQuery(), 1);
+
+        $ticketCounted = [];
+        if (($res=db_query($sql, false))) {
+            while (list($tcount, $did) = db_fetch_row($res)) {
+                $ticketCounted[$did] = $tcount;
+            }
+        }
+
+        foreach($depts as $id=>$name) {
+            $counter[0]['count']   = $counter[0]['count'] + $ticketCounted[$id];
+            $counter[$id] = array('name'=>$name, 'count'=>$ticketCounted[$id]?:0);
+        }
+        $this->deptStats = $counter;
+        return true;
+    }
+
+    public function printSelector ($source) {
+        $this->createDeptStats($source);
+        
+        $deptStats = $this->deptStats;
+        $allDepts = $deptStats[0];
+        $currentDept = $deptStats[$this->getCurrentDept()];
+        $return = '<div id="deptSelector">';
+        if($this->isAutoHideEnabled()) {
+            $return .= '<div class="noteCurrentDept">'.__('Current department').':&nbsp;<strong>&raquo;&nbsp;'
+                    .$currentDept['name'].' ('.$currentDept['count'].')&nbsp;&laquo;</strong>';
+            $return .= ' &nbsp;-&nbsp; ( '.__('klick here to change').' )';
+            $return .= '</div>';
+        }
+        $return .= '<table><tr><td class="DSlabel">'.__('Department selection').':</td><td>';
+        $returnArray = [];
+        foreach($deptStats AS $id=>$data) {
+            $classDScurrent  = ($id == $this->getCurrentDept())?' DSitemCurrent':'';
+            $styleAlignment  = ($this->getDeptAlignment() == 'v') ?' style="display: block; width: unset;"' : '';
+            $returnArrayItem =  '<div class="DSitem'.$classDScurrent.'"'.$styleAlignment
+                    .' onclick="window.location=\'tickets.php?dsId='.$id.'\'">'
+                    .$data['name'].'&nbsp;('.$data['count'].')</div>';
+            if($id == '0') {
+                $returnArrayAll = $returnArrayItem;
+            } else {
+                $returnArray[$data['name']] = $returnArrayItem;
+            }
+        };
+        ksort($returnArray);
+        if(isset($returnArrayAll)) {
+            $return .= $returnArrayAll;
+        }
+        foreach($returnArray AS $item) {
+            $return .=  $item;
+        };
+        $return .= '</td></tr></table></div>';
+        if($this->isAutoHideEnabled()) {
+            $return .= '<script type="text/javascript">
+                            $(document).ready(function(){
+                                var dsDiv = $("#deptSelector");
+                                var dsTable = $("#deptSelector table");
+                                var timeToSlide = 300;
+                                dsTable.hide();
+                                $(".noteCurrentDept").click(function() {
+                                    dsTable.show(timeToSlide);
+                                });
+                                $("#nav, #sub_nav").click(function() {
+                                    dsTable.hide(timeToSlide);
+                                });
+                                dsDiv.hover(function() {
+                                                <!-- dsTable.show(timeToSlide); -->
+                                            }, function() {
+                                                dsTable.hide(timeToSlide);
+                                        }
+                                );
+                            });
+                        </script>';
+        }
+        echo $return;
+    }
+}
+// Anpassung Ende: Abteilungsauswahl
 // Anpassung Anfang: jstree for elements
 class jstreeElement {
     /* required files for jstree elements

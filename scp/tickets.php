@@ -24,6 +24,16 @@ require_once(INCLUDE_DIR.'class.dynamic_forms.php');
 require_once(INCLUDE_DIR.'class.export.php');       // For paper sizes
 
 
+// Anpassung Anfang: Abteilungsauswahl
+require_once(INCLUDE_DIR.'class.addfunctions.php');
+$ds = new ds();
+if($ds->isEnabled() && $thisstaff && $ds->deptChanged()) {
+    // Cache key based on agent and salt of the installation
+    $key = "counts.queues.{$thisstaff->getId()}.".SECRET_SALT;
+    unset($_SESSION['qcounts'][$key]);
+    SavedQueue::clearCounts();
+}
+// Anpassung Ende: Abteilungsauswahl
 
 // Fetch ticket queues organized by root and sub-queues
 $queues = CustomQueue::getHierarchicalQueues($thisstaff);

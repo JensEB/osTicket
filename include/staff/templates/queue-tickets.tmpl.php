@@ -83,9 +83,15 @@ if (!$sorted) {
 
 // Apply pagination
 
+// Anpassung Anfang: Abteilungsauswahl
+if(!$ds->isEnabled()) {
+// Anpassung Ende: Abteilungsauswahl
 $page = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
 $pageNav = new Pagenate(PHP_INT_MAX, $page, PAGE_LIMIT);
 $tickets = $pageNav->paginateSimple($tickets);
+// Anpassung Anfang: Abteilungsauswahl
+}
+// Anpassung Ende: Abteilungsauswahl
 
 if (isset($tickets->extra['tables'])) {
     // Creative twist here. Create a new query copying the query criteria, sort, limit,
@@ -121,6 +127,23 @@ if (($Q->extra && isset($Q->extra['tables'])) || !$Q->constraints || $empty) {
     $count = '-';
 }
 
+// Anpassung Anfang: Abteilungsauswahl
+if($ds->isEnabled()) {
+    $tickets->values('dept_id');
+    $ds->setCurrentQueue($queue);
+    $ds->printSelector(clone $tickets);
+    // Prüfen, ob die ausgewählte Abteilung überhaupt in dieser Queue angezeigt wird
+    if(($dsId=$ds->getCurrentDept())) {
+        $tickets->filter(array('dept_id'=>$dsId));
+    }
+    $count = $tickets->count();
+
+    // Apply pagination
+    $page = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
+    $pageNav = new Pagenate(PHP_INT_MAX, $page, PAGE_LIMIT);
+    $tickets = $pageNav->paginateSimple($tickets);
+} else
+// Anpassung Ende: Abteilungsauswahl
 $count = $count ?? $queue->getCount($thisstaff);
 $pageNav->setTotal($count, true);
 $pageNav->setURL('tickets.php', $args);

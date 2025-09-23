@@ -960,12 +960,25 @@ class SavedQueue extends CustomQueue {
             $queues->filter($criteria);
 
        $counts = array();
+// Anpassung Anfang: Abteilungsauswahl
+        require_once(INCLUDE_DIR.'class.addfunctions.php');
+        $ds = new ds();
+// Anpassung Ende: Abteilungsauswahl
         $query = Ticket::objects();
         // Apply tickets visibility for the agent
         $query = $agent->applyVisibility($query, true);
         // Aggregate constraints
         foreach ($queues as $queue) {
             $Q = $queue->getBasicQuery();
+// Anpassung Anfang: Abteilungsauswahl
+            if($ds->isEnabled()) {
+                // Prüfen, ob die ausgewählte Abteilung überhaupt in dieser Queue angezeigt wird
+                $ds->setCurrentQueue($queue);
+                if(($dsId=$ds->getCurrentDept())) {
+                    $Q->constraints[] = Q::any(array('dept_id' => $dsId));
+                }
+            }
+// Anpassung Ende: Abteilungsauswahl
 
             // only get counts for regular tickets (not children tickets) unless
             // queue is a saved search

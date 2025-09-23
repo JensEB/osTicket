@@ -845,6 +845,17 @@ class CustomQueue extends VerySimpleModel {
             $query = $column->mangleQuery($query, $this->getRoot());
             $headers[] = $column->getHeading();
         }
+// Anpassung Anfang: Abteilungsauswahl
+        require_once(INCLUDE_DIR.'class.addfunctions.php');
+        $ds = new ds();
+        if($ds->isEnabled()) {
+            $ds->setCurrentQueue($this);
+            // Prüfen, ob der ausgewählte Export auf eine Abteilung eingeschränkt werden muss
+            if(($dsId=$ds->getCurrentDept())) {
+                $query->filter(array('dept_id'=>$dsId));
+            }
+        }
+// Anpassung Ende: Abteilungsauswahl
 
         // Apply visibility
         if (!$this->ignoreVisibilityConstraints($thisstaff))

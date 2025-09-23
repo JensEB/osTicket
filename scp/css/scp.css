@@ -3789,6 +3789,63 @@ img.avatar + img.avatar {
  */
 .select2-selection__rendered, .select2-search,
 .select2-search__field:not([placeholder='']){width: 100% !important;}
+/* Anpassung Anfang: Abteilungsauswahl */
+#deptSelector {
+	margin: -10px -10px 15px -10px;
+	padding: 0px;
+	background-color: #EEE;
+	border: none;
+	text-align: left;
+	font-size: 90%;
+}
+#deptSelector table, #deptSelector td {
+	margin: 0px;
+	padding: 0px;
+	width:100%;
+}
+.DSlabel {
+	margin: 1px 0px 0px -4px !important;
+	padding: 2px 2px 2px 12px !important;
+	display: inline-block;
+	width: 145px !important;
+	font-weight: bold;
+	text-align: left;
+	vertical-align: top;
+	white-space: nowrap;
+}
+.DSitem {
+	margin: 0px;
+	border: 1px solid transparent;
+	padding: 5px 5px;
+	display: inline-block;
+	width: 185px;
+	white-space: normal;
+	text-align: center;
+	vertical-align: top;
+	cursor: pointer;
+}
+.DSitemCurrent {
+	font-weight: bold;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f0faff; 
+}
+.DSitem:hover {
+	font-weight: bold;
+        opacity: 0.5;
+	border: 1px solid #5CAEFB;
+	border-radius: 5px;
+	background-color: #ddd; 
+}
+
+.noteCurrentDept {
+	background-color: #fff;
+	text-align: center;
+	background-color: #f0faff; 
+	border-bottom: 1px solid #eee;
+	padding: 8px 5px 5px 5px;
+}
+/* Anpassung Ende: Abteilungsauswahl */
 /* Fix Canned Responses Select2 Height */
 #resp_sec .select2-results, #resp_sec .select2-results__choices {
     height: auto;
