@@ -170,6 +170,9 @@ div.hr {
     <th><?php echo __('Collaborators'); ?></th>
     <td><?php echo $task->getParticipants(); ?></td>
 </tr>
+<!-- Anpassung Anfang: TimeRecordingPlugin -->
+<?php Signal::send('object.print.header', $task); ?>
+<!-- Anpassung Ende: TimeRecordingPlugin -->
 </tbody>
 </table>
 <!-- Custom Data -->
@@ -180,6 +183,9 @@ foreach (DynamicFormEntry::forTask($task->getId()) as $form) {
         'field__flags__hasbit' => DynamicFormField::FLAG_EXT_STORED,
         'field__name__in' => array('title')
     )));
+// Anpassung Anfang: TimeRecordingPlugin
+    Signal::send('object.print.answers', $answers, $task);
+// Anpassung Ende: TimeRecordingPlugin
     if (count($answers) == 0)
         continue;
     ?>
@@ -217,6 +223,9 @@ if ($entries = $task->getThreadEntries($types)) {
                         echo Format::truncate($entry->title, 100); ?></span>
                 </td>
                 <td class="flush-right faded title" style="white-space:no-wrap">
+<!-- Anpassung Anfang: TimeRecordingPlugin -->
+<?php Signal::send('threadentry.header', $entry); ?>
+<!-- Anpassung Ende: TimeRecordingPlugin -->
                     <?php
                         echo Format::htmlchars($entry->getName()); ?></span>
                 </td>

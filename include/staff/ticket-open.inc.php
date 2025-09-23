@@ -55,6 +55,10 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
 
 if ($_POST)
     $info['duedate'] = Format::date(strtotime($info['duedate']), false, false, 'UTC');
+// Anpassung Anfang: TimeRecordingPlugin - send object.new-Signal
+$data = ['type'=>'Ticket'];
+Signal::send('object.new', $info, $data);
+// Anpassung Ende: TimeRecordingPlugin - send object.new-Signal
 ?>
 <form action="tickets.php?a=open" method="post" class="save"  enctype="multipart/form-data">
  <?php csrf_token(); ?>

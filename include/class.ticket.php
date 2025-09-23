@@ -2629,6 +2629,9 @@ implements RestrictedAccess, Threadable, Searchable {
                         }
                     }
                 }
+// Anpassung Anfang: TimeRecordingPlugin - send objects.merged signal
+            Signal::send('objects.merged', $parent, $child);
+// Anpassung Ende: TimeRecordingPlugin - send objects.merged signal
 
                 if ($options['delete-child'])
                      $child->delete();

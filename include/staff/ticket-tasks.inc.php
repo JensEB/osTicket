@@ -72,6 +72,9 @@ if ($count) { ?>
             } ?>
             <th width="70"><?php echo __('Number'); ?></th>
             <th width="100"><?php echo __('Date'); ?></th>
+<!-- Anpassung Anfang: TimeRecordingPlugin - add time to ticket-task list -->
+<?php Signal::send('ticket-tasklist.header', $tasks); ?>
+<!-- Anpassung Ende: TimeRecordingPlugin - add time to ticket-task list -->
             <th width="100"><?php echo __('Status'); ?></th>
             <th width="300"><?php echo __('Title'); ?></th>
             <th width="200"><?php echo __('Department'); ?></th>
@@ -117,6 +120,9 @@ if ($count) { ?>
                 ><?php echo $task->getNumber(); ?></a></td>
             <td align="center" nowrap><?php echo
             Format::datetime($task->created); ?></td>
+<!-- Anpassung Anfang: TimeRecordingPlugin - add time to ticket-task list -->
+<?php Signal::send('ticket-tasklist.field', $task); ?>
+<!-- Anpassung Ende: TimeRecordingPlugin - add time to ticket-task list -->
             <td><?php echo $status; ?></td>
             <td>
                 <?php

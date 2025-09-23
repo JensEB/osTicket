@@ -148,4 +148,25 @@ if($thisstaff->forcePasswdChange() && !$exempt) {
 $ost->setWarning($sysnotice);
 $ost->setPageTitle(__('osTicket :: Staff Control Panel'));
 
+// Anpassung Anfang: TimeRecordingPlugin - update timesheet, if already installed
+                if(    ($cfg->get('timesheet_version') || $cfg->get('timesheetInstalled') )
+                    && !$ost->isUpgradePending()// no update pending
+                    && strpos($_SERVER['PHP_SELF'], 'upgrade.php')===false // no update process
+                    && strpos($_SERVER['PHP_SELF'], 'ajax')===false // no ajax call
+                    && strpos($_SERVER['PHP_SELF'], 'autocron.php')===false // no autocron process
+                    && $thisstaff && $thisstaff->isValid() // is staff logged in?
+                    && file_exists(INCLUDE_DIR.'plugins/time_recording.phar')
+                    && !($plugin = Plugin::objects()->filter(['install_path' => 'plugins/time_recording.phar'])->count())
+                    && ($pm = new PluginManager())
+                    && ($plugin=$pm->install('plugins/time_recording.phar'))
+                  ) {
+                    $err = [];
+                    $plugin->update(['isactive' => 1],$err);
+                    $plugin->save();
+                    // delete old timesheet class file, if exists
+                    if(file_exists(INCLUDE_DIR.'class.timesheet.php') ) {
+                            unlink(INCLUDE_DIR.'class.timesheet.php');
+                    }
+                }
+// Anpassung Ende: TimeRecordingPlugin - update timesheet, if already installed
 ?>

@@ -166,6 +166,9 @@ img.avatar {
     <th><?php echo __('Source'); ?></th>
     <td><?php echo $ticket->getSource(); ?></td>
 </tr>
+<!-- Anpassung Anfang: TimeRecordingPlugin -->
+<?php Signal::send('object.print.header', $ticket); ?>
+<!-- Anpassung Ende: TimeRecordingPlugin -->
 </tbody>
 <tbody>
     <tr><td colspan="4" class="spacer">&nbsp;</td></tr>
@@ -200,6 +203,9 @@ foreach (DynamicFormEntry::forTicket($ticket->getId()) as $form) {
         'field__flags__hasbit' => DynamicFormField::FLAG_EXT_STORED,
         'field__name__in' => array('subject', 'priority')
     )));
+// Anpassung Anfang: TimeRecordingPlugin
+    Signal::send('object.print.answers', $answers, $ticket);
+// Anpassung Ende: TimeRecordingPlugin
     if (count($answers) == 0)
         continue;
     ?>
@@ -269,6 +275,9 @@ if ($entries->exists(true)) {
                             echo Format::truncate($entry->title, 100); ?></span>
                     </td>
                     <td class="flush-right faded title" style="white-space:no-wrap">
+<!-- Anpassung Anfang: TimeRecordingPlugin -->
+<?php Signal::send('threadentry.header', $entry); ?>
+<!-- Anpassung Ende: TimeRecordingPlugin -->
 <?php
                         echo Format::htmlchars($entry->getName()); ?></span>
                     </td>

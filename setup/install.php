@@ -55,6 +55,18 @@ if($_POST && $_POST['s']) {
                                         'URL'=>URL);
                 //TODO: Go to subscribe step.
                 $_SESSION['ost_installer']['s']='done';
+// Anpassung Anfang: TimeRecordingPlugin - install plugin by setup
+                if(    ($_POST['installTimeRecording'])
+                    && file_exists(INCLUDE_DIR.'plugins/time_recording.phar')
+                    && !($plugin = Plugin::objects()->filter(['install_path' => 'plugins/time_recording.phar'])->count())
+                    && ($pm = new PluginManager())
+                    && ($plugin=$pm->install('plugins/time_recording.phar'))
+                  ) {
+                    $err = [];
+                    $plugin->update(['isactive' => 1],$err);
+                    $plugin->save();
+                }
+// Anpassung Ende: TimeRecordingPlugin - install plugin by setup
             } elseif(!($errors=$installer->getErrors()) || !$errors['err']) {
                 $errors['err'] = sprintf('%s %s',
                     __('Error installing osTicket.'),

@@ -49,6 +49,13 @@ if (isset($options['entry']) && $options['mode'] == 'edit') { ?>
         try {
             if (!$field->isEnabled())
                 continue;
+// Anpassung Anfang: TimeRecordingPlugin - hide hidden fields
+            // hide hidden fields
+            if (   !($field->isRequiredForStaff() || $field->isRequiredForUsers() )
+                && !($field->isVisibleToStaff() || $field->isVisibleToUsers())
+               )
+                continue;
+// Anpassung Ende: TimeRecordingPlugin - hide hidden fields
         }
         catch (Exception $e) {
             // Not connected to a DynamicFormField
