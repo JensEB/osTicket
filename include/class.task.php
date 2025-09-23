@@ -1067,7 +1067,11 @@ class Task extends TaskModel implements RestrictedAccess, Threadable {
             if ($_SESSION['PAPER_SIZE'])
                 $psize = $_SESSION['PAPER_SIZE'];
             elseif (!$thisstaff || !($psize = $thisstaff->getDefaultPaperSize()))
+/* Anpassung Anfang: default paper size A4
                 $psize = 'Letter';
+*/
+                $psize = 'A4';
+// Anpassung Ende: default paper size A4
 
             $options['psize'] = $psize;
         }

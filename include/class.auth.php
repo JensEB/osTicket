@@ -658,8 +658,13 @@ abstract class StaffAuthenticationBackend  extends AuthenticationBackend {
         $authsession['id'] = $staff->getId();
         $authsession['key'] =  $authkey;
         $authsession['2fa'] =  $auth2fa;
+/* Anpassung Anfang: Do not set TIME_BOMB to 10 seconds
+// Wenn Ein Formular in den ersten 10 sec geöffnet und nach den 10 sec abgesandt wird,
+// sind die Formularfelder leer
+        // TIME_BOMB defused
         // Set TIME_BOMB to regenerate the session 10 seconds after login
         $_SESSION['TIME_BOMB'] = time() + 10;
+/* Anpassung Ende: Do not set TIME_BOMB to 10 seconds */
         // Set session token
         $staff->setSessionToken();
         // Set Auth Key
@@ -867,8 +872,13 @@ abstract class UserAuthenticationBackend  extends AuthenticationBackend {
         $type = array('type' => 'login');
         Signal::send('person.login', $u, $type);
 
+/* Anpassung Anfang: Do not set TIME_BOMB to 10 seconds
+// Wenn Ein Formular in den ersten 10 sec geöffnet und nach den 10 sec abgesandt wird,
+// sind die Formularfelder leer
+        // TIME_BOMB defused
         // Set TIME_BOMB to regenerate the session 10 seconds after login
         $_SESSION['TIME_BOMB'] = time() + 10;
+/* Anpassung Ende: Do not set TIME_BOMB to 10 seconds */
 
         if ($bk->supportsInteractiveAuthentication() && ($acct=$user->getAccount()))
             $acct->cancelResetTokens();

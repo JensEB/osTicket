@@ -287,7 +287,11 @@ class AttachmentFile extends VerySimpleModel
         $inline = ($thisstaff ? ($thisstaff->getImageAttachmentView() === 'inline') : false);
         $disposition = ((($disposition && strcasecmp($disposition, 'inline') == 0)
               || $inline)
+/* Anpassung Anfang: inline Attachments auch für PDFs
               && strpos($this->getType(), 'image/') !== false)
+*/
+              && (strpos($this->getType(), 'image/') !== false || strpos($this->getType(), 'pdf') !== false))
+// Anpassung Ende: inline Attachments auch für PDFs
             ? 'inline' : 'attachment';
         $ttl = ($expires) ? $expires - Misc::gmtime() : false;
         $bk = $this->open();

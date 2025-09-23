@@ -70,7 +70,7 @@ ALTER TABLE `%TABLE_PREFIX%config`
 
 -- copy over timezone id - based on offset.
 UPDATE `%TABLE_PREFIX%config` SET default_timezone_id =
-    (SELECT id FROM `%TABLE_PREFIX%timezone` WHERE offset = `%TABLE_PREFIX%config`.timezone_offset);
+    (SELECT id FROM `%TABLE_PREFIX%timezone` WHERE `offset` = `%TABLE_PREFIX%config`.timezone_offset);
 
 ALTER TABLE `%TABLE_PREFIX%staff`
     ADD `passwdreset` DATETIME NULL DEFAULT NULL AFTER `lastlogin`;
@@ -136,7 +136,7 @@ ALTER TABLE `%TABLE_PREFIX%staff`
 
 -- Copy over time zone offet to tz_id
 UPDATE `%TABLE_PREFIX%staff` SET timezone_id =
-    (SELECT id FROM `%TABLE_PREFIX%timezone` WHERE offset = `%TABLE_PREFIX%staff`.timezone_offset);
+    (SELECT id FROM `%TABLE_PREFIX%timezone` WHERE `offset` = `%TABLE_PREFIX%staff`.timezone_offset);
 
 ALTER TABLE `%TABLE_PREFIX%groups`
     CHANGE `can_manage_kb` `can_manage_premade` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',

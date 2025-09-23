@@ -239,7 +239,11 @@ class OsticketConfig extends Config {
         'collaborator_ticket_visibility' =>  true,
         'disable_agent_collabs' => false,
         'require_topic_to_close' =>  false,
+/* Anpassung Anfang: Standard-Systemsprache ist de
         'system_language' =>    'en_US',
+*/
+        'system_language' =>    'de',
+// Anpassung Ende: Standard-Systemsprache ist de
         'default_storage_bk' => 'D',
         'message_autoresponder_collabs' => true,
         'add_email_collabs' => true,

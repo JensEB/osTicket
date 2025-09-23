@@ -429,7 +429,14 @@ if($updateData = addFunc::getUpdateData()) {
                 'Agent Maximum File Size');?>:</td>
             <td>
                 <select name="max_file_size">
+<!-- Anpassung Anfang: Größe für Dateianhänge in 2MB-Schritten
                     <option value="262144">&mdash; <?php echo __('Small'); ?> &mdash;</option>
+-->
+                    <option value="1" <?php if($config['max_file_size'] == 1) echo'selected="selected"';?>>&mdash; 0 B &mdash;</option>
+                    <option value="262144" <?php if($config['max_file_size'] == 262144) echo'selected="selected"';?>>&mdash; 256 KB &mdash;</option>
+                    <option value="524288" <?php if($config['max_file_size'] == 524288) echo'selected="selected"';?>>&mdash; 512 KB &mdash;</option>
+                    <option value="1048576" <?php if($config['max_file_size'] == 1048576) echo'selected="selected"';?>>&mdash; 1 MB &mdash;</option>
+<!-- Anpassung Ende: Größe für Dateianhänge in 2MB-Schritten -->
                     <?php $next = 512 << 10;
                     $max = strtoupper(ini_get('upload_max_filesize'));
                     $limit = (int) $max;
@@ -437,6 +444,7 @@ if($updateData = addFunc::getUpdateData()) {
                     elseif (strpos($max, 'K')) $limit <<= 10;
                     elseif (strpos($max, 'M')) $limit <<= 20;
                     elseif (strpos($max, 'G')) $limit <<= 30;
+/* Anpassung Anfang: Größe für Dateianhänge in 2MB-Schritten
                     while ($next <= $limit) {
                         // Select the closest, larger value (in case the
                         // current value is between two)
@@ -451,6 +459,23 @@ if($updateData = addFunc::getUpdateData()) {
                     // Add extra option if top-limit in php.ini doesn't fall
                     // at a power of two
                     if ($next < $limit * 2) {
+*/
+                    $next = 2 << 20;
+                    while ($next <= $limit) {
+                        // Select the closest, larger value (in case the
+                        // current value is between two)
+                        $diff = $next - $config['max_file_size'];
+                        $selected = ($diff >= 0 && $diff < (2097152) )
+                            ? 'selected="selected"' : ''; ?>
+                        <option value="<?php echo $next; ?>" <?php echo $selected;
+                             ?>><?php echo '&mdash; '.strtoupper(Format::file_size($next)).' &mdash;';
+                             ?></option><?php
+                        $next += 2097152;// + 2MB
+                    }
+                    // Add extra option if top-limit in php.ini doesn't fall
+                    // at a power of two
+                    if ($next < $limit + 2097152) {
+// Anpassung Ende: Größe für Dateianhänge in 2MB-Schritten
                         $selected = ($limit == $config['max_file_size'])
                             ? 'selected="selected"' : ''; ?>
                         <option value="<?php echo $limit; ?>" <?php echo $selected;

@@ -16,6 +16,9 @@
 require_once INCLUDE_DIR.'class.migrater.php';
 require_once INCLUDE_DIR.'class.setup.php';
 require_once INCLUDE_DIR.'class.i18n.php';
+// Anpassung Anfang: solve cdata-table error on installation
+require_once INCLUDE_DIR.'class.forms.php';
+// Anpassung Ende: solve cdata-table error on installation
 
 class Installer extends SetupWizard {
 

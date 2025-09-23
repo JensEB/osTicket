@@ -12,7 +12,11 @@ if($nav && ($tabs=$nav->getTabs()) && is_array($tabs)){
             foreach($subnav as $k => $item) {
                 if (isset($item['id']) && !($id=$item['id']))
                     $id="nav$k";
+/* Anpassung Anfang: do not change href beginning with http to support applications
                 if ($item['href'][0] != '/')
+*/
+                if ($item['href'][0] != '/' && substr($item['href'], 0, 4) != 'http')
+// Anpassung Ende: do not change href beginning with http to support applications
                     $item['href'] = ROOT_PATH . 'scp/' . $item['href'];
 
                 echo sprintf(

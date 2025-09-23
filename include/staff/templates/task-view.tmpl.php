@@ -523,6 +523,14 @@ if (!$ticket) { ?>
         <?php
         $idx++;
     } ?>
+<!-- Anpassung Anfang: task-view Rücklink zu Ticket -->
+    <?php if ($task && $taskTicket = $task->ticket) { ?>
+<form action="tickets.php" method="GET" style="margin:-20px 0px -5px 0px;">
+        <input type="hidden" name="id" value="<?php echo $taskTicket->getId(); ?>">
+        <input type="submit" value="<?php echo __('Linked to').': '.__('Ticket').' #'.$taskTicket->getNumber().' - '.$taskTicket->getSubject();?>">
+   </form>
+    <?php } ?>
+<!-- Anpassung Ende: task-view Rücklink zu Ticket -->
 <?php
 } ?>
 <div class="clear"></div>

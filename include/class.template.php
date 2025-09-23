@@ -42,6 +42,9 @@ class EmailTemplateGroup {
             'desc'=>/* @trans */ 'Canned Auto-reply sent to user on new ticket, based on filter matches. Overwrites "normal" auto-response.',
             'context' => array(
                 'ticket', 'signature', 'response', 'recipient',
+// Anpassung Anfang: add message / response variable on email template - ticket.autoreply
+                'message',
+// Anpassung Ende:  add message / response variable on email template - ticket.autoreply
             ),
         ),
         'message.autoresp'=>array(
@@ -50,6 +53,9 @@ class EmailTemplateGroup {
             'desc'=>/* @trans */ 'Confirmation sent to user when a new message is appended to an existing ticket.',
             'context' => array(
                 'ticket', 'signature', 'recipient',
+// Anpassung Anfang: add message / response variable on email template - message.autoresp
+                'message',
+// Anpassung Ende:  add message / response variable on email template - message.autoresp
             ),
         ),
         'ticket.notice'=>array(
@@ -58,6 +64,9 @@ class EmailTemplateGroup {
             'desc'=>/* @trans */ 'Notice sent to user, if enabled, on new ticket created by an agent on their behalf (e.g phone calls).',
             'context' => array(
                 'ticket', 'signature', 'recipient', 'staff', 'message',
+// Anpassung Anfang: add message / response variable on email template - ticket.notice
+                'response',
+// Anpassung Ende:  add message / response variable on email template - ticket.notice
             ),
         ),
         'ticket.overlimit'=>array(
@@ -82,6 +91,9 @@ class EmailTemplateGroup {
             'desc'=>/* @trans */ 'Template used to notify collaborators on ticket activity (e.g CC on reply)',
             'context' => array(
                 'ticket', 'signature', 'message', 'poster', 'recipient',
+// Anpassung Anfang: add message / response variable on email template - ticket.activity.notice
+                'response',
+// Anpassung Ende:  add message / response variable on email template - ticket.activity.notice
             ),
         ),
         'ticket.alert'=>array(
@@ -90,6 +102,9 @@ class EmailTemplateGroup {
             'desc'=>/* @trans */ 'Alert sent to agents, if enabled, on new ticket.',
             'context' => array(
                 'ticket', 'recipient', 'message',
+// Anpassung Anfang: add message / response variable on email template - ticket.alert
+                'response',
+// Anpassung Ende:  add message / response variable on email template - ticket.alert
             ),
         ),
         'message.alert'=>array(

@@ -127,6 +127,12 @@ class StaffNav {
 
         if(!isset($this->tabs)) {
             $this->tabs = array();
+// Anpassung Anfang: For Paid Plugin - advanced dashboard for osticket
+            if(file_exists(ROOT_DIR.'scp/advDashboard.php')) {
+                $this->tabs['dashboard'] =
+                       array('desc'=>__('Overview'), 'href'=>'advDashboard.php', 'title'=>__('Agent Dashboard'), "class"=>"no-pjax");
+            } else
+// Anpassung Ende: For Paid Plugin - advanced dashboard for osticket
             $this->tabs['dashboard'] = array(
                 'desc'=>__('Dashboard'),'href'=>'dashboard.php','title'=>__('Agent Dashboard'), "class"=>"no-pjax"
             );
@@ -158,7 +164,23 @@ class StaffNav {
                     $subnav[]=array('desc'=>__('Tasks'), 'href'=>'tasks.php', 'iconclass'=>'Ticket', 'droponly'=>true);
                     break;
                 case 'dashboard':
+/* Anpassung Anfang: For Paid Plugin - advanced dashboard for osticket
                     $subnav[]=array('desc'=>__('Dashboard'),'href'=>'dashboard.php','iconclass'=>'logs');
+*/
+                    if(file_exists(ROOT_DIR.'scp/advDashboard.php')) {
+                        $subnav[]=array('desc'=>__('Dashboard'),'href'=>'advDashboard.php','iconclass'=>'logs no-pjax');
+                    } else {
+                        $subnav[]=array('desc'=>__('Dashboard'),'href'=>'advDashboard_info.php','iconclass'=>'logs no-pjax');
+                    }
+// Anpassung Ende: For Paid Plugin - advanced dashboard for osticket
+// Anpassung Anfang: New Staff advReports
+                    if(file_exists(ROOT_DIR.'scp/advReports.php')) {
+                        require_once ROOT_DIR.'scp/advReports/class.advReports.php';
+                        $subnav[]=array('desc'=>advR__('Reports'),'href'=>'advReports.php','iconclass'=>'logs no-pjax');
+                    } else {
+                        $subnav[]=array('desc'=>__('Reports'),'href'=>'dashboard.php','iconclass'=>'logs no-pjax');
+                    }
+// Anpassung Ende: New Staff advReports
                     $subnav[]=array('desc'=>__('Agent Directory'),'href'=>'directory.php','iconclass'=>'teams');
                     $subnav[]=array('desc'=>__('My Profile'),'href'=>'profile.php','iconclass'=>'users');
                     break;

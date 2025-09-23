@@ -29,6 +29,9 @@ class OverviewReport {
         '+14 days' => 'Two Weeks',
         '+1 month' => 'One Month',
         '+3 months' => 'One Quarter'
+// Anpassung Anfang: Add one year
+       ,'+12 months' => 'One Year',
+// Anpassung Ende: Add one year
     ];
 
     var $format;

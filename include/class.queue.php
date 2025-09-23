@@ -593,6 +593,9 @@ class CustomQueue extends VerySimpleModel {
         $fields = array(
                 'number' =>         __('Ticket Number'),
                 'created' =>        __('Date Created'),
+// Anpassung Anfang: add organization to exportable fields
+                'user__org__name' => __('Organization'),
+// Anpassung Ende: add organization to exportable fields
                 'cdata__subject' =>  __('Subject'),
                 'user__name' =>      __('From'),
                 'user__emails__address' => __('From Email'),
@@ -731,7 +734,11 @@ class CustomQueue extends VerySimpleModel {
                 "id" => 5,
                 "heading" => __("Priority"),
                 "primary" => 'cdata__priority',
+/* Anpassung Anfang: show status column on standard columns like searches
                 "width" => 120,
+*/
+                "width" => 80,
+// Anpassung Ende: show status column on standard columns like searches
                 "bits" => QueueColumn::FLAG_SORTABLE,
             )),
             QueueColumn::placeholder(array(
@@ -741,6 +748,15 @@ class CustomQueue extends VerySimpleModel {
                 "width" => 100,
                 "bits" => QueueColumn::FLAG_SORTABLE,
             )),
+// Anpassung Anfang: show status column on standard columns like searches
+            QueueColumn::placeholder(array(
+                "id" => 7,
+                "heading" => __("Status"),
+                "primary" => 'status__id',
+                "width" => 80,
+                "bits" => QueueColumn::FLAG_SORTABLE,
+            )),
+// Anpassung Ende: show status column on standard columns like searches
         ) as $col)
             $this->addColumn($col);
 

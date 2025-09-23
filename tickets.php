@@ -79,6 +79,11 @@ if ($_POST && is_object($ticket) && $ticket->getId()) {
         $_POST['message'] = ThreadEntryBody::clean($_POST[$messageField->getFormName()]);
         if (!$_POST['message'])
             $errors['message'] = __('Message required');
+// Anpassung Anfang: prevent duplicate messages
+        if($_POST['message'] == $ticket->getLastMessage()) {
+            break;
+        }
+// Anpassung Ende: prevent duplicate messages
 
         if(!$errors) {
             //Everything checked out...do the magic.

@@ -42,10 +42,24 @@ if(!defined('SETUPINC')) die('Kwaheri!');
                     echo __('Recommended for plugins and language packs');?></li>
                 <li class="<?php echo extension_loaded('intl')?'yes':'no'; ?>">Intl <?php echo __('Extension');?> &mdash; <?php
                     echo __('Recommended for improved localization');?></li>
+<!-- Anpassung Anfang: add additional extension checks -->
+                <li class="<?php echo extension_loaded('fileinfo')?'yes':'no'; ?>">fileinfo <?php echo __('Extension');?> &mdash; <?php
+                    echo __('Used to detect file types for uploads');?></li>
+                <li class="<?php echo extension_loaded('zip')?'yes':'no'; ?>">zip <?php echo __('Extension');?> &mdash; <?php
+                    echo __('Used for ticket and task exporting');?></li>
+<!-- Anpassung Ende: add additional extension checks -->
+<!-- Anpassung Anfang: check zlib php extension for mPDF -->
+                <li class="<?php echo extension_loaded('zlib')?'yes':'no'; ?>">zlib <?php echo __('Extension');?> &mdash; <?php
+                    echo __('Required for generating pdf files');?></li>
+<!-- Anpassung Ende: check zlib php extension for mPDF -->
                 <li class="<?php echo extension_loaded('apcu')?'yes':'no'; ?>">APCu <?php echo __('Extension');?> &mdash; <?php
                     echo __('Recommended for faster performance');?></li>
                 <li class="<?php echo extension_loaded('Zend OPcache')?'yes':'no'; ?>">Zend OPcache <?php echo __('Extension');?> &mdash; <?php
                     echo __('Recommended for faster performance');?></li>
+<!-- Anpassung Anfang: check ldap php extension -->
+                <li class="<?php echo extension_loaded('ldap')?'yes':'no'; ?>">ldap <?php echo __('Extension');?> &mdash; <?php
+                    echo __('Optional - used for ldap plugin');?></li>
+<!-- Anpassung Ende: check ldap php extension -->
             </ul>
             <div id="bar">
                 <form method="post" action="install.php">

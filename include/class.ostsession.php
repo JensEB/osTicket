@@ -17,7 +17,7 @@ include_once INCLUDE_DIR.'class.session.php';
 
 class osTicketSession {
     // Session SSID
-    private $name = 'OSTSESSID';
+    private $name = 'OSTSESSIONID'; // rename name for ostsession (Comodo CVE-2014-4744)
     // Session Backend instance
     private $backend;
     // Session default TTL
@@ -261,6 +261,11 @@ class osTicketSession {
             'httponly' => ini_get('session.cookie_httponly'),
             'samesite' => !empty($ost->getConfig()->getAllowIframes()) ? 'None' : 'Strict'
         ];
+// Anpassung Anfang: set samesite to Lax for session cookie
+        # set correct samesite attribute (for IIS and SSO to Lax)
+        $allowIFrames = $ost->getConfig()->getAllowIframes(); // this is never empty
+        $opts['samesite'] = $allowIFrames && $allowIFrames != "'self'" ? 'None' : 'Lax';
+// Anpassung Ende: set samesite to Lax for session cookie
         setcookie(session_name(), session_id(), $opts);
         // Trigger expire update - neeed for secondary handlers that only
         // log new sessions

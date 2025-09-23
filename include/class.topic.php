@@ -74,7 +74,11 @@ implements TemplateVariable, Searchable {
     const SORT_MANUAL = 'm';
 
     function asVar() {
+/* Anpassung Anfang: topic-Variable - helptopic with path
         return $this->getName();
+*/
+        return $this->getFullName();
+// Anpassung Ende: topic-Variable - helptopic with path
     }
 
     static function getVarScope() {
@@ -406,6 +410,10 @@ implements TemplateVariable, Searchable {
 // Anpassung Ende: help-topic-drop-down (jsTree) - use parameter $getPathNames
           if ($disabled === self::DISPLAY_DISABLED && $info['disabled'])
               $n .= " - ".__("(disabled)");
+//Anpassung Anfang: mark private topics
+          elseif (!$info['public'])
+              $n .= " - ".__("(private)");
+//Anpassung Ende: mark private topics
           $requested_names[$id] = $n;
           $topicsClean[$id] = $info;
           $topicsClean[$id]['topic'] = $n;

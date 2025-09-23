@@ -66,6 +66,10 @@ function db_connect($host, $user, $passwd, $options = array()) {
     if (defined('DBCONNECT_TIMEOUT'))
         $__db->options(MYSQLI_OPT_CONNECT_TIMEOUT, DBCONNECT_TIMEOUT);
 
+// Anpassung Anfang: PHP8.1 and above will throw an exception on unsuccessful mysql queries
+    // disable exception - it will be catchable, but it doesn't always deleted
+    mysqli_report(MYSQLI_REPORT_OFF);
+// Anpassung Ende: PHP8.1 and above will throw an exception on unsuccessful mysql queries
     if (!@$__db->real_connect($host, $user, $passwd, null, $port, $socket))
         return NULL;
 
@@ -87,6 +91,12 @@ function db_connect($host, $user, $passwd, $options = array()) {
     // Use connection timing to seed the random number generator
     Misc::__rand_seed((microtime(true) - $start) * 1000000);
 
+// Anpassung Anfang: set optimizer_use_condition_selectivity to 1
+    // mariadb ab 10.4 setzt den Wert per default auf 4 -> nicht alle Indexe werden verwendet
+    // auf 1 setzen, damit für osTicket die Indexe verwendet werden. Performance!
+    #$__db->query("SET SESSION optimizer_use_condition_selectivity = 1;");
+    db_query("SET SESSION optimizer_use_condition_selectivity = 1;");
+// Anpassung Ende: set optimizer_use_condition_selectivity to 1
     return $__db;
 }
 
