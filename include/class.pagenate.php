@@ -53,7 +53,11 @@ class PageNate {
         $this->approx = $approx;
     }
 
+/* Anpassung Anfang: support anchors by urls
     function setURL($url='',$vars='') {
+ */
+    function setURL($url='',$vars='', $anchor='') {
+// Anpassung Ende: support anchors by urls
         if ($url) {
             if (strpos($url, '?')===false)
                 $url .= '?';
@@ -65,6 +69,9 @@ class PageNate {
             $vars = '';
         if ($vars && is_array($vars))
             $vars = Http::build_query($vars);
+// Anpassung Anfang: support anchors by urls
+        $this->anchor = $anchor?:'';
+// Anpassung Ende: support anchors by urls
 
         $this->url = $url.$vars;
     }
@@ -129,6 +136,9 @@ class PageNate {
         $displayed_span     = 5;
         $total_pages         = ceil( ($this->total - $this->slack) / $this->limit );
         $this_page             = ceil( ($this->start+1) / $this->limit );
+// Anpassung Anfang: support anchors by urls
+        $anchor               =$this->anchor?:'';
+// Anpassung Ende: support anchors by urls
 
         $last=$this_page-1;
         $next=$this_page+1;
@@ -146,12 +156,20 @@ class PageNate {
 
         if($start_loop>1){
             $lastspan=($start_loop-$displayed_span>0)?$start_loop-$displayed_span:1;
+/* Anpassung Anfang: support anchors by urls
             $html .= "\n<a href=\"$file&p=$lastspan\" ><strong>&laquo;</strong></a>";
+*/
+            $html .= "\n<a href=\"".$file.'&p='.$lastspan.$anchor.'"><strong>&laquo;</strong></a>';
+// Anpassung Ende: support anchors by urls
         }
 
         for ($i=$start_loop; $i <= $stop_loop; $i++) {
             $page = ($i - 1) * $this->limit;
+/* Anpassung Anfang: support anchors by urls
             $href = "{$file}&amp;p={$i}";
+*/
+            $href = $file.'&amp;p='.$i.$anchor;
+// Anpassung Ende: support anchors by urls
             if ($hash)
                 $href .= '#'.$hash;
             if ($i == $this_page) {
@@ -166,6 +184,11 @@ class PageNate {
         if($stop_loop<$total_pages){
             $nextspan=($stop_loop+$displayed_span>$total_pages)?$total_pages-$displayed_span:$stop_loop+$displayed_span;
             $href = "{$file}&amp;p={$nextspan}";
+/* Anpassung Anfang: support anchors by urls
+            $href = "{$file}&amp;p={$nextspan}";
+*/
+            $href = $file.'&amp;p='.$nextspan.$anchor;
+// Anpassung Ende: support anchors by urls
             if ($hash)
                 $href .= '#'.$hash;
             $html .= "\n<a href=\"{$href}\" ><strong>&raquo;</strong></a>";
