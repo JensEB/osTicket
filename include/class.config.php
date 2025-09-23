@@ -262,6 +262,12 @@ class OsticketConfig extends Config {
         'files_req_auth' => 1,
         'force_https' => '',
         'allow_external_images' => 0,
+// Anpassung Anfang: sla_from_last_message
+        'sla_from_last_message' => 0,
+// Anpassung Ende: sla_from_last_message
+// Anpassung Anfang: overdue_only_unanswered
+        'overdue_only_unanswered' => 0,
+// Anpassung Ende: overdue_only_unanswered
     );
 
     function __construct($section=null) {
@@ -1482,6 +1488,15 @@ class OsticketConfig extends Config {
             'ticket_lock' => $vars['ticket_lock'],
             'default_ticket_queue'=>$vars['default_ticket_queue'],
             'allow_external_images'=>isset($vars['allow_external_images'])?1:0,
+// Anpassung Anfang: sla_from_last_message
+            'sla_from_last_message'=>isset($vars['sla_from_last_message'])?1:0,
+// Anpassung Ende: sla_from_last_message
+// Anpassung Anfang: overdue_only_unanswered
+            'overdue_only_unanswered'=>isset($vars['overdue_only_unanswered'])?1:0,
+// Anpassung Ende: overdue_only_unanswered
+// Anpassung Anfang: Staff email reply is a response
+            'agent_email_type'=>$vars['agent_email_type'] ?: 'N',
+// Anpassung Ende: Staff email reply is a response
         ));
     }
 

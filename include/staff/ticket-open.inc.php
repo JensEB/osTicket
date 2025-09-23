@@ -419,7 +419,12 @@ print $response_form->getField('attachments')->render();
                 <td>
                     <select name="statusId">
                     <?php
+/* Anpassung Anfang: do not preselect ticket status go support the status from helptopics
                     $statusId = $info['statusId'] ?: $cfg->getDefaultTicketStatusId();
+*/
+                    $statusId = $info['statusId'];
+                    echo '<option value="">'.__('Select').'</option>';
+// Anpassung Ende: do not preselect ticket status go support the status from helptopics
                     $states = array('open');
                     if ($thisstaff->hasPerm(Ticket::PERM_CLOSE, false))
                         $states = array_merge($states, array('closed'));

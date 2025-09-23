@@ -192,7 +192,11 @@ if($ticket->isOverdue())
                                <i class="icon-unlock"></i> <?php echo __('Release (unassign) Ticket'); ?></a></li>
                  <?php
                  }
+/* Anpassung Anfang: beantwortet-Flag ändern nach Berechtigung
                  if($ticket->isOpen() && $isManager) {
+*/
+                 if($ticket->isOpen() && ($isManager || $role->hasPerm(Ticket::PERM_EDIT))) {
+// Anpassung Ende: beantwortet-Flag ändern nach Berechtigung
                     if(!$ticket->isOverdue()) { ?>
                         <li><a class="confirm-action" id="ticket-overdue" href="#overdue"><i class="icon-bell"></i> <?php
                             echo __('Mark as Overdue'); ?></a></li>
@@ -486,6 +490,16 @@ if($ticket->isOverdue())
                         </td>
                     </tr>
 <?php   } # end if (user->org) ?>
+<!-- Anpassung Anfang: Phone field on ticket view header - add support for click2dial -->
+                <tr>
+                    <th><?php echo __('Phone'); ?>:</th>
+                    <td><?php
+                        $tel = $ticket->getPhoneNumber()?Format::htmlchars($ticket->getPhoneNumber()):'';
+                        echo $tel?'<a href="tel:'.$tel.'">'.$tel.'</a>':'-';
+                        ?>
+                    </td>
+                </tr>
+<!-- Anpassung Ende: Phone field on ticket view header - add support for click2dial -->
                 <tr>
                   <th><?php echo __('Source'); ?>:</th>
                   <td>
@@ -1021,6 +1035,16 @@ if ($errors['err'] && isset($_POST['a'])) {
             </tbody>
             <tbody id="resp_sec">
             <tr><td colspan="2">&nbsp;</td></tr>
+<!-- Anpassung Anfang: Ticket reply mark not answered -->
+             <tr>
+                <td width="120">
+                    <label><strong><?php echo ucfirst(__('not answered')); ?>:</strong></label>
+                </td>
+               <td>
+                    <input type='checkbox' value='1' name="markNotAnswered" id="markNotAnswered" 
+                    />&nbsp;(<?php echo __('This ticket will not marked as answered on response'); ?>)</td>
+             </tr>
+<!-- Anpassung Ende: Ticket reply mark not answered -->
             <tr>
                 <td width="120" style="vertical-align:top">
                     <label><strong><?php echo __('Response');?>:</strong></label>

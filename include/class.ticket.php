@@ -554,6 +554,21 @@ implements RestrictedAccess, Threadable, Searchable {
             $tz = new DateTimeZone($cfg->getDbTimezone());
             $dt = new DateTime($this->getReopenDate() ?:
                     $this->getCreateDate(), $tz);
+// Anpassung Anfang: sla_from_last_message
+            // sla startet von reopen bzw. von create date
+            // sla startet von last message, wenn sla_from_last_message=true und last message jünger als die anderen Daten
+            // // sla startet von lastmessage sonst von reopen sonst von create date
+            $datetime = NULL;
+            if($GLOBALS['cfg']->get('sla_from_last_message') && $this->getLastMessageDate()) {
+                $datetime = $this->getLastMessageDate();
+            }
+            //$datetime = $datetime ?: $this->getReopenDate() ?: $this->getCreateDate();
+            $datetime2 = $this->getReopenDate() ?: $this->getCreateDate();
+            $datetime = ($datetime && $datetime>$datetime2)?$datetime:$datetime2;
+            if(is_object($datetime))
+                $this->save(true);
+            $dt = new DateTime(is_string($datetime)?$datetime:'', $tz);
+// Anpassung Ende: sla_from_last_message
             $dt = $sla->addGracePeriod($dt, $schedule);
             // Make sure time is in DB timezone
             $dt->setTimezone($tz);
@@ -1896,6 +1911,17 @@ implements RestrictedAccess, Threadable, Searchable {
 
         $this->isanswered = 0;
         $this->lastupdate = SqlFunction::NOW();
+// Anpassung Anfang: sla_from_last_message
+        if($cfg->get('sla_from_last_message')) { 
+            $this->clearOverdue();
+            $this->updateEstDueDate();
+        }
+// Anpassung Ende: sla_from_last_message
+// Anpassung Anfang: overdue_only_unanswered
+        if($cfg->get('overdue_only_unanswered')) {
+            $this->clearOverdue();
+        }
+// Anpassung Ende: overdue_only_unanswered
         $this->save();
 
 
@@ -2432,11 +2458,20 @@ implements RestrictedAccess, Threadable, Searchable {
     }
 
     function markAnswered() {
+// Anpassung Anfang: overdue_only_unanswered
+        global $cfg;
+        if($cfg->get('overdue_only_unanswered') && $this->setAnsweredState(1))
+            $this->clearOverdue();
+// Anpassung Ende: overdue_only_unanswered
         return ($this->isAnswered() || $this->setAnsweredState(1));
     }
 
     function markOverdue($whine=true) {
         global $cfg;
+// Anpassung Anfang: overdue_only_unanswered
+        if($cfg->get('overdue_only_unanswered') && $this->isAnswered())
+            return false;
+// Anpassung Ende: overdue_only_unanswered
 
         // Only open tickets can be marked overdue
         if (!$this->isOpen())
@@ -3378,6 +3413,11 @@ implements RestrictedAccess, Threadable, Searchable {
         $this->getThread()->_collaborators = null;
 
         // Get active recipients of the response
+// Anpassung Anfang: getRecipients schlägt fehl, wenn $vars['reply-to'] nicht belegt
+        if(!$vars['reply-to']) {
+            $vars['reply-to'] = 'all';
+        }
+// Anpassung Ende: getRecipients schlägt fehl, wenn $vars['reply-to'] nicht belegt
         $recipients = $this->getRecipients($vars['reply-to'], $vars['ccs']);
         if ($recipients instanceof MailingList)
             $vars['thread_entry_recipients'] = $recipients->getEmailAddresses();
@@ -4823,6 +4863,10 @@ implements RestrictedAccess, Threadable, Searchable {
                     ))
                 ))
             ->limit(100);
+// Anpassung Anfang: overdue_only_unanswered
+        if($GLOBALS['cfg']->get('overdue_only_unanswered'))
+            $overdue->filter(array('isanswered' => 0));
+// Anpassung Ende: overdue_only_unanswered
 
         foreach ($overdue as $ticket)
             $ticket->markOverdue();

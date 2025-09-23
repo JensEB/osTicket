@@ -234,6 +234,10 @@ if($_POST && !$errors):
                             sprintf('<a href="tickets.php?id=%d"><b>%s</b></a>',
                                 $ticket->getId(), $ticket->getNumber()))
                         );
+// Anpassung Anfang: Ticket reply mark not answered
+                if($vars['markNotAnswered'])
+                    $ticket->markUnAnswered();
+// Anpassung Ende: Ticket reply mark not answered
 
                 // Clear attachment list
                 $response_form->setSource(array());
@@ -326,6 +330,9 @@ if($_POST && !$errors):
                 //Check to make sure the staff STILL has access post-update (e.g dept change).
                 if(!$ticket->checkStaffPerm($thisstaff))
                     $ticket=null;
+// Anpassung Anfang: go to listing, if no ticket access
+                if(!$ticket) { $redirect = 'tickets.php'; }
+// Anpassung Ende: go to listing, if no ticket access
             } elseif(!$errors['err']) {
                 $errors['err']=sprintf('%s %s',
                     sprintf(__('Unable to update %s.'), __('this ticket')),
@@ -349,7 +356,11 @@ if($_POST && !$errors):
                     }
                     break;
                 case 'overdue':
+/* Anpassung Anfang: beantwortet-Flag ändern nach Berechtigung
                     if(!$dept || !$isManager) {
+*/
+                    if(!$dept || !$role || !$role->hasPerm(Ticket::PERM_EDIT)) {
+// Anpassung Ende: beantwortet-Flag ändern nach Berechtigung
                         $errors['err']=__('Permission Denied. You are not allowed to flag tickets overdue');
                     } elseif($ticket->markOverdue()) {
                         $msg=sprintf(__('Ticket flagged as overdue by %s'),$thisstaff->getName());
@@ -435,10 +446,16 @@ if($_POST && !$errors):
 
                     if(($ticket=Ticket::open($vars, $errors))) {
                         $msg=__('Ticket created successfully');
+// Anpassung Anfang: append ticket link to msg
+                        $msg .= ' (<a href="'.'tickets.php?id='.$ticket->getId().'">#'.$ticket->getNumber().'</a>)';
+// Anpassung Ende: append ticket link to msg
                         $redirect = 'tickets.php?id='.$ticket->getId();
                         $_REQUEST['a']=null;
                         if (!$ticket->checkStaffPerm($thisstaff) || $ticket->isClosed())
                             $ticket=null;
+// Anpassung Anfang: go to listing, if no ticket access
+                        if(!$ticket) { $redirect = 'tickets.php'; }
+// Anpassung Ende: go to listing, if no ticket access
                         Draft::deleteForNamespace('ticket.staff%', $thisstaff->getId());
                         // Drop files from the response attachments widget
                         $response_form->setSource(array());
