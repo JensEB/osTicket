@@ -74,7 +74,7 @@ if (($bks=StaffAuthenticationBackend::getExternal())) { ?>
     </div>
 </div>
 <div id="poweredBy"><?php echo __('Powered by'); ?>
-    <a href="http://www.osticket.com" target="_blank">
+    <a href="https://www.osticket.com.de" target="_blank">
         <img alt="osTicket" src="images/osticket-grey.png" class="osticket-logo">
     </a>
 </div>
@@ -167,6 +167,6 @@ if (($bks=StaffAuthenticationBackend::getExternal())) { ?>
         #loginBox:after { background-color: white !important; }
     </style>
     <![endif]-->
-    <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jquery-ui-1.13.2.custom.min.js"></script>
+    <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jquery-ui-1.13.2.custom.min.js?<?php echo GIT_VERSION; ?>"></script>
 </body>
 </html>
