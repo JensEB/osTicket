@@ -209,6 +209,9 @@
 .redactor-in {
   position: relative;
   overflow: auto;
+/* Anpassung Anfang: variable osTicket-Breite: Redactor-Textfeld keine 100% */
+  width: 100%;
+/* Anpassung Ende: variable osTicket-Breite: Redactor-Textfeld keine 100% */
   white-space: normal;
   box-sizing: border-box; }
   .redactor-in:focus {

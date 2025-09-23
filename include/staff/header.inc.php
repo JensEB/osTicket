@@ -75,7 +75,11 @@ if (osTicket::is_ie())
     ?>
 </head>
 <body>
+<!-- Anpassung Anfang: variable osTicket-Breite
 <div id="container">
+-->
+<div id="container" style="width:<?php echo $cfg->getHelpdeskWidth() ?:'1140px'; ?> !important; min-width:768px;">
+<!-- Anpassung Ende: variable osTicket-Breite -->
     <?php
     if($ost->getError())
         echo sprintf('<div id="error_bar">%s</div>', $ost->getError());

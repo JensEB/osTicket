@@ -65,7 +65,11 @@ if ($_POST)
         <h2><?php echo __('Open a New Ticket');?></h2>
     </div>
 </div>
+<!-- Anpassung Anfang: variable osTicket-Breite
  <table class="form_table fixed" width="940" border="0" cellspacing="0" cellpadding="2">
+-->
+ <table class="form_table fixed" width="100%" border="0" cellspacing="0" cellpadding="2">
+<!-- Anpassung Ende: variable osTicket-Breite -->
     <thead>
     <!-- This looks empty - but beware, with fixed table layout, the user
          agent will usually only consult the cells in the first row to

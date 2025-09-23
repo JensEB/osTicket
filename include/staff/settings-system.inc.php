@@ -141,6 +141,17 @@ $gmtime = Misc::gmtime();
                 <i class="help-tip icon-question-sign" href="#enable_richtext"></i>
             </td>
         </tr>
+<!-- Anpassung Anfang: variable osTicket-Breite -->
+        <tr>
+            <td width="180"><?php echo __('Helpdesk width').' (scp)'; ?>:</td>
+            <td>
+                <?php if(!isset($config['helpdesk_width']))
+                    $config['helpdesk_width'] = '1140px'; ?>
+               <input type="text" name="helpdesk_width" value="<?php echo $config['helpdesk_width']; ?>">
+               &nbsp;px (/ %)&nbsp;(<?php echo __('Default'); ?>&nbsp;1140px)
+            </td>
+        </tr>
+<!-- Anpassung Ende: variable osTicket-Breite -->
         <tr>
             <td><?php echo __('Allow System iFrame'); ?>:</td>
             <td><input type="text" size="40" name="allow_iframes" value="<?php echo $config['allow_iframes']; ?>"

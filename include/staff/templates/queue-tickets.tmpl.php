@@ -227,6 +227,9 @@ if ($queue->id > 0 && $queue->isOwner($thisstaff)) { ?>
  <input type="hidden" name="a" value="mass_process" >
  <input type="hidden" name="do" id="action" value="" >
 
+<!-- Anpassung Anfang: variable osTicket-Breite -->
+<div style="overflow: auto;">
+<!-- Anpassung Ende: variable osTicket-Breite -->
 <table class="list queue tickets" border="0" cellspacing="1" cellpadding="2" width="940">
   <thead>
     <tr>
@@ -292,6 +295,9 @@ foreach ($tickets as $T) {
     </tr>
   </tfoot>
 </table>
+<!-- Anpassung Anfang: variable osTicket-Breite -->
+</div>
+<!-- Anpassung Ende: variable osTicket-Breite -->
 
 <?php
     if ($count > 0 || $skipCount) { //if we actually had any tickets returned.

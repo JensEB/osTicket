@@ -372,6 +372,11 @@ class OsticketConfig extends Config {
         return $this->get('default_locale');
     }
 
+// Anpassung Anfang: variable osTicket-Breite
+    function getHelpdeskWidth() {
+        return $this->get('helpdesk_width');
+    }
+// Anpassung Ende: variable osTicket-Breite
     /* Date & Time Formats */
     function getTimeFormat($propogate=false) {
         global $cfg;
@@ -1348,6 +1353,9 @@ class OsticketConfig extends Config {
             'embedded_domain_whitelist' => Format::sanitize($vars['embedded_domain_whitelist']),
             'acl' => Format::sanitize($vars['acl']),
             'acl_backend' => Format::sanitize((int) $vars['acl_backend']) ?: 0,
+// Anpassung Anfang: variable osTicket-Breite
+            'helpdesk_width'=>$vars['helpdesk_width'].(is_numeric($vars['helpdesk_width'])?'px':''),
+// Anpassung Ende: variable osTicket-Breite
         ));
     }
 

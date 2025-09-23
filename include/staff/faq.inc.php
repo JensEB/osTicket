@@ -184,12 +184,20 @@ if ($faq && count($langs) > 1) { ?>
         <div class="error"><?php echo $errors['answer']; ?></div>
     </div>
     <div>
+<!-- Anpassung Anfang: variable osTicket-Breite: Redactor-Textfeld keine 100%
     <textarea name="<?php echo $aname; ?>" cols="21" rows="12"
         data-width="670px"
         class="richtext draft" <?php
 list($draft, $attrs) = Draft::getDraftAndDataAttrs('faq', $namespace, $answer);
 echo $attrs; ?>><?php echo $draft ?: Format::viewableImages($answer);
         ?></textarea>
+-->
+    <textarea name="<?php echo $aname; ?>" cols="21" rows="12"
+        class="richtext draft" <?php
+list($draft, $attrs) = Draft::getDraftAndDataAttrs('faq', $namespace, $answer);
+echo $attrs; ?>><?php echo $draft ?: Format::viewableImages($answer);
+        ?></textarea>
+<!-- Anpassung Ende: variable osTicket-Breite: Redactor-Textfeld keine 100% -->
 
     </div>
     </div>

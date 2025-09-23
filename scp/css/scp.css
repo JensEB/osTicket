@@ -126,7 +126,12 @@ a time {
 
 
 #container {
+/* Anpassung Anfang: variable osTicket-Breite
     width:960px;
+*/
+    width:1160px; 
+    min-width:1140px; 
+/* Anpassung Ende: variable osTicket-Breite */
     margin:0 auto 20px auto;
 }
 
@@ -725,7 +730,11 @@ a time {
 .jb-overflowmenu {
     position: relative;
     height:35px;
+/* Anpassung Anfang: variable osTicket-Breite
     width: 960px;
+*/
+    width:100%;
+/* Anpassung Ende: variable osTicket-Breite */
 }
 
 
@@ -1119,7 +1128,14 @@ table.dashboard-stats tbody:nth-child(2) tr:hover th {
     color:#000;
 }
 
+/* Anpassung Anfang: variable osTicket-Breite
 table { vertical-align:top; }
+*/
+table { 
+    vertical-align:top;
+    width:100% !important;
+}
+/* Anpassung Ende: variable osTicket-Breite */
 
 table.list {
     clear:both;
@@ -3056,7 +3072,12 @@ div.faq-status {
     margin-right:10px;
 }
 .faq-content {
+/* Anpassung Anfang: variable osTicket-Breite
     width: 670px;
+*/
+    width: auto;
+    max-width: 100%;
+/* Anpassung Ende: variable osTicket-Breite */
     margin: 0 15px;
 }
 .faq-category {

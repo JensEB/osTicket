@@ -377,7 +377,11 @@ $(function() {
                 'autoresize': !el.hasClass('no-bar') && !el.closest('.dialog').length,
                 'maxHeight': el.closest('.dialog').length ? selectedSize : false,
                 'minHeight': selectedSize,
+/* Anpassung Anfang: variable osTicket-Breite
                 'maxWidth': el.hasClass('fullscreen') ? '950px' : false,
+*/
+                'maxWidth': el.hasClass('fullscreen') ? '100%' : false,
+// Anpassung Ende: variable osTicket-Breite
                 'focus': false,
                 'plugins': el.hasClass('no-bar')
                   ? ['imagemanager','definedlinks']
