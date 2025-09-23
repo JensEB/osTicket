@@ -25,7 +25,11 @@ $(document).ready(function(){
         var fObj = $(this).closest('form');
         if(!fObj.data('changed')){
             fObj.data('changed', true);
+/* Anpassung Anfang: mark client submit button on change with class, not color
             $('input[type=submit]', fObj).css('color', 'red');
+*/
+            $('input[type=submit]', fObj).addClass('submitBtnFormChanged');
+/* Anpassung Ende: mark client submit button on change with class, not color */
             $(window).bind('beforeunload', function(e) {
                 return __("Are you sure you want to leave? Any changes or info you've entered will be discarded!");
              });

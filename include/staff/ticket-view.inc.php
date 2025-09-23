@@ -823,7 +823,7 @@ if ($errors['err'] && isset($_POST['a'])) {
 
 <div class="sticky bar stop actions" id="response_options"
 >
-    <ul class="tabs" id="response-tabs">
+    <ul class="tabs" id="response-tabs" style="position: static;">
         <?php
         if ($role->hasPerm(Ticket::PERM_REPLY) && !($blockReply)) { ?>
         <li class="active <?php
@@ -848,7 +848,7 @@ if ($errors['err'] && isset($_POST['a'])) {
         $replyTo = $_POST['reply-to'] ?: 'all';
         $emailReply = ($replyTo != 'none');
         ?>
-    <form id="reply" class="tab_content spellcheck exclusive save"
+    <form id="reply" class="tab_content spellcheck exclusive save" style="position: static;"
         data-lock-object-id="ticket/<?php echo $ticket->getId(); ?>"
         data-lock-id="<?php echo $mylock ? $mylock->getId() : ''; ?>"
         action="tickets.php?id=<?php
@@ -1182,7 +1182,7 @@ if ($errors['err'] && isset($_POST['a'])) {
     }
     if (!($blockReply)) {
     ?>
-    <form id="note" class="hidden tab_content spellcheck exclusive save"
+    <form id="note" class="hidden tab_content spellcheck exclusive save" style="position: static;"
         data-lock-object-id="ticket/<?php echo $ticket->getId(); ?>"
         data-lock-id="<?php echo $mylock ? $mylock->getId() : ''; ?>"
         action="tickets.php?id=<?php echo $ticket->getId(); ?>#note"

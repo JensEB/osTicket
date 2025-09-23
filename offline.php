@@ -21,14 +21,6 @@ if(is_object($ost) && $ost->isSystemOnline()) {
 }
 $nav=null;
 require(CLIENTINC_DIR.'header.inc.php');
-?>
-<div id="landing_page">
-<?php
-if(($page=$cfg->getOfflinePage())) {
-    echo $page->getBodyWithImages();
-} else {
-    echo '<h1>'.__('Support Ticket System Offline').'</h1>';
-}
-?>
-</div>
-<?php require(CLIENTINC_DIR.'footer.inc.php'); ?>
+require(CLIENTINC_DIR.'offline.inc.php');
+require(CLIENTINC_DIR.'footer.inc.php');
+

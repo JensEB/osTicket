@@ -154,7 +154,7 @@ define('LOCAL_NETWORKS', '127.0.0.0/24');
 # Option: SESSION_SESSID (default: OSTSESID)
 #
 # osTicket Session Name (SESSID) - used to set session cookie
-define('SESSION_SESSID', 'OSTSESSID');
+define('SESSION_SESSID', 'OSTSESSIONID'); // rename name for ostsession (Comodo CVE-2014-4744)
 
 # Session Storage Backends
 # ---------------------------------------------------

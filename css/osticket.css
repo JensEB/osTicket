@@ -91,3 +91,8 @@ input.dp {
 .warning_bar { margin: 0; padding: 5px 10px 5px 36px; height: 16px; line-height: 16px; border: 1px solid #f26522; background: url('../assets/default/images/icons/alert.png') 10px 50% no-repeat #ffffdd; }
 
 .error_bar { margin: 0; padding: 5px 10px 5px 36px; height: 16px; line-height: 16px; border: 1px solid #a00; background: url('../assets/default/images/icons/error.png') 10px 50% no-repeat #fff0f0; }
+/* Anpassung Anfang: mark client submit button on change with class, not color */
+.submitBtnFormChanged {
+    color: #ff0000;
+}
+/* Anpassung Ende: mark client submit button on change with class, not color */
