@@ -66,6 +66,28 @@ $users->values('id', 'name', 'default_email__address', 'account__id',
 $users->values('org__name');
 // Anpassung Ende: org on userlist
 $users->order_by($order . $order_column);
+// Anpassung Anfang: TAPI-Funktion
+if($TAPI) {
+    if($users->exists(true) && ($users->count() == 1)) {
+        // Telefonnummer eindeutig - Kundenkartei öffnen
+        $url = "./users.php?id=".$users[0]['id'];
+        header("Location: $url");
+        exit();
+    }
+    elseif($users->exists(true) && ($users->count() > 1)) {
+        // Telefonnummer mehrdeutig - header einbinden
+        require(STAFFINC_DIR.'header.inc.php');
+    }
+    elseif($users->count() == 0) {
+        // Telefonnummer unbekannt - redirekt neues Ticket
+        $url = "tickets.php?a=open&tel=".urlencode($TAPI['caller'])."&search=".urlencode($TAPI['callerSearch']);
+        if(isset($TAPI['callerName']))
+            $url .= '&name='.urlencode($TAPI['callerName']);
+        header("Location: $url");
+        exit();
+    }
+}
+// Anpassung Ende: TAPI-Funktion
 ?>
 <div id="basic_search">
     <div style="min-height:25px;">
