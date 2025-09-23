@@ -43,6 +43,9 @@ if ($cfg && $cfg->forceHttps()
     Http::redirect('https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 }
 
+// Anpassung Anfang: Department-Selector / Fälligkeitsampel
+require_once(INCLUDE_DIR.'class.addfunctions.php');
+// Anpassung Ende: Department-Selector / Fälligkeitsampel
 //Init
 $session = $ost->getSession();
 

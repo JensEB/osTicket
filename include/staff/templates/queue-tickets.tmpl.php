@@ -20,6 +20,12 @@ if ($queue->isAQueue() || $queue->isASubQueue())
 
 // Make sure the cdata materialized view is available
 TicketForm::ensureDynamicDataView();
+// Anpassung Anfang: Fälligkeitsampel
+$tickets->values('sla');
+$tickets->values('duedate');
+$tickets->values('est_duedate');
+$tickets->values('status__state');
+// Anpassung Ende: Fälligkeitsampel
 
 // Identify columns of output
 $columns = $queue->getColumns();
@@ -71,6 +77,12 @@ foreach ($columns as $C) {
         $sorted = true;
     }
 }
+//Anpassung Anfang: Fälligkeitsampel
+if (isset($sort['col']) && $sort['col'] == 9 && $sorted == false) {
+    $tickets->order_by('est_duedate', (($sort['dir'])?'DESC':'ASC'));
+    $sorted = true;
+}
+//Anpassung Ende: Fälligkeitsampel
 
 // Apply queue sort if it's not already sorted by a column
 if (!$sorted) {
@@ -275,6 +287,24 @@ foreach ($columns as $C) {
     }
     echo sprintf('<th width="%s" data-id="%d">%s</th>',
         $C->getWidth(), $C->id, $heading);
+// Anpassung Anfang: Fälligkeitsampel
+    if($C->id == 1) {
+        $sortID = 9;
+        $args = $_GET;
+        $dir = $sort['col'] != $sortID ?: ($sort['dir'] ? 'desc' : 'asc');
+        $args['dir'] = $sort['col'] != $sortID ?: (int) !$sort['dir'];
+        $args['sort'] = $sortID;
+        $heading = '<img src="./images/dot_grey15x15.png" alt="" title="'.__('Due date').'">';
+        if($sort['col'] == $sortID && $dir == 'desc')
+            $heading = '<img src="./images/dot_green15x15.png" alt="" title="'.__('Due date').'">';
+        elseif($sort['col'] == $sortID && $dir == 'asc')
+            $heading = '<img src="./images/dot_red15x15.png" alt="" title="'.__('Due date').'">';
+        $heading = sprintf('<a href="?%s" class="%s">%s</a>',
+            Http::build_query($args), $dir, $heading);
+        echo sprintf('<th width="%s" data-id="%d">%s</th>',
+            '2%', 0, $heading);
+    }
+// Anpassung Ende: Fälligkeitsampel
 }
 ?>
     </tr>
@@ -296,6 +326,17 @@ foreach ($tickets as $T) {
         else {
             echo "<td>$contents</td>";
         }
+// Anpassung Anfang: Fälligkeitsampel
+        if($C->id == 1 && $status != 'closed') {
+            require_once(INCLUDE_DIR.'class.addfunctions.php');
+            // gibt es ein Fälligkeitsdatum?
+            $dueDate = $T['duedate'] ? $T['duedate'] : NULL;
+            // wenn nicht, greift ein SLA?
+            if($dueDate == NULL && intval($T['sla']) > 0){$dueDate = $T['est_duedate'];};
+            $isclosed = (strcasecmp($T['status__state'],'closed') == 0)?1:0;
+            echo '<td align="center" nowrap>'.ddl::getDdlGraficCode($dueDate, $T['isoverdue'], $isclosed).'</td>';
+        }
+// Anpassung Ende: Fälligkeitsampel
     }
     echo '</tr>';
 }
@@ -303,7 +344,11 @@ foreach ($tickets as $T) {
   </tbody>
   <tfoot>
     <tr>
+<!-- Anpassung Anfang: Fälligkeitsampel
       <td colspan="<?php echo count($columns)+1; ?>">
+-->
+      <td colspan="<?php echo count($columns)+2; ?>">
+<!-- Anpassung Ende: Fälligkeitsampel -->
         <?php if ($count && $canManageTickets) {
         echo __('Select');?>:&nbsp;
         <a id="selectAll" href="#ckb"><?php echo __('All');?></a>&nbsp;&nbsp;
@@ -337,3 +382,6 @@ foreach ($tickets as $T) {
 <?php
     } ?>
 </form>
+<!-- Anpassung Anfang: Fälligkeitsampel -->
+<?php echo ddl::getDdlDescTable(); ?>
+<!-- Anpassung Ende: Fälligkeitsampel -->

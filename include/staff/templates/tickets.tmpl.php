@@ -5,6 +5,11 @@ $args['t'] = 'tickets';
 unset($args['p'], $args['_pjax']);
 
 $tickets = Ticket::objects();
+// Anpassung Anfang: Fälligkeitsampel
+$tickets->values('sla');
+$tickets->values('duedate');
+$tickets->values('est_duedate');
+// Anpassung Ende: Fälligkeitsampel
 
 if ($user) {
     $filter = $tickets->copy()
@@ -103,6 +108,9 @@ if ($total) { ?>
             <?php
             } ?>
             <th width="10%"><?php echo __('Ticket'); ?></th>
+<!-- Anpassung Anfang: Fälligkeitsampel -->
+            <th width="2%">&nbsp;</th>
+<!-- Anpassung Ende: Fälligkeitsampel -->
             <th width="18%"><?php echo __('Last Updated'); ?></th>
             <th width="8%"><?php echo __('Status'); ?></th>
             <th width="30%"><?php echo __('Subject'); ?></th>
@@ -165,6 +173,17 @@ if ($total) { ?>
                     echo '<span class="pull-right faded-more" data-toggle="tooltip" title="'
                             .__('Collaborator').'"><i class="icon-eye-open"></i></span>';
             ?></td>
+<!-- Anpassung Anfang: Fälligkeitsampel -->
+            <?php 
+            require_once(INCLUDE_DIR.'class.addfunctions.php');
+            // gibt es ein Fälligkeitsdatum?
+            $dueDate = $T['duedate'] ? $T['duedate'] : NULL;
+            // wenn nicht, greift ein SLA?
+            if($dueDate == NULL && intval($T['sla']) > 0){$dueDate = $T['est_duedate'];};
+            $isclosed = (strcasecmp($T['status__state'],'closed') == 0)?1:0;
+            echo '<td align="center" nowrap>'.ddl::getDdlGraficCode($dueDate, $T['isoverdue'], $isclosed).'</td>';
+            ?>
+<!-- Anpassung Ende: Fälligkeitsampel -->
             <td nowrap><?php echo Format::datetime($T['lastupdate']); ?></td>
             <td><?php echo $status; ?></td>
             <td><a class="truncate <?php if ($flag) { ?> Icon <?php echo $flag; ?>Ticket" title="<?php echo ucfirst($flag); ?> Ticket<?php } ?>"

@@ -31,6 +31,13 @@ $queue_columns = array(
             'heading' => __('Ticket'),
             'sort_col'  => 'ticket__number',
             ),
+// Anpassung Anfang: Fälligkeitsampel
+        'trafficlights' => array(
+            'width' => '2%',
+            'heading' => '<img src="./images/dot_grey15x15.png" alt="">',
+            'sort_col' => 'trafficlights',
+            ),
+// Anpassung Ende: Fälligkeitsampel
         'date' => array(
             'width' => '20%',
             'heading' => __('Date Created'),
@@ -179,6 +186,14 @@ case 'number':
         )
     ));
     break;
+// Anpassung Anfang: Fälligkeitsampel
+case 'trafficlights':
+    $queue_columns['trafficlights']['heading'] = ($sort_dir)?'<img src="./images/dot_red15x15.png" alt="">':'<img src="./images/dot_green15x15.png" alt="">';
+    $queue_columns['trafficlights']['sort'] = 'trafficlights';
+    $queue_columns['trafficlights']['sort_col'] = $date_col = 'est_duedate';
+    $queue_columns['trafficlights']['sort_dir'] = $sort_dir;
+    break;
+// Anpassung Ende: Fälligkeitsampel
 case 'due':
     $queue_columns['date']['heading'] = __('Due Date');
     $queue_columns['date']['sort'] = 'due';
@@ -228,6 +243,9 @@ case 'created':
     $tasks->order_by($sort_dir ? 'created' : '-created');
     break;
 }
+// Anpassung Anfang: Fälligkeitsampel
+ $tasks->values('duedate');
+// Anpassung Ende: Fälligkeitsampel
 
 if (in_array($sort_cols, array('created', 'due', 'updated')))
     $queue_columns['date']['sort_dir'] = $sort_dir;
@@ -331,6 +349,10 @@ if ($thisstaff->hasPerm(Task::PERM_DELETE, false)) {
             <?php } ?>
 
             <?php
+// Anpassung Anfang: Fälligkeitsampel
+            if ($status == 'closed') 
+                unset($queue_columns['trafficlights']);
+// Anpassung Ende: Fälligkeitsampel
             // Query string
             unset($args['sort'], $args['dir'], $args['_pjax']);
             $qstr = Http::build_query($args);
@@ -406,6 +428,18 @@ if ($thisstaff->hasPerm(Task::PERM_DELETE, false)) {
                     href="tickets.php?id=<?php echo $T['ticket__ticket_id']; ?>"
                     data-preview="#tickets/<?php echo $T['ticket__ticket_id']; ?>/preview"
                     ><?php echo $T['ticket__number']; ?></a></td>
+<!-- Anpassung Anfang: Fälligkeitsampel -->
+            <?php
+            if ($status != 'closed') {
+                require_once(INCLUDE_DIR.'class.addfunctions.php');
+                // gibt es ein Fälligkeitsdatum?
+                $dueDate = $T['duedate'] ? $T['duedate'] : NULL;
+                $isclosed = (!$T['isopen'])?1:0;
+                $isOverdue = ($T['flags']>=2)?1:0;
+                echo '<td align="center" nowrap>'.ddl::getDdlGraficCode($dueDate, $isOverdue, $isclosed).'</td>';
+            }
+            ?>
+<!-- Anpassung Ende: Fälligkeitsampel -->
                 <td align="center" nowrap><?php echo
                 Format::datetime($T[$date_col ?: 'created']); ?></td>
                 <td><a <?php if ($flag) { ?> class="Icon <?php echo $flag; ?>Ticket" title="<?php echo ucfirst($flag); ?> Ticket" <?php } ?>
@@ -432,7 +466,11 @@ if ($thisstaff->hasPerm(Task::PERM_DELETE, false)) {
     </tbody>
     <tfoot>
      <tr>
+<!-- Anpassung Anfang: Fälligkeitsampel
         <td colspan="7">
+-->
+        <td colspan="<?php echo count($queue_columns)+1; ?>">
+<!-- Anpassung Ende: Fälligkeitsampel -->
             <?php if($total && $thisstaff->canManageTickets()){ ?>
             <?php echo __('Select');?>:&nbsp;
             <a id="selectAll" href="#ckb"><?php echo __('All');?></a>&nbsp;&nbsp;

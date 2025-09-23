@@ -4,6 +4,7 @@
 
     Enthält:
     class ds            - department selector functions
+    class ddl           - due date light functions
     class jstreeElement - helptopics drop down tree
 
     Jens Eberle <jens@isohd.net>
@@ -298,6 +299,87 @@ class ds {
     }
 }
 // Anpassung Ende: Abteilungsauswahl
+// Anpassung Anfang: Fälligkeitsampel
+class ddl { //due date lights - Fälligkeitsampel
+    
+    static function getDdlGraficCode($dueDate = NULL, $isoverdue = 0, $isclosed = 0) {
+        
+        if($isclosed) {
+            return '<img src="'.ROOT_PATH.'scp/images/dot_grey15x15.png" alt="" title="'.__('Ticket').': '.__('Closed').'">';
+        } elseif($isoverdue) {
+            $ddtext = $dueDate ? ' ('.__('Due date').': '.Format::datetime($dueDate).')':'';
+            return '<span title="'.__('Ticket is already overdue').$ddtext.'" class="Icon overdueTicket"></span>';
+        }elseif($dueDate == NULL) {
+            return '<img src="'.ROOT_PATH.'scp/images/dot_grey15x15.png" alt="" title="'.__('no Due date').'">';
+        }
+        $tz = new DateTimeZone($GLOBALS['thisstaff']? $GLOBALS['cfg']->getDbTimezone($GLOBALS['thisstaff']) : 'UTC');
+        $curDate = new DateTime('now',$tz);
+        $dueDateTs = strtotime($dueDate);
+        $displayDueDate = Format::datetime($dueDate);
+        if($dueDateTs < strtotime($curDate->format('Y-m-d H:i:s'))) { // überfällig -> rot blinkend
+            return '<img src="'.ROOT_PATH.'scp/images/dot_red_blink15x15.gif" alt="" style="border:1px solid red;" title="'
+                .__('Ticket is already overdue').' ('.$displayDueDate.') '.' '.__('however, not marked as overdue')
+                .' &#10;'.__('The option - Mark only unanswered tickets as overdue - may be selected').'">';
+        } elseif($dueDateTs < strtotime($curDate->add(new DateInterval('PT1H'))->format('Y-m-d H:i:s'))) { // unter 1 Std -> rot blinkend
+            return '<img src="'.ROOT_PATH.'scp/images/dot_red_blink15x15.gif" alt="" title="'
+                .sprintf(__('Due in less than %s hour(s)'),'1').' ('.$displayDueDate.')">';
+        } elseif($dueDateTs < strtotime($curDate->add(new DateInterval('PT3H'))->format('Y-m-d H:i:s'))) { // unter 3 Std -> rot statisch
+            return '<img src="'.ROOT_PATH.'scp/images/dot_red15x15.png" alt="" title="'
+                .sprintf(__('Due in less than %s hour(s)'),'3').' ('.$displayDueDate.')">';
+        } elseif($dueDateTs < strtotime($curDate->add(new DateInterval('PT12H'))->format('Y-m-d H:i:s'))) { // unter 12 Std -> gelb statisch
+            return '<img src="'.ROOT_PATH.'scp/images/dot_yellow15x15.png" alt="" title="'
+                .sprintf(__('Due in less than %s hour(s)'),'12').' ('.$displayDueDate.')">';
+        } else { // mehr als 12 Std -> grün statisch
+            return '<img src="'.ROOT_PATH.'scp/images/dot_green15x15.png" alt="" title="'
+                .sprintf(__('Due in more than %s hour(s)'),'12').' ('.$displayDueDate.')">';
+        }
+    }
+
+    static function getDdlDescTable() {
+        $desc = array();
+        $desc['G'] = array( 'img' => '<img src="'.ROOT_PATH.'scp/images/dot_green15x15.png" alt="" title="'
+                                .sprintf(__('Due in more than %s hour(s)'),'12').'">',
+                            'desc' => sprintf(__('Due in more than %s hour(s)'),'12'));
+        $desc['Y'] = array( 'img' => '<img src="'.ROOT_PATH.'scp/images/dot_yellow15x15.png" alt="" title="'
+                                .sprintf(__('Due in less than %s hour(s)'),'12').'">',
+                            'desc' => sprintf(__('Due in less than %s hour(s)'),'12'));
+        $desc['R'] = array( 'img' => '<img src="'.ROOT_PATH.'scp/images/dot_red15x15.png" alt="" title="'
+                                .sprintf(__('Due in less than %s hour(s)'),'3').'">',
+                            'desc' => sprintf(__('Due in less than %s hour(s)'),'3'));
+        $desc['R0'] = array('img' => '<img src="'.ROOT_PATH.'scp/images/dot_red_blink15x15.gif" alt="" title="'
+                                .sprintf(__('Due in less than %s hour(s)'),'1').'">',
+                            'desc' => sprintf(__('Due in less than %s hour(s)'),'1'));
+        $desc['R1'] = array('img' => '<img src="'.ROOT_PATH.'scp/images/dot_red_blink15x15.gif" alt="" style="border:1px solid red;" title="'
+                                .__('Ticket is already overdue').' '.__('however, not marked as overdue')
+                                .' &#10;'.__('The option - Mark only unanswered tickets as overdue - may be selected').'">',
+                            'desc' => __('Ticket is already overdue').' '.__('however, not marked as overdue'));
+        $desc['O'] = array( 'img' => '<img src="./images/icons/overdue_tickets.gif" alt="" title="'
+                                .__('Ticket is already overdue').'">',
+                            'desc' => __('Ticket is already overdue'));
+        $desc['No'] = array('img' => '<img src="'.ROOT_PATH.'scp/images/dot_grey15x15.png" alt="" title="'.__('no Due date').' / '.__('Ticket').': '.__('Closed').'">',
+                            'desc' => __('no Due date').' / '.__('Ticket').': '.__('Closed'));
+
+        echo '<h3 id="ddlDescHL" style="font-size:smaller;">'.__('Due date').': <a>'.__('Icon description').'</a></h3>';
+        $counter=0;
+        echo '<div id="ddlDescInfoDiv" style="width: 400px; padding: 5px; background-color: white; border: 2px solid #CCCCCC; display:none; position:absolute;">';
+        echo '<table id="ddlDescTable">';
+        foreach($desc AS $v) {
+            echo '<tr>';
+            #echo '<td style="'.($counter%2?'':'border:1px solid #CCC;')
+            #        .'padding:5px 0px 0px 0px;width:30px;height:25px;text-align:center;">'
+            #        .$v['img'].'</td>';
+            echo '<td>'.$v['img'].'</td>';
+            echo '<td style="font-size:smaller;">'.$v['desc'].'</td>';
+            echo '<tr>';
+            $counter++;
+        }
+        echo '</tr></table></div>';
+        echo '<script type="text/javascript">'
+        . '$("#ddlDescHL").click(function() {$("#ddlDescInfoDiv").toggle(200);});'
+        . '</script>';
+    }
+}
+// Anpassung Ende: Fälligkeitsampel
 // Anpassung Anfang: jstree for elements
 class jstreeElement {
     /* required files for jstree elements
