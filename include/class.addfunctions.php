@@ -8,6 +8,7 @@
     class ddl                      - due date light functions
     class jstreeElement            - helptopics drop down tree
     class AntiSpam_Honeypot        - honeypot for web forms
+    class AntiSpam_ByTime          - observe time for filling web forms
 
     Jens Eberle <jens@isohd.net>
     Copyright (c)  2006-2023 osTicket.com.de
@@ -644,3 +645,58 @@ class AntiSpam_Honeypot {
     }
 }
 // Anpassung Ende: Honeypot
+// Anpassung Anfang: spam protection by time
+// https://www.osulzer.at/spambot-bekampfung-ohne-captcha-abfrage/
+class AntiSpam_ByTime {
+    // für verschlüsseltes timestamp feld
+    static $key      = SECRET_SALT;
+    static $cipher   = 'aes-128-cbc';
+    static $iv       = '4897024361752598';
+
+    static $minTime  = 5;    // in sec
+    static $maxTime  = 3600; // in sec
+
+    static function isAvailable() {
+        return in_array(self::$cipher, openssl_get_cipher_methods());
+    }
+
+    static function generateTimeHash() {
+        if(!self::isAvailable())
+            return false;
+
+        // erstelle aktuellen timestamp
+        $time = new DateTime();
+
+        // gibt verschlüsselten timestamp wert zurück
+        return openssl_encrypt($time->getTimestamp(), self::$cipher, self::$key, 0, self::$iv);
+    }
+
+    static function checkTimeHash(string $timeHash='') {
+        if(!self::isAvailable())
+            return false;
+
+        if(   !$timeHash 
+           || !($decryptedTime = openssl_decrypt($timeHash, self::$cipher, self::$key, 0, self::$iv))
+          ) // timeHash manipulated
+            return __('Encrypted timespamp was manipulated');
+
+        // erstelle aktuellen timestamp
+        $now = new DateTime();
+        $currentTime = $now->getTimestamp();
+
+        if(   ($currentTime - $decryptedTime) <= self::$minTime
+           || ($currentTime - $decryptedTime) >= self::$maxTime
+          ) {
+            return sprintf('%s. (%s)',
+                           __('Form completion time outside the permitted time frame'),
+                           sprintf('between %s and %s seconds',
+                                   self::$minTime,
+                                   self::$maxTime
+                                  )
+                          );
+        }
+
+        return true;
+    }
+}
+// Anpassung Ende: spam protection by time

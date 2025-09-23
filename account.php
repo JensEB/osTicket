@@ -73,6 +73,17 @@ elseif ($_POST) {
         exit;
     }
 // Anpassung Ende: Honeypot
+// Anpassung Anfang: spam protection by time
+    if(   AntiSpam_ByTime::isAvailable()
+       && ($check = AntiSpam_ByTime::checkTimeHash($_POST['thash'])) !== true
+      ) {
+        $errors['err']=$check;
+        $ost->logWarning(__('bot detection'),__('Client registation denied by bot detection! (form filling time checked)'), false);
+        // maybe a bot, display him a 404 Page
+        Http::response(404);
+        exit;
+    }
+// Anpassung Ende: spam protection by time
     if (!$user_form->isValid(function($f) { return $f->isVisibleToUsers(); }))
         $errors['err'] = __('Incomplete client information');
     elseif (!$_POST['backend'] && !$_POST['passwd1'])

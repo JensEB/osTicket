@@ -52,6 +52,18 @@ if ($_POST) {
         Http::response(404);
     }
 // Anpassung Ende: Honeypot
+// Anpassung Anfang: spam protection by time
+    if(   !($thisclient && $thisclient->getId() && $thisclient->isValid()) // ignore time control, if client is logged in
+       && AntiSpam_ByTime::isAvailable()
+       && ($check = AntiSpam_ByTime::checkTimeHash($_POST['thash'])) !== true
+      ) {
+        $errors['err']=$check;
+        $ost->logWarning(__('bot detection'),__('Ticket denied by bot detection! (form filling time checked)').' - '.$check, false);
+        // maybe a bot, display him a 404 Page
+        Http::response(404);
+        exit;
+    }
+// Anpassung Ende: spam protection by time
     //Ticket::create...checks for errors..
     if(($ticket=Ticket::create($vars, $errors, SOURCE))){
         $msg=__('Support ticket request created');

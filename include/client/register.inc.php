@@ -23,6 +23,9 @@ $info = Format::htmlchars(($errors && $_POST)?$_POST:$info);
   <?php csrf_token(); ?>
   <input type="hidden" name="do" value="<?php echo Format::htmlchars($_REQUEST['do']
     ?: ($info['backend'] ? 'import' :'create')); ?>" />
+<?php // Anpassung Anfang: spam protection by time
+    echo sprintf('<input type="hidden" name="thash" value="%s">', AntiSpam_ByTime::generateTimeHash());
+// Anpassung Ende: spam protection by time ?>
 <table width="800" class="padded">
 <?php /* Anpassung Anfang: Honeypot
 <tbody>
