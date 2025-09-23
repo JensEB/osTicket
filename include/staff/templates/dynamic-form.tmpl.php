@@ -100,6 +100,9 @@ if (isset($options['entry']) && $options['mode'] == 'edit') { ?>
                         echo Format::viewableImages($field->getLocal('hint')); ?></em>
                 <?php
                 }
+// Anpassung Anfang: message not required by response
+                if(!($field->get('name') == 'message' && $_SESSION['noMessageRequired'] == 1) )
+// Anpassung Ende: message not required by response
                 foreach ($field->errors() as $e) { ?>
                     <div class="error"><?php echo Format::htmlchars($e); ?></div>
                 <?php }

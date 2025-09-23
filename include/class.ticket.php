@@ -4091,6 +4091,10 @@ implements RestrictedAccess, Threadable, Searchable {
         // Create and verify the dynamic form entry for the new ticket
         $form = TicketForm::getNewInstance();
         $form->setSource($vars);
+// Anpassung Anfang: message not required by response
+        if($vars['message'] == 'noMessage')
+            $form->getField('message')->setValue($vars['message']);
+// Anpassung Ende: message not required by response
 
         // If submitting via email or api, ensure we have a subject and such
         if (!in_array(strtolower($origin), array('web', 'staff'))) {
@@ -4436,6 +4440,11 @@ implements RestrictedAccess, Threadable, Searchable {
         //post the message.
         $vars['title'] = $vars['subject']; //Use the initial subject as title of the post.
         $vars['userId'] = $ticket->getUserId();
+// Anpassung Anfang: message not required by response
+        if($vars['message'] == 'noMessage')
+            $message = $vars['response'];
+        else
+// Anpassung Ende: message not required by response
         $message = $ticket->postMessage($vars , $origin, false);
 
         $vars['ticket'] = $ticket;
@@ -4636,6 +4645,36 @@ implements RestrictedAccess, Threadable, Searchable {
         $create_vars = $vars;
         $tform = TicketForm::objects()->one()->getForm($create_vars);
         $mfield = $tform->getField('message');
+// Anpassung Anfang: message not required by response
+        // assigned to opening staff to check permission to respond
+        $assigned = (   $vars['assignId'] == 's'.$thisstaff->getId()
+                     || (   $vars['assignId'] && $vars['assignId'][0] == 't'
+                         && in_array(substr($vars['assignId'], 1), $thisstaff->getTeams())
+                        )
+                    )?true:false;
+        if(!$role
+           && (   ($topic=Topic::lookup($vars['topicId']) )
+               || ($topic=$cfg->getDefaultTopic() )
+              )
+          ) {
+            $role = $thisstaff->getRole($topic->getDept(), $assigned);
+        }
+        if(isset($thisstaff)
+           && !strlen(Format::striptags($mfield->getValue()))
+           && strlen(Format::striptags($create_vars['response'])) > 6
+           && (   $assigned
+               || ($role ? $role->hasPerm(Ticket::PERM_REPLY)
+                         : $thisstaff->hasPerm(Ticket::PERM_REPLY, false)
+                  )
+              )
+        ) {
+            $mfield->setValue('noMessage');
+            $create_vars['message'] = $vars['message'] =  'noMessage';
+            $_SESSION['noMessageRequired'] = 1;
+        } else {
+            unset($_SESSION['noMessageRequired']);
+        }
+// Anpassung Ende: message not required by response
         $create_vars['message'] = $mfield->getClean();
         $create_vars['files'] = $mfield->getWidget()->getAttachments()->getFiles();
 
@@ -4650,12 +4689,24 @@ implements RestrictedAccess, Threadable, Searchable {
         $alert = strcasecmp('none', $vars['reply-to']);
         // post response - if any
         $response = null;
+/* Anpassung Anfang: message not required by response
         if ($vars['response'] && $role->hasPerm(Ticket::PERM_REPLY)) {
+*/
+// check permissions on new ticket, if response without message is sent
+        // ticket filter can change dept and change permissions for reply -> ignore here to prevent empty threads
+        if ($vars['response'] && $role->hasPerm(Ticket::PERM_REPLY) || $_SESSION['noMessageRequired']) {
+// Anpassung Ende: message not required by response
             $vars['response'] = $ticket->replaceVars($vars['response']);
             // $vars['cannedatachments'] contains the attachments placed on
             // the response form.
             $response = $ticket->postReply($vars, $errors, ($alert &&
                         !$cfg->notifyONNewStaffTicket()));
+// Anpassung Anfang: message not required by response
+            if($_SESSION['noMessageRequired'] && $response instanceof ThreadEntry) {
+                $response->setFlag(ThreadEntry::FLAG_ORIGINAL_MESSAGE);
+                $response->save();
+            }
+// Anpassung Ende: message not required by response
         }
 
         // Not assigned...save optional note if any
@@ -4681,6 +4732,11 @@ implements RestrictedAccess, Threadable, Searchable {
             && ($email=$dept->getEmail())
         ) {
            $attachments = array();
+// Anpassung Anfang: message not required by response
+           if($vars['message'] == 'noMessage' && $response)
+               $message = FALSE;
+            else
+// Anpassung Ende: message not required by response
            $message = $ticket->getLastMessage();
            if ($cfg->emailAttachments()) {
                if ($message && $message->getNumAttachments()) {
