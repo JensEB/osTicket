@@ -171,6 +171,18 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
                 <span class="error"><?php echo $errors['default_help_topic']; ?></span>
             </td>
         </tr>
+<!-- Anpassung Anfang: block parent helptopic (globale Einstellung) -->
+        <tr >
+            <td width="180">
+                <?php echo __('Block parent topics');?>:
+            </td>
+            <td colspan="2">
+                <input type="checkbox" name="blockParentTopic" <?php echo $config['blockParentTopic']?'value="1" checked':'';?>>
+                <?php echo __('Parent topics are visible but not selectable').'.<br>('.__('Global setting').')';?>
+                <i class="help-tip icon-question-sign" href="#blockParentTopic"></i>
+            </td>
+        </tr>
+<!-- Anpassung Ende: block parent helptopic (globale Einstellung) -->
         <tr>
             <td width="180"><?php echo __('Lock Semantics'); ?>:</td>
             <td>

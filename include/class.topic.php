@@ -360,12 +360,21 @@ implements TemplateVariable, Searchable {
               $T = CustomDataTranslation::translate($tag);
               return $T != $tag ? $T : $default;
           };
+// Anpassung Anfang: block parent helptopic (globale Einstellung)
+            $pids = [];
+            foreach ($topics AS $t) {
+                if($t['pid']) { $pids[] = $t['pid']; }
+            }
+// Anpassung Ende: block parent helptopic (globale Einstellung)
 
           // Resolve parent names
           foreach ($topics as $id=>$info) {
               $name = $localize_this($id, $info['topic']);
               $loop = array($id=>true);
               $parent = false;
+// Anpassung Anfang: block parent helptopic (globale Einstellung)
+              $topics[$id]['notSelectable'] = ($cfg && $cfg->get('blockParentTopic') && in_array($id, $pids)) ? 1 : 0;
+// Anpassung Ende: block parent helptopic (globale Einstellung)
               while (($pid = $info['pid']) && ($info = $topics[$info['pid']])) {
 /* Anpassung Anfang: help-topic-drop-down (jsTree) - use parameter $getPathNames
                   $name = sprintf('%s / %s', $localize_this($pid, $info['topic']),
@@ -477,6 +486,9 @@ implements TemplateVariable, Searchable {
                             'value'=>$tid,
                             'text'=>$tname,# use localized name - $T['topic'],
                             'disabled'=>$T['disabled'],
+// Anpassung Anfang: block parent helptopic (globale Einstellung)
+                            'selectable'=>$T['notSelectable']&&!$opts['ignoreRestrictions']?false:true
+// Anpassung Ende: block parent helptopic (globale Einstellung)
                           ];
         }
         return $data;

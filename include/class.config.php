@@ -268,6 +268,9 @@ class OsticketConfig extends Config {
 // Anpassung Anfang: overdue_only_unanswered
         'overdue_only_unanswered' => 0,
 // Anpassung Ende: overdue_only_unanswered
+// Anpassung Anfang: block parent helptopic (globale Einstellung)
+        'blockParentTopic' => 1,
+// Anpassung Ende: block parent helptopic (globale Einstellung)
     );
 
     function __construct($section=null) {
@@ -1497,6 +1500,9 @@ class OsticketConfig extends Config {
 // Anpassung Anfang: Staff email reply is a response
             'agent_email_type'=>$vars['agent_email_type'] ?: 'N',
 // Anpassung Ende: Staff email reply is a response
+// Anpassung Anfang: block parent helptopic (globale Einstellung)
+            'blockParentTopic'=>$vars['blockParentTopic']?1:0,
+// Anpassung Ende: block parent helptopic (globale Einstellung)
         ));
     }
 
