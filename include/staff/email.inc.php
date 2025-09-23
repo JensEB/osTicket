@@ -275,3 +275,24 @@ $(function() {
     });
 });
 </script>
+<!-- Anpassung Anfang: help-topic-drop-down (jsTree) -->
+<?php if($cfg->getTopicSortMode() != 'm') { ?>
+    <script type="text/javascript">
+    $(function() {
+        var selector = '*[name="topic_id"]';
+        var jsTreeOpts = [];
+        jsTreeOpts['initId']=<?php echo $info['topic_id']?:0;?>;
+        jsTreeOpts['initText']='— <?php echo addslashes(__('System Default')); ?> —';
+        jsTreeOpts['elemData'] = <?php
+                                    $opts = [
+                                              'selectText' => ' — '.addslashes(__('Select Help Topic')).' — ',
+                                              'ignoreRestrictions' => false
+                                            ];
+                                    $data = Topic::getHelpTopicsTreeData(false, false, $opts);
+                                    echo Topic::getHelpTopicsTree($data);
+                                 ?>;
+        initJsTreeForElement(selector, jsTreeOpts);
+    });
+    </script>
+<?php } ?>
+<!-- Anpassung Ende: help-topic-drop-down (jsTree) -->

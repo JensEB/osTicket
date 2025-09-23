@@ -516,6 +516,47 @@ implements AuthenticatedUser, EmailContact, TemplateVariable, Searchable {
 
         return $topics;
     }
+// Anpassung Anfang: help-topic-drop-down (jsTree)
+    function getTopicTree($publicOnly=false, $disabled=false, $options=[]) {
+        if(!is_array($options)) {
+            $options = [];
+        }
+
+        if (!$this->hasPerm(Dept::PERM_DEPT) && $this->getDepts()) {
+            $options['thisstaff'] = $this;
+        }
+        $data = Topic::getHelpTopicsTreeData($publicOnly, $disabled, $options);
+        
+        return Topic::getHelpTopicsTree($data);
+    }
+
+    function checkTopicVisibility($tdata) {;
+        if (!$this->hasPerm(Dept::PERM_DEPT) && $staffDepts = $this->getDepts()) {
+            // check parent access
+            $parentHidden = false;
+            if (    $tdata['pid']
+                 && ($parent = Topic::lookup($tdata['pid']))
+                 && !$parent->isPublic()
+                 && $parent->getDeptId()
+                 && !in_array($parent->getDeptId(), $staffDepts)
+               ) {
+                //hide child if parent topic is private and no access to parent topic dept_id
+                $parentHidden = true;
+            }
+
+            //hide topic if parent is not visible or is private and has a dept_id without access to topic dept_id
+            if (    $parentHidden
+                 || (   !$tdata['public']
+                     && ($childDeptId = $tdata['dept_id'])
+                     && !in_array($childDeptId, $staffDepts)
+                    )
+               ) {
+                return false; // hide topic
+            }
+        }
+        return true; // show topic
+    }
+// Anpassung Ende: help-topic-drop-down (jsTree)
 
     function getManagedDepartments() {
 

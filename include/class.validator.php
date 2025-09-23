@@ -73,6 +73,11 @@ class Validator {
                      $this->errors[$k]=$field['error'];
                 elseif ($field['min'] && $this->input[$k] < $field['min'])
                      $this->errors[$k]=$field['error'];
+// Anpassung Anfang: help-topic-drop-down (jsTree) - topicId = 0 -> not valid
+                if($k == 'topicId' && !$this->input[$k]){
+                    $this->errors[$k]=$field['error'];
+                }
+// Anpassung Ende: help-topic-drop-down (jsTree)
                 break;
             case 'double':
                 if(!is_numeric($this->input[$k]))

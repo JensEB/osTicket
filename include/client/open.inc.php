@@ -126,3 +126,31 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
             window.location.href='index.php';">
   </p>
 </form>
+<!-- Anpassung Anfang: help-topic-drop-down (jsTree) -->
+<?php if($cfg->getTopicSortMode() != 'm') { ?>
+<script type="text/javascript">
+$(function() {
+    var selector = '*[name="topicId"]';
+    var jsTreeOpts = [];
+    jsTreeOpts['initId']=<?php echo $info['topicId']?:0;?>;
+    jsTreeOpts['initText']='— <?php echo addslashes(__('Select Help Topic')); ?> —';
+    jsTreeOpts['onChange']=function(obj) {
+        var data = $(':input[name]', '#dynamic-form').serialize();
+        $.ajax('ajax.php/form/help-topic/' + obj.value, {
+            data: data,
+            dataType: 'json',
+            success: function(json) {
+              $('#dynamic-form').empty().append(json.html);
+              $(document.head).append(json.media);
+            }
+        });
+    };
+    jsTreeOpts['elemData'] = <?php
+                                $data = Topic::getHelpTopicsTreeData(true);
+                                echo Topic::getHelpTopicsTree($data);
+                             ?>;
+    initJsTreeForElement(selector, jsTreeOpts);
+});
+</script>
+<?php } ?>
+<!-- Anpassung Ende: help-topic-drop-down (jsTree) -->

@@ -299,3 +299,22 @@ $(function() {
     $('[name=ticket_number_format]').on('keyup', update_example);
 });
 </script>
+<!-- Anpassung Anfang: help-topic-drop-down (jsTree) -->
+<?php if($cfg->getTopicSortMode() != 'm') { ?>
+    <script type="text/javascript">
+    $(function() {
+        var selector = '*[name="default_help_topic"]';
+        var jsTreeOpts = [];
+        jsTreeOpts['initId']=<?php echo $info['default_help_topic']?:$config['default_help_topic']?:0;?>;
+        jsTreeOpts['initText']='&mdash; <?php echo addslashes(__('None')); ?> &mdash;';
+        jsTreeOpts['elemData'] = <?php
+                                    $opts = [ 'selectText' => ' — '.addslashes(__('None')).' — ',
+                                              'ignoreRestrictions' => false ];
+                                    $data = Topic::getHelpTopicsTreeData(false, false, $opts);
+                                    echo Topic::getHelpTopicsTree($data);
+                                ?>;
+        initJsTreeForElement(selector, jsTreeOpts);
+    });
+    </script>
+<?php } ?>
+<!-- Anpassung Ende: help-topic-drop-down (jsTree) -->

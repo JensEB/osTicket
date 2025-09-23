@@ -130,7 +130,11 @@ implements TemplateVariable, Searchable {
     }
 
     static function getTopicName($id) {
+/* Anpassung Anfang: help-topic-drop-down (jsTree) (show help topic names with path)
         $names = static::getHelpTopics(false, true);
+*/
+        $names = static::getHelpTopics(false, true, true,[],false,true);
+// Anpassung Ende: help-topic-drop-down (jsTree)
         return is_numeric($id) && isset($names[$id]) ? $names[$id] : '';
     }
 
@@ -319,7 +323,11 @@ implements TemplateVariable, Searchable {
             $this->flags &= ~$flag;
     }
 
+/* Anpassung Anfang: help-topic-drop-down (jsTree) - add parameter $getPathNames, $denyTopics
     static function getHelpTopics($publicOnly=false, $disabled=false, $localize=true, $whitelist=array(), $allData=false) {
+*/
+    static function getHelpTopics($publicOnly=false, $disabled=false, $localize=true, $whitelist=array(), $allData=false, $getPathNames=true, $denyTopics = array()) {
+// Anpassung Ende: help-topic-drop-down (jsTree) - add parameter $getPathNames, $denyTopics
       global $cfg;
       static $topics, $names = array();
 
@@ -355,7 +363,12 @@ implements TemplateVariable, Searchable {
               $loop = array($id=>true);
               $parent = false;
               while (($pid = $info['pid']) && ($info = $topics[$info['pid']])) {
+/* Anpassung Anfang: help-topic-drop-down (jsTree) - use parameter $getPathNames
                   $name = sprintf('%s / %s', $localize_this($pid, $info['topic']),
+*/
+                  if($getPathNames) // html-Pfeil-Code: &#10140;
+                  $name = sprintf('%s | %s', $localize_this($pid, $info['topic']),
+// Anpassung Ende: help-topic-drop-down (jsTree) - use parameter $getPathNames
                       $name);
                   if ($parent && $parent['disabled'])
                       // Cascade disabled flag
@@ -374,11 +387,23 @@ implements TemplateVariable, Searchable {
       $topicsClean = array();
       foreach ($names as $id=>$n) {
           $info = $topics[$id];
+//Anpassung Anfang: help-topic-drop-down (jsTree) - use parameter $denyTopics
+          if(is_array($denyTopics) 
+             && count($denyTopics) 
+             && in_array($id, $denyTopics)
+            ) {
+                continue;
+          }
+//Anpassung Ende: help-topic-drop-down (jsTree) - use parameter $denyTopics
           if ($publicOnly && !$info['public'])
               continue;
           //if topic is disabled + we're not getting all topics OR topic is not in whitelist
           if ($info['disabled'] && (!$disabled || ($whitelist && !in_array($id, $whitelist))))
               continue;
+// Anpassung Anfang: help-topic-drop-down (jsTree) - use parameter $getPathNames
+          if($getPathNames)
+              $info['topic'] = $n;
+// Anpassung Ende: help-topic-drop-down (jsTree) - use parameter $getPathNames
           if ($disabled === self::DISPLAY_DISABLED && $info['disabled'])
               $n .= " - ".__("(disabled)");
           $requested_names[$id] = $n;
@@ -398,6 +423,61 @@ implements TemplateVariable, Searchable {
 
       return $requested_names;
     }
+// Anpassung Anfang: help-topic-drop-down (jsTree)
+   // Function to create hierarchy tree
+    static function getHelpTopicsTreeData($publicOnly=false, $disabled=false, $options=[]) {
+        global $cfg;
+
+        $opts = [
+                  'localize' => true,
+                  'whitelist' => [],
+                  'selectText' => false,
+                  'denyTopics' => [],
+                  'forceSelection' => false,
+                  'ignoreRestrictions' => false
+                ];
+        if($options && is_array($options)) {
+            $opts = array_merge($opts, $options);
+        }
+
+        // we need $requested_names to get localized topic names
+        $requested_names = self::getHelpTopics($publicOnly, $disabled, $opts['localize'], $opts['whitelist'], false/*$allData*/, false/*$getPathNames*/, $opts['denyTopics']);
+        // we need $topics to get additional data
+        $topics = self::getHelpTopics($publicOnly, $disabled, $opts['localize'], $opts['whitelist'], true/*$allData*/, false/*$getPathNames*/, $opts['denyTopics']);
+        $data = array();
+        if($opts['selectText']) {
+            $data['0'] = array('id'=>'0',
+                               'pid'=>'0',
+                               'value'=>'0',
+                               'text'=>$opts['selectText'],
+                               'disabled'=>false,
+                               'selectable'=>$opts['forceSelection']?false:true,
+                        );
+        }
+        foreach ($requested_names as $tid=>$tname) {
+            // check staff access if staff-object ist available
+            if(   ($thisstaff = $opts['thisstaff'])
+               && is_object($thisstaff)
+               && method_exists($thisstaff, 'checkTopicVisibility')
+               && !$thisstaff->checkTopicVisibility($topics[$tid])
+              ) {
+                  continue;
+            }
+            $T = $topics[$tid];
+            $data[$tid] = [ 'id'=>$tid,
+                            'pid'=>$T['pid'],
+                            'value'=>$tid,
+                            'text'=>$tname,# use localized name - $T['topic'],
+                            'disabled'=>$T['disabled'],
+                          ];
+        }
+        return $data;
+    }
+
+    static function getHelpTopicsTree($data) {
+        return jstreeElement::generateTree($data);
+    }
+// Anpassung Ende: help-topic-drop-down (jsTree)
 
     static function getPublicHelpTopics() {
         return self::getHelpTopics(true);

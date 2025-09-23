@@ -2845,7 +2845,124 @@ class ThreadEntryField extends FormField {
     }
 }
 
+// Anpassung Anfang: help-topic-drop-down (jsTree)
+class TopicWidget extends ChoicesWidget {
+
+    function render($options=array()) {
+        global $cfg;
+
+        $mode = null;
+        if (isset($options['mode']))
+            $mode = $options['mode'];
+        elseif (isset($this->field->options['render_mode']))
+            $mode = $this->field->options['render_mode'];
+
+        if ($mode == 'view') {
+            $val = (string) $this->field;
+            echo sprintf('<span id="field_%s" %s >%s</span>', $this->id,
+                    $val ? '': 'class="faded"',
+                    $val ?: __('None'));
+            return;
+        }
+
+        $config = $this->field->getConfiguration();
+        if ($mode == 'search') {
+            $config['multiselect'] = true;
+        }
+
+        // Determine the value for the default (the one listed if nothing is
+        // selected)
+        $choices = $this->field->getChoices(true, $options);
+        $prompt = ($config['prompt'])
+            ? $this->field->getLocal('prompt', $config['prompt'])
+            : __('Select'
+            /* Used as a default prompt for a custom drop-down list */);
+
+        $have_def = false;
+        // We don't consider the 'default' when rendering in 'search' mode
+        if (!strcasecmp($mode, 'search')) {
+            $def_val = $prompt;
+        } else {
+            $showdefault = true;
+            if ($mode != 'create')
+                 $showdefault = false;
+            $def_key = $this->field->get('default');
+            if (!$def_key && isset($config['default']))
+                $def_key = $config['default'];
+            if (is_array($def_key))
+                $def_key = key($def_key);
+            $have_def = isset($choices[$def_key]);
+            $def_val = ($have_def && !$showdefault) ? $choices[$def_key] : $prompt;
+        }
+
+        $values = $this->value;
+        if (!is_array($values) && isset($values)) {
+            $values = array($values => $this->field->getChoice($values));
+        }
+
+        if (!is_array($values))
+            $values = $have_def ? array($def_key => $choices[$def_key]) : array();
+
+        if (isset($config['classes']))
+            $classes = 'class="'.$config['classes'].'"';
+        ?>
+        <select name="<?php echo $this->name; ?>[]"
+            <?php echo implode(' ', array_filter(array($classes))); ?>
+            id="<?php echo $this->id; ?>"
+            <?php if (isset($config['data']))
+              foreach ($config['data'] as $D=>$V)
+                echo ' data-'.$D.'="'.Format::htmlchars($V).'"';
+            ?>
+            data-placeholder="<?php echo Format::htmlchars($prompt); ?>"
+            <?php if ($config['multiselect'])
+                echo ' multiple="multiple"'; ?>>
+            <?php if ($showdefault || (!$have_def && !$config['multiselect'])) { ?>
+            <option value="<?php echo $showdefault ? '' : $def_key; ?>">&mdash; <?php
+                echo __($def_val); ?> &mdash;</option>
+<?php
+        }
+        $this->emitChoices($choices, $values, $have_def, $def_key); ?>
+        </select>
+        <?php
+        if ($config['multiselect']) { ?>
+            <script type="text/javascript">
+            $(function() {
+                $("#<?php echo $this->id; ?>")
+                .select2({'minimumResultsForSearch':10, 'width': '350px'});
+            });
+            </script>
+       <?php } elseif($cfg->getTopicSortMode() != 'm') {
+           $thisValue = is_array($this->value)?key($this->value):$this->value;
+       ?>
+            <script type="text/javascript">
+            $(function() {
+                //var selector = '*[name="topicId"]';
+                var selector = '#<?php echo $this->id; ?>';
+                var jsTreeOpts = [];
+                jsTreeOpts['initId']='<?php echo $thisValue?:$def_key?:'0';?>';
+                jsTreeOpts['initText']='— <?php echo addslashes(__('Select Help Topic')); ?> —';
+                jsTreeOpts['elemData'] = <?php
+                                            $thisstaff = $GLOBALS['thisstaff'];
+                                            if(   $thisstaff
+                                               && is_object($thisstaff)
+                                               && method_exists($thisstaff, 'checkTopicVisibility')
+                                              ) {
+                                                echo $thisstaff->getTopicTree(false);
+                                            } else {
+                                                echo Topic::getHelpTopicsTree(true);
+                                            }
+                                        ?>;
+                initJsTreeForElement(selector, jsTreeOpts);
+            });
+            </script>
+        <?php }
+    }
+}
+// Anpassung Ende: help-topic-drop-down (jsTree)
 class TopicField extends ChoiceField {
+// Anpassung Anfang: help-topic-drop-down (jsTree)
+    static $widget = 'TopicWidget';
+// Anpassung Ende: help-topic-drop-down (jsTree)
     var $topics;
     var $_choices;
 

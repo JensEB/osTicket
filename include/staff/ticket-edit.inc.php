@@ -204,3 +204,21 @@ if ($_POST)
   }, 20);
 })();
 </script>
+<!-- Anpassung Anfang: help-topic-drop-down (jsTree) -->
+<?php if($cfg->getTopicSortMode() != 'm') { ?>
+<script type="text/javascript">
+$(function() {
+    var selector = '*[name="topicId"]';
+    var jsTreeOpts = [];
+    jsTreeOpts['initId']=<?php echo $info['topicId']?:0;?>;
+    jsTreeOpts['initText']='— <?php echo addslashes(__('Select Help Topic')); ?> —';
+    jsTreeOpts['elemData'] = <?php
+                                $opts = [ 'selectText' => ' — '.addslashes(__('Select Help Topic')).' — ',
+                                          'ignoreRestrictions' => false ];
+                                echo $thisstaff->getTopicTree(false, false, $opts);
+                            ?>;
+    initJsTreeForElement(selector, jsTreeOpts);
+});
+</script>
+<?php } ?>
+<!-- Anpassung Ende: help-topic-drop-down (jsTree) -->

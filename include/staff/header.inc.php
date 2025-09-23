@@ -1,6 +1,11 @@
 <?php
 header("Content-Type: text/html; charset=UTF-8");
+/* Anpassung Anfang: help-topic-drop-down (jsTree)
 header("Content-Security-Policy: frame-ancestors ".$cfg->getAllowIframes()."; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'");
+*/
+// jsTree uses a blob ressource for window.Worker (jstree.min.js) -> we need to allow 'worker-src 'self' blob:'
+header("Content-Security-Policy: frame-ancestors ".$cfg->getAllowIframes()."; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'self' blob:; worker-src 'self' blob:");
+// Anpassung Ende: help-topic-drop-down (jsTree)
 
 $title = ($ost && ($title=$ost->getPageTitle()))
     ? $title : ('osTicket :: '.__('Staff Control Panel'));
@@ -53,6 +58,15 @@ if (osTicket::is_ie())
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="<?php echo ROOT_PATH ?>images/oscar-favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="<?php echo ROOT_PATH ?>images/oscar-favicon-16x16.png" sizes="16x16" />
+<!-- Anpassung Anfang: help-topic-drop-down (jsTree) -->
+    <?php if($cfg->getTopicSortMode() != 'm') { ?>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jstree.min.js?<?php echo GIT_VERSION; ?>"></script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jstree.sort.js?<?php echo GIT_VERSION; ?>"></script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jstree.wholerow.js?<?php echo GIT_VERSION; ?>"></script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jstree_element.js?<?php echo GIT_VERSION; ?>"></script>
+        <link type="text/css" rel="stylesheet" href="<?php echo ROOT_PATH; ?>css/jstree_element.css?<?php echo GIT_VERSION; ?>"/>
+    <?php } ?>
+<!-- Anpassung Ende: help-topic-drop-down (jsTree) -->
 
     <?php
     if($ost && ($headers=$ost->getExtraHeaders())) {

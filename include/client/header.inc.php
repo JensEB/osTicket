@@ -6,7 +6,12 @@ $signin_url = ROOT_PATH . "login.php"
 $signout_url = ROOT_PATH . "logout.php?auth=".$ost->getLinkToken();
 
 header("Content-Type: text/html; charset=UTF-8");
+/* Anpassung Anfang: help-topic-drop-down (jsTree)
 header("Content-Security-Policy: frame-ancestors ".$cfg->getAllowIframes()."; script-src 'self' 'unsafe-inline'; object-src 'none'");
+*/
+// jsTree uses a blob ressource for window.Worker (jstree.min.js) -> we need to allow 'worker-src 'self' blob:'
+header("Content-Security-Policy: frame-ancestors ".$cfg->getAllowIframes()."; script-src 'self' 'unsafe-inline'; object-src 'none'; worker-src 'self' blob:");
+// Anpassung Ende: help-topic-drop-down (jsTree)
 
 if (($lang = Internationalization::getCurrentLanguage())) {
     $langs = array_unique(array($lang, $cfg->getPrimaryLanguage()));
@@ -62,6 +67,15 @@ if (osTicket::is_ie())
     <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/redactor-plugins.js"></script>
     <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/redactor-osticket.js"></script>
     <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/select2.min.js"></script>
+<!-- Anpassung Anfang: help-topic-drop-down (jsTree) -->
+    <?php if($cfg->getTopicSortMode() != 'm') { ?>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jstree.min.js?<?php echo GIT_VERSION; ?>"></script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jstree.sort.js?<?php echo GIT_VERSION; ?>"></script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jstree.wholerow.js?<?php echo GIT_VERSION; ?>"></script>
+        <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jstree_element.js?<?php echo GIT_VERSION; ?>"></script>
+        <link type="text/css" rel="stylesheet" href="<?php echo ROOT_PATH; ?>css/jstree_element.css?<?php echo GIT_VERSION; ?>"/>
+    <?php } ?>
+<!-- Anpassung Ende: help-topic-drop-down (jsTree) -->
     <?php
     if($ost && ($headers=$ost->getExtraHeaders())) {
         echo "\n\t".implode("\n\t", $headers)."\n";
