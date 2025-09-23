@@ -72,8 +72,15 @@ $extensions = array(
 <tbody>
     <tr><td><?php echo __('osTicket Version'); ?></td>
         <td><span class="ltr"><?php
+/* Anpassung Anfang: set de-Version
             echo sprintf("%s (%s)", THIS_VERSION, trim($commit)); ?></span>
 <?php
+*/
+            echo 'osTicket '.DE_VERSION_TYPE.' ';
+            echo sprintf("%s (%s)", THIS_VERSION, trim($commit)).' '.__('Patch').'-'.DE_VERSION.' — '.__('German Version').'</span>';
+
+// Anpassung Ende:  set de-Version
+/* Anpassung Anfang: display osTicket.com.de-Update-Button
 $lv = $ost->getLatestVersion('core', MAJOR_VERSION);
 $tv = THIS_VERSION;
 $gv = (GIT_VERSION == '$git') ? substr(@`git rev-parse HEAD`, 0, 7) : (false ?: GIT_VERSION);
@@ -99,6 +106,17 @@ if (!$lv) { ?>
         ?></strong>
 <?php
 }
+*/
+    if($updateData = addFunc::getUpdateData()) {
+        echo '<a class="green button action-button pull-right"href="'.$updateData['link']
+            .'" target="_blank" style="margin:-5px 0px;"><i class="icon-rocket"></i>'. __('Upgrade').'</a>'
+            .'<div style="margin:0px 4px;color:red; font-weight:normal; float:right;"> '
+            .sprintf(__("%s is available"), $updateData['version']).' >>> </div>';
+        
+    } else {
+        echo ' — <span style="color:green"><i class="icon-check"></i> '.__('Up to date').'</span>';
+    }
+// Anpassung Ende: display osTicket.com.de-Update-Button
 ?>
     </td></tr>
     <tr><td><?php echo __('Web Server Software'); ?></td>

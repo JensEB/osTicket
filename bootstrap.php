@@ -369,6 +369,10 @@ define('CLI_DIR', INCLUDE_DIR.'cli/');
 define('GIT_VERSION','$git');
 define('MAJOR_VERSION', '1.18');
 define('THIS_VERSION', MAJOR_VERSION.'-git'); //Shown on admin panel
+// Anpassung Anfang: set de-Version
+define('DE_VERSION', '4');
+define('DE_VERSION_TYPE', 'FREE');
+// Anpassung Ende:  set de-Version
 //Path separator
 if(!defined('PATH_SEPARATOR')){
     if(strpos($_ENV['OS'],'Win')!==false || !strcasecmp(substr(PHP_OS, 0, 3),'WIN'))

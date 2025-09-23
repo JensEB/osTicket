@@ -38,6 +38,25 @@ $url=URL;
                         <a href="https://docs.osticket.com/" target="_blank">https://docs.osticket.com/</a>
                     </td>
                 </tr>
+<!-- Anpassung Anfang: check for Updates -->
+                <tr>
+                    <td>osTicket System:</td>
+                    <td colspan="2" width="100%">
+                    <?php
+                    require_once(INCLUDE_DIR.'class.addfunctions.php');
+                    if($updateData = addFunc::getUpdateData()) {
+                        echo '<a class="green button action-button pull-right"href="'.$updateData['link']
+                            .'" target="_blank"><i class="icon-rocket"></i>'. __('Upgrade').'</a>'
+                            .'<div style="margin:5px;color:red; font-weight:normal; float:right;"> '
+                            .sprintf(__("%s is available"), $updateData['version']).' >>> </div>';
+
+                    } else {
+                        echo '<span style="color:green;margin:5px;display:inline-block;"><i class="icon-check"></i> '.__('Up to date').'</span>';
+                    }
+                    ?>
+                    </td>
+                </tr>
+<!-- Anpassung Ende: check for Updates -->
             </table>
             <p><b>PS</b>: <?php echo __("Don't just make customers happy, make happy customers!");?></p>
     </div>

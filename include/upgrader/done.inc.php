@@ -14,6 +14,21 @@ $_SESSION['ost_upgrader']=null;
                 __('Release Notes')
         ));?></p>
         </div>
+<!-- Anpassung Anfang - check for Updates -->
+        <p><?php
+            echo 'osTicket System: ';
+            require_once(INCLUDE_DIR.'class.addfunctions.php');
+            if($updateData = addFunc::getUpdateData()) {
+                echo '<a class="green button action-button pull-right"href="'.$updateData['link']
+                    .'" target="_blank"><i class="icon-rocket"></i>'. __('Upgrade').'</a>'
+                    .'<div style="margin:5px;color:red; font-weight:normal; float:right;"> '
+                    .sprintf(__("%s is available"), $updateData['version']).' >>> </div>';
+
+            } else {
+                echo '<span style="color:green;margin:5px;display:inline-block;"><i class="icon-check"></i> '.__('Up to date').'</span>';
+            }
+        ?></p>
+<!-- Anpassung Ende -->
         <p><?php echo __('Once again, thank you for choosing osTicket.');?></p>
         <p><?php echo sprintf(__('Please feel free to %1$s let us know %2$s
                     of any other improvements and features you would like to

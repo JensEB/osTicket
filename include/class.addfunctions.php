@@ -3,6 +3,7 @@
     class.addfunctions.php
 
     Enthält:
+    class addFunc       - check for updates
     class ds            - department selector functions
     class ddl           - due date light functions
     class jstreeElement - helptopics drop down tree
@@ -17,6 +18,85 @@
     vim: expandtab sw=4 ts=4 sts=4:
 **********************************************************************/
 
+class addFunc {
+
+    static function checkForUpdates() {
+        if( !function_exists("curl_init") && !function_exists("curl_setopt") && 
+            !function_exists("curl_exec") && !function_exists("curl_close") ) {
+            // can't check for updates
+            return false; 
+        }
+        
+        $data = array();
+        $data['v'] = THIS_VERSION;
+        $data['g'] = GIT_VERSION;
+        $data['m'] = MAJOR_VERSION;
+        $data['d'] = DE_VERSION;
+        $data['t'] = DE_VERSION_TYPE;
+        $vid = self::getVid();
+        $data['i'] = substr($vid, 1);
+        $data['a'] = substr($vid, 0,1);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://osticket.com.de/checkUpdates.php");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        //return the transfer as a string 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        $chreturn = curl_exec($ch);
+        $chcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        if ($chcode == 200) { // 200 = OK, 201 = Created
+            $lv = explode("p", $chreturn);
+            $cv = array(substr(THIS_VERSION,1), DE_VERSION);
+            if(version_compare($cv[0],$lv[0]) < 0) return array('nv',$cv,$lv); // note a new version
+            elseif(version_compare($cv[0],$lv[0]) == 0 && $cv[1] < $lv[1]) return array('np',$cv,$lv); // note a new patch
+            else return array('lv',$cv,$lv); // note a latest version
+        } else {
+            return 'false';
+        }
+    }
+
+    static function getUpdateData() {
+        if(!($lv = self::checkForUpdates()))
+            return false;
+
+        $updateLink = (defined('DE_VERSION_TYPE') && DE_VERSION_TYPE=='PLUS')
+                      ?'https://osticket.com.de/login/'
+                      :'https://osticket.com.de/downloads/';
+
+        if($lv[0] == 'nv'){ // neue Version und Patch
+            $version = 'v'.$lv[2][0].' Patch '.$lv[2][1];
+        } elseif ($lv[0] == 'np') { // neuer Patch
+            $version = 'Patch '.$lv[2][1];
+        } else { // aktuell oder unbekannt
+            return false;
+        }
+
+        return ['link'=>$updateLink, 'version'=>$version];
+    }
+
+    static function getVid() {
+        $vidfile = UPGRADE_DIR.'streams/upgrade.txt';
+        $fvid = (file_exists($vidfile))?file_get_contents($vidfile):'ost-1546460168';
+        $svid = (isset($GLOBALS['cfg']) && $GLOBALS['cfg']->get('vid'))?$GLOBALS['cfg']->get('vid'):NULL;
+        if(!$svid) {
+            $sql = "INSERT INTO ".CONFIG_TABLE." (`id`, `namespace`, `key`, `value`, `updated`) VALUES (NULL, 'core', 'vid', ".db_input($fvid).", CURRENT_TIMESTAMP)";
+            db_query($sql);
+            $return = 'i'.$fvid;
+        } elseif($svid != $fvid) {
+            $sql = 'UPDATE '.CONFIG_TABLE.' SET `value`='.db_input($fvid).' WHERE `key`="vid"';
+            db_query($sql);
+            $return = (($svid=='ost-1546460168')?'i':'u').$fvid;
+        } else {
+            $return = 'c'.$fvid;
+        }
+        return $return;
+    }
+}
 // Anpassung Anfang: Abteilungsauswahl
 class ds {
 

@@ -3,7 +3,25 @@ if(!defined('OSTADMININC') || !$thisstaff || !$thisstaff->isAdmin() || !$config)
 
 $gmtime = Misc::gmtime();
 ?>
+<!-- Anpassung Anfang: check for Updates - set de-Version
 <h2><?php echo __('System Settings and Preferences');?> <small>— <span class="ltr">osTicket (<?php echo $cfg->getVersion(); ?>)</span></small></h2>
+-->
+<div style="float:right;">
+<?php
+if($updateData = addFunc::getUpdateData()) {
+    echo '<a class="green button action-button pull-right"href="'.$updateData['link']
+        .'" target="_blank"><i class="icon-rocket"></i>'. __('Upgrade').'</a>'
+        .'<div style="margin:5px;color:red; font-weight:normal; float:right;"> '
+        .sprintf(__("%s is available"), $updateData['version']).' >>> </div>';
+
+} else {
+    echo '<span style="color:green;margin:5px;display:inline-block;"><i class="icon-check"></i> '.__('Up to date').'</span>';
+}
+?>
+</div>
+<h2><?php echo __('System Settings and Preferences');?> <small>— <span class="ltr">osTicket <?php echo DE_VERSION_TYPE.' ('.$cfg->getVersion()
+    .' / '.__('Patch').'-'.DE_VERSION.') — '.__('German Version'); ?></span></small></h2>
+<!-- Anpassung Ende: set de-Version -->
 <form action="settings.php?t=system" method="post" class="save">
 <?php csrf_token(); ?>
 <input type="hidden" name="t" value="system" >
