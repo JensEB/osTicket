@@ -835,6 +835,11 @@ if ($errors['err'] && isset($_POST['a'])) {
         <li><a href="#note" <?php
             echo isset($errors['postnote']) ?  'class="error"' : ''; ?>
             id="post-note-tab"><?php echo __('Post Internal Note');?></a></li>
+<!-- Anpassung Anfang: Ticket merge -->
+        <?php if ($role->hasPerm(Ticket::PERM_MERGE) && !$ticket->isChild()) { ?>
+        <li><a href="#merge" id="merge_tab" ><?php echo __('Merge');?></a></li>
+        <?php } ?>
+<!-- Anpassung Ende: Ticket merge -->
         <?php
         } ?>
     </ul>
@@ -1264,6 +1269,11 @@ if ($errors['err'] && isset($_POST['a'])) {
        </p>
    </form>
    <?php } ?>
+<!-- Anpassung Anfang: Ticket merge -->
+   <?php if ($role->hasPerm(Ticket::PERM_MERGE) && !$ticket->isChild()) {
+             include(STAFFINC_DIR.'ticket-view.inc-mergeForm.php');
+         } ?>
+<!-- Anpassung Ende: Ticket merge -->
  </div>
  </div>
 </div>

@@ -176,6 +176,18 @@ if($_POST && !$errors):
         $dept = $ticket->getDept();
         $isManager = $dept->isManager($thisstaff); //Check if Agent is Manager
         switch(strtolower($_POST['a'])):
+// Anpassung Anfang: Ticket merge
+        case 'mergeticket':
+            require_once(INCLUDE_DIR.'class.ticket-merge.inc.php');
+            $tm = ticket_merge_quick::merge($ticket, $_POST);
+            if(is_int($tm)) { // parentTicketId returned?
+                $msg = __('Tickets merged sucessfully');
+                $redirect = 'tickets.php?id='.$tm;
+            } else {
+                $errors['err'] = $errors['merge'] = $tm;
+            }
+            break;
+// Anpassung Ende: Ticket merge
         case 'reply':
             if (!$role || !$role->hasPerm(Ticket::PERM_REPLY)) {
                 $errors['err'] = __('Action denied. Contact admin for access');
