@@ -181,6 +181,9 @@ $dispatcher = patterns('',
         url_get('^status/(?P<status>\w+)(?:/(?P<sid>\d+))?$', 'changeSelectedTicketsStatus'),
         url_post('^status/(?P<state>\w+)$', 'setSelectedTicketsStatus'),
         url_get('^(?P<tid>\d+)/tasks$', 'tasks'),
+// Anpassung Anfang: Tab Dateianhänge im Ticketverlauf
+        url_get('^(?P<tid>\d+)/attachmentList$', 'attachmentList'),
+// Anpassung Ende: Tab Dateianhänge im Ticketverlauf
         url('^(?P<tid>\d+)/add-task$', 'addTask'),
         url_get('^(?P<tid>\d+)/tasks/(?P<id>\d+)/view$', 'task'),
         url_post('^(?P<tid>\d+)/tasks/(?P<id>\d+)$', 'task'),
