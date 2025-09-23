@@ -99,6 +99,21 @@ if (osTicket::is_ie())
             hreflang="x-default" />
 <?php
     }
+// Anpassung Anfang: Honeypot
+    $hpClass = AntiSpam_Honeypot::getHpClass();
+    $hpName  = AntiSpam_Honeypot::getHpInputName();
+    $overlayZIndex = random_int (100,999);
+    $HPzIndex = random_int (10,99);
+    $HPtopPos = random_int (1,45);
+    echo '<style>'
+         #, '.'.$hpClass.' {position:relative; display: block;}'
+         , '.'.$hpClass.' > * {position:relative; z-index:',$overlayZIndex,'; background-color:#fff;}'
+         , '#header {z-index:',$overlayZIndex,'; background-color:#fff;}'
+         , '.'.$hpClass.' > *:last-child {'
+         , 'position: absolute; top:',$HPtopPos,'px; z-index:',$HPzIndex,';'
+         , '}'
+         , '</style>';
+// Anpassung Ende: Honeypot
     ?>
 </head>
 <body>

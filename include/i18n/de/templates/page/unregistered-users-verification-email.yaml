@@ -1,0 +1,42 @@
+#
+# unregistered-users-verification-email
+#
+# Email sent out on denied Tickets from unregistered mails
+#
+---
+notes: >
+    Diese Vorlage definiert die E-Mail, die an die Kunden versendet wird, deren E-Mail-Adresse
+    unbekannt ist und Ihre E-Mail-Anfrage mit einem Verifizierungslink bestätigen müssen.<br /><br />
+    Folgende Platzhalter können unter anderem verwendet werden:<br>
+    %{email} = Sender E-Mail-Adresse; %{name} = Sender Name<br>
+    %{subject} = Betreff; %{message} = Mitteilung; %{company.*} = Betreiberplatzhalter<br>
+    %{url} = Url zum Ticketsystem (z.B. %{url}/open.php = Webformular)<br>
+    %{SP_EXPIRATION_DATETIME} = Ablaufdatum des Links; %{SP_TOKEN} = Bestätigungstoken
+name: E-Mail-Anfrage bestätigen
+body: >
+    <div>
+    <strong><h3><strong>Hallo %{name},</strong></h3> </strong>
+    <strong>Ihre Anfrage von %{email} wurde von unserem System noch nicht bearbeitet,
+    da Ihre E-Mail-Adresse unbekannt ist.</strong><br />
+    <br />
+    Bitte bestätigen Sie bis zum %{SP_EXPIRATION_DATETIME}, dass diese Anfrage wirklich von Ihnen stammt,
+    indem Sie auf folgenden Verifizierungsslink klicken.<br />
+    <br />
+    <a href="%{url}/sp_verify.php?t=%{SP_TOKEN}">Support-Anfrage bestätigen</a><br />
+    <br />
+    Im Anschluss wird die Anfrage erstellt und bearbeitet.<br />
+    Sollten Sie die Anfrage nicht rechtzeitig bestätigen, wird sie unwiederbringlich gelöscht.<br />
+    Alternativ können Sie die Anfrage auch über das <a href="%{url}/open.php">Web-Formular</a> stellen.<br />
+    Dadurch wird die E-Mail-Adresse in unserem System gespeichert und ist bei der nächsten
+    E-Mail-Anfrage bekannt, wodurch die zusätzliche Verifizierung Ihrer Adresse entfällt.<br />
+    <br />
+    Diese Maßnahme dient dazu, unerwünschte SPAM-Anfragen so gut wie möglich zu verhindern.<br />
+    <br />
+    Vielen Dank für Ihre Unterstützung im Kampf gegen SPAM.<br />
+    <br />
+    <em>Ihr freundliches Supportteam</em><br />
+    %{company.name}
+    <hr>
+    <p><strong>Ihr Betreff:</strong><br>%{subject}</p>
+    <p><strong>Ihre Anfrage:</strong><br>%{message}</p>
+    </div>

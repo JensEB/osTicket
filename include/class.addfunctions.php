@@ -3,10 +3,11 @@
     class.addfunctions.php
 
     Enthält:
-    class addFunc       - check for updates
-    class ds            - department selector functions
-    class ddl           - due date light functions
-    class jstreeElement - helptopics drop down tree
+    class addFunc                  - check for updates
+    class ds                       - department selector functions
+    class ddl                      - due date light functions
+    class jstreeElement            - helptopics drop down tree
+    class AntiSpam_Honeypot        - honeypot for web forms
 
     Jens Eberle <jens@isohd.net>
     Copyright (c)  2006-2023 osTicket.com.de
@@ -612,3 +613,34 @@ class jstreeElement {
     }
 }
 // Anpassung Ende: jstree for elements
+// Anpassung Anfang: Honeypot
+class AntiSpam_Honeypot {
+
+    static function getHpClass() {
+        if($_SESSION['hpClass']) {
+            return $_SESSION['hpClass'];
+        }
+        $class = substr(preg_replace("/[^0-9a-zA-Z]/", "",
+                                     Crypto::encrypt('hpPdiv', SECRET_SALT, 'honeypot')
+                                    ),  0, random_int(8,15)
+                       );
+        if(is_numeric(substr($class,  0, 1))) {
+            $class = 'h'.$class;
+        }
+        $_SESSION['hpClass'] = $class;
+        return $class;
+    }
+
+    static function getHpInputName() {
+        if($_SESSION['hpInputName']) {
+            return $_SESSION['hpInputName'];
+        }
+        $name = '_'.substr(preg_replace( "/[^0-9a-zA-Z]/", "",
+                                        Crypto::encrypt('hpName', SECRET_SALT, 'honeypot')
+                                      ), 0, 14
+                         );
+        $_SESSION['hpInputName'] = $name;
+        return $name;
+    }
+}
+// Anpassung Ende: Honeypot

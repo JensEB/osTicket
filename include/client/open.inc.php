@@ -37,7 +37,12 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
   <?php csrf_token(); ?>
   <input type="hidden" name="a" value="open">
   <table width="800" cellpadding="1" cellspacing="0" border="0">
+<?php // Anpassung Anfang: Honeypot
+/*
     <tbody>
+ */
+    echo '<tbody class="'.$hpClass.'">';
+// Anpassung Ende: Honeypot ?>
 <?php
         if (!$thisclient) {
             $uform = UserForm::getUserForm()->getForm($_POST);
@@ -51,6 +56,9 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
         <tr><td><?php echo __('Client'); ?>:</td><td><?php
             echo Format::htmlchars($thisclient->getName()); ?></td></tr>
         <?php } ?>
+<?php // Anpassung Anfang: Honeypot
+        echo '<tr><td><input type="text" name="'.$hpName.'" value=""></td></tr>';
+// Anpassung Ende: Honeypot ?>
     </tbody>
     <tbody>
 <!-- Anpassung Anfang: Design Korrektur
@@ -130,7 +138,7 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
 -->
         <td colspan="2" class="required" style="padding-top: 10px;">
             <label class="required" style="width:160px; float:left;">
-                <?php echo __('CAPTCHA Text');?> <font class="error">*&nbsp;</font>
+                <?php echo __('CAPTCHA');?> <font class="error">*&nbsp;</font>
             </label>
             <div style="padding-top: 3px; width:calc(100% - 165px); float:right;">
                 <span class="captcha"><img src="captcha.php" border="0" align="left"></span>

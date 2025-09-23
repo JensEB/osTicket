@@ -1,0 +1,43 @@
+#
+# unregistered-users-verification-email
+#
+# Email sent out on denied Tickets from unregistered mails
+#
+---
+notes: >
+    This template defines the email that is sent to customers whose email address is unknown
+    and who need to confirm their email request with a verification link.<br /><br />
+    The following placeholders can be used:<br>
+    %{recipient.*} = Placeholder for the requester (.email = Email address; .name = name)<br>
+    %{email} = sender email address; %{name} = sender name<br>
+    %{subject} = subject; %{message} = message; %{company.*} = company  placeholder<br>
+    %{url} = URL for the ticket system (e.g. %{url}/open.php = web form)<br>
+    %{SP_EXPIRATION_DATETIME} = Expiration date of the link; %{SP_TOKEN} = confirmation token
+name: Confirm email request
+body: >
+    <div>
+    <strong><h3><strong>Hello %{name},</strong></h3> </strong>
+    <strong>Your request from %{email} has not yet been processed by our
+    system because your email address is unknown.</strong><br />
+    <br />
+    Please confirm your request until %{SP_EXPIRATION_DATETIME} by clicking on the
+    following verification link. So we know that this request is really from you.<br />
+    <br />
+    <a href="%{url}/sp_verify.php?t=%{SP_TOKEN}">Confirm support request</a><br />
+    <br />
+    Then the request will be created and processed.<br />
+    If you do not confirm the request in time, it will be irretrievably deleted.<br />
+    Alternatively, you can also submit your request using the <a href="%{url}/open.php">web form</a>.<br />
+    This means that your email address will be stored in our system and will be recognized the
+    next time you send an email, without the need for additional verification of your address.<br />
+    <br />
+    This measure serves to prevent unwanted SPAM requests as much as possible.<br />
+    <br />
+    Thank you for your support in the fight against SPAM.<br />
+    <br />
+    <em>Your friendly support team</em><br />
+    %{company.name}
+    <hr>
+    <p><strong>Your subject:</strong><br>%{subject}</p>
+    <p><strong>Your request:</strong><br>%{message}</p>
+    </div>
