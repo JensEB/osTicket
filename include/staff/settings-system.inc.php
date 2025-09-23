@@ -473,6 +473,14 @@ if($updateData = addFunc::getUpdateData()) {
                 <i class="help-tip icon-question-sign" href="#files_req_auth"></i>
             </td>
         </tr>
+<!-- Anpassung Anfang: For Paid Plugin - advanced dashboard for osticket -->
+        <?php
+        if(file_exists(ROOT_DIR.'scp/advDashboard/class.advDashboard.php')) {
+            require_once ROOT_DIR.'scp/advDashboard/class.advDashboard.php';
+            advDashboard::getDashboardAdminSettingsTable($config);
+        }
+        ?>
+<!-- Anpassung Ende: For Paid Plugin - advanced dashboard for osticket -->
     </tbody>
 </table>
 <p style="text-align:center;">

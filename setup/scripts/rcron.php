@@ -36,7 +36,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $config['url']);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, '');
-curl_setopt($ch, CURLOPT_USERAGENT, 'osTicket API Client v1.7');
+curl_setopt($ch, CURLOPT_USERAGENT, 'osTicket API Client v1.18');
 curl_setopt($ch, CURLOPT_HEADER, TRUE);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'Expect:', 'X-API-Key: '.$config['key']));
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, FALSE);

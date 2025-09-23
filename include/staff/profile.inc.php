@@ -11,6 +11,14 @@ if(!defined('OSTSTAFFINC') || !$staff || !$thisstaff) die('Access Denied');
     <li class="active"><a href="#account"><i class="icon-user"></i> <?php echo __('Account'); ?></a></li>
     <li><a href="#preferences"><?php echo __('Preferences'); ?></a></li>
     <li><a href="#signature"><?php echo __('Signature'); ?></a></li>
+<!-- Anpassung Anfang: For Paid Plugin - advanced dashboard for osticket -->
+    <?php
+    if(file_exists(ROOT_DIR.'scp/advDashboard/class.advDashboard.php')) {
+        require_once ROOT_DIR.'scp/advDashboard/class.advDashboard.php';
+        advDashboard::getProfileTabHeader();
+    }
+    ?>
+<!-- Anpassung Ende: For Paid Plugin - advanced dashboard for osticket -->
   </ul>
 
   <div class="tab_content" id="account">
@@ -491,6 +499,13 @@ if (($bks=Staff2FABackend::allRegistered())) {
       </tbody>
     </table>
   </div>
+<!-- Anpassung Anfang: For Paid Plugin - advanced dashboard for osticket -->
+    <?php
+    if(file_exists(ROOT_DIR.'scp/advDashboard/class.advDashboard.php')) {
+        advDashboard::getProfileTabBody();
+    }
+    ?>
+<!-- Anpassung Ende: For Paid Plugin - advanced dashboard for osticket -->
 
   <p style="text-align:center;">
     <button class="button action-button" type="submit" name="submit" ><i class="icon-save"></i> <?php echo __('Save Changes'); ?></button>
