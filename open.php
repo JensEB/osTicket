@@ -41,6 +41,17 @@ if ($_POST) {
     // Drop the draft.. If there are validation errors, the content
     // submitted will be displayed back to the user
     Draft::deleteForNamespace('ticket.client.'.substr(session_id(), -12));
+// Anpassung Anfang: Honeypot
+    $hpName  = AntiSpam_Honeypot::getHpInputName();
+    if(  !($thisclient && $thisclient->getId() && $thisclient->isValid()) // ignore Honeypot, if client is logged in
+       && ($vars[$hpName]??0) && strlen(trim($vars[$hpName]))
+      ) {
+        $errors['err']=__('Ticket denied by bot detection!');
+        $ost->logWarning(__('bot detection'),__('Ticket denied by bot detection! (Honeypot)'), false);
+        // maybe a bot, display him a 404 Page
+        Http::response(404);
+    }
+// Anpassung Ende: Honeypot
     //Ticket::create...checks for errors..
     if(($ticket=Ticket::create($vars, $errors, SOURCE))){
         $msg=__('Support ticket request created');

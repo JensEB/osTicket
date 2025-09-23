@@ -24,7 +24,11 @@ $info = Format::htmlchars(($errors && $_POST)?$_POST:$info);
   <input type="hidden" name="do" value="<?php echo Format::htmlchars($_REQUEST['do']
     ?: ($info['backend'] ? 'import' :'create')); ?>" />
 <table width="800" class="padded">
+<?php /* Anpassung Anfang: Honeypot
 <tbody>
+ */
+echo '<tbody class="'.$hpClass.'">';
+// Anpassung Ende: Honeypot ?>
 <?php
     $cf = $user_form ?: UserForm::getInstance();
     $cf->render(array('staff' => false, 'mode' => 'create'));
@@ -88,6 +92,9 @@ $info = Format::htmlchars(($errors && $_POST)?$_POST:$info);
     </td>
 </tr>
 <?php } ?>
+<?php // Anpassung Anfang: Honeypot
+        echo '<tr><td><input type="text" name="'.$hpName.'" value=""></td></tr>';
+// Anpassung Ende: Honeypot ?>
 </tbody>
 </table>
 <hr>

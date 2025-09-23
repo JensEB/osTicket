@@ -59,7 +59,20 @@ elseif ($_POST) {
         $user_form->getField('email')->value = $thisclient->getEmail();
         $_POST['email'] = $thisclient->getEmail();
     }
-
+    if(!$_POST['captcha'])
+        $errors['captcha']=__('Enter text shown on the image');
+    elseif(strcmp($_SESSION['captcha'], md5(strtoupper($_POST['captcha']))))
+        $errors['captcha']=sprintf('%s - %s', __('Invalid'), __('Please try again!'));
+// Anpassung Anfang: Honeypot
+    $hpName  = AntiSpam_Honeypot::getHpInputName();
+    if($_POST[$hpName]) {
+        $errors['err']=__('Registration denied by bot detection!');
+        $ost->logWarning(__('bot detection'),__('Client registation denied by bot detection! (Honeypot)'), false);
+        // maybe a bot, display him a 404 Page
+        Http::response(404);
+        exit;
+    }
+// Anpassung Ende: Honeypot
     if (!$user_form->isValid(function($f) { return $f->isVisibleToUsers(); }))
         $errors['err'] = __('Incomplete client information');
     elseif (!$_POST['backend'] && !$_POST['passwd1'])

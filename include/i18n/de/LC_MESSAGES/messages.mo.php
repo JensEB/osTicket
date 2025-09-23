@@ -3683,8 +3683,6 @@ verwendet werden, um Sequenzen für unterschiedliche Zwecke zu erzeugen.',
   'Reopen Auto Assignment' => 'Automatisch Zuweisen nach Wiedereröffnung',
   'auto assign on reopen' => 'automatisch zuweisen nach Wiedereröffnung',
   'Highly Recommended' => 'Sehr Empfohlen',
-  'Alert user by denied Tickets' => 'Kunden über verweigerte Tickets informieren',
-  'Send Email Alert on denied Tickets from unregistered Emails' => 'E-Mail-Benachrichtigung bei verweigerten Tickets von unbekannten E-Mail-Adressen versenden',
   'Delete user without Tickets' => 'Kunden ohne Tickets löschen',
   'Do not delete user automatically' => 'Keine Kunden automatisch löschen',
   'Delete all users' => 'Alle Kunden löschen',
@@ -3713,11 +3711,6 @@ verwendet werden, um Sequenzen für unterschiedliche Zwecke zu erzeugen.',
   'error' => 'Fehler',
   'Retry sending with PHP mail()...' => 'Erneuter Sendeversuch über PHP mail()...',
   'See email log entries for this ticket' => 'E-Mail Protokolleinträge zu diesem Ticket anzeigen',
-  'bot detection' => 'Bot-Erkennung',
-  'Ticket denied by bot detection!' => 'Ticket durch die Bot-Erkennung verweigert!',
-  'Ticket denied by bot detection! (Honeypot)' => 'Ticket durch die Bot-Erkennung verweigert! (Honeypot)',
-  'Registration denied by bot detection!' => 'Registrierung durch die Bot-Erkennung verweigert!',
-  'Client registation denied by bot detection! (Honeypot)' => 'Kundenregistrierung durch die Bot-Erkennung verweigert! (Honeypot)',
   'Ticket Owner cannot be a Collaborator' => 'Ticketbesitzer kann keine beteiligte Person sein',
   '%s cannot be more than 8760 hours' => '%s kann nicht mehr als 8760 Stunden sein',
   'Grace period' => 'Fälligkeitsfrist',
@@ -4002,6 +3995,25 @@ verwendet werden, um Sequenzen für unterschiedliche Zwecke zu erzeugen.',
   'Current password is incorrect.' => 'Das aktuelle Passwort ist falsch.',
   "Agent will have access to tickets assigned to a team they belong to regardless of the ticket's department. Alerts can be enabled for each associated team." 
     => "Agenten haben Zugriff auf Tickets, die einem Team zugewiesen sind, dem sie angehören, unabhängig von der Abteilung des Tickets. Benachrichtigungen können für jedes zugehörige Team aktiviert werden.",
+
+// Anpassung Anfang: Honeypot
+  'bot detection' => 'Bot-Erkennung',
+  'Ticket denied by bot detection!' => 'Ticket durch die Bot-Erkennung verweigert!',
+  'Ticket denied by bot detection! (Honeypot)' => 'Ticket durch die Bot-Erkennung verweigert! (Honeypot)',
+  'Registration denied by bot detection!' => 'Registrierung durch die Bot-Erkennung verweigert!',
+  'Client registation denied by bot detection! (Honeypot)' => 'Kundenregistrierung durch die Bot-Erkennung verweigert! (Honeypot)',
+// Anpassung Ende: Honeypot
+// Anpassung Anfang: spam protection by time
+ 'Encrypted timespamp was manipulated' => 'Verschlüsselter Timespamp wurde manipuliert',
+ 'Form completion time outside the permitted time frame' => 'Ausfüllzeit des Formulars außerhalb der erlaubten Zeitspanne',
+ 'Client registation denied by bot detection! (form filling time checked)' => 'Kundenregistrierung durch Bot-Erkennung abgelehnt! (Formularausfüllzeit geprüft)',
+ 'Ticket denied by bot detection! (form filling time checked)' => 'Ticket durch Bot-Erkennung abgelehnt! (Formularausfüllzeit geprüft)',
+ 'between %s and %s seconds' => 'zwischen %s und %s Sekunden',
+// Anpassung Ende: spam protection by time
+
+// PlusAnpassung Anfang: new captcha - ALTCHA
+  'CAPTCHA verification failed' => 'CAPTCHA-Überprüfung fehlgeschlagen',
+// PlusAnpassung Ende: new captcha - ALTCHA
 // PlusAnpassung Anfang: Add Pull Request #6448 - Ability to remove staff login link from the client login page
   'Remove Staff Login Link' => 'Agentenanmeldelink entfernen',
   'Removes the staff login link from the client login interface' => 'Entfernt den Link für die Agentenanmeldung von der Anmeldeseite des Kunden',
@@ -4079,6 +4091,27 @@ verwendet werden, um Sequenzen für unterschiedliche Zwecke zu erzeugen.',
   'Hide Entries on ticket view' => 'Einträge in der Ticketansicht verstecken',
   'Hide selected entries in the ticket view when loading the page.' => 'Ausgewählte Einträge in der Ticketansicht ausblenden, wenn die Seite geladen wird.',
 // PlusAnpassung Ende: hide selected thread entries
+// PlusAnpassung Anfang: spam protection - send ticket confirmation mail to unknown email senders
+  'Spam Protection' => 'Spamschutz',
+  'Settings for protection against spam requests' => 'Einstellungen zum Schutz vor Spamanfragen',
+  'Send verification email' => 'Überprüfungsemail senden',
+  'Send a verification link by email' => 'Versenden Sie einen Überprüfungslink per email',
+  'Emails retrieved from unknown senders are temporarily stored until the verification link is confirmed' => 'Abgerufene Emails von unbekannten Absendern werden zwischengespeichert, bis der Überprüfungslink bestätigt wird',
+  'Template for the verification email' => 'Vorlage für die Überprüfungsemail',
+  'Verification link valid for' => 'Verifizierungslink gültig für',
+  'When the verification link expires, the cached email will be deleted' => 'Wenn der Verifizierungslink abgelaufen ist, wird die zwischengespeicherte Email gelöscht',
+  'Send Verification link from' => 'Sende Verifizierungslink von',
+  'If possible, use an address that does not accept emails so that no replies to this email are received by the system' => 'Verwenden Sie wenn möglich eine Adresse, die keine Emails annimmt, damit keine Antworten auf diese Email im System ankommen',
+  'Reset email template' => 'Emailvorlage zurücksetzen',
+  'We checked your validation' => 'Wir haben Ihre Validierung überprüft',
+  'The submitted token is invalid' => 'Der übermittelte Token ist ungültig',
+  'The submitted token could not be processed' => 'Der übermittelte Token konnte nicht verarbeitet werden',
+  'Your request has been successfully confirmed and will now be processed' => 'Ihre Anfrage wurde erfolgreich bestätigt und wird nun bearbeitet',
+  'No data found' => 'Keine Daten gefunden',
+  'Maybe the token has been expired' => 'Möglicherweise ist der Token bereits abgelaufen',
+  'No valid MTA' => 'Kein gültiger MTA',
+  'No mail template found' => 'Keine E-Mail-Vorlage gefunden',
+// PlusAnpassung Ende: spam protection - send ticket confirmation mail to unknown email senders
 
   0 => 
   array (
