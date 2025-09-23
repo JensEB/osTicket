@@ -1,4 +1,3 @@
-.htaccess
 php53.cgi
 include/ost-config.php
 setup/cli/modules/importer
@@ -12,9 +11,6 @@ Vagrantfile
 
 # Staging directory used for packaging script
 stage
-
-# Ignore packaged plugins and language packs
-*.phar
 
 # Ignore mPDF temp files
 include/mpdf/ttfontdata
