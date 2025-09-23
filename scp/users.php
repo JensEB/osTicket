@@ -17,6 +17,58 @@ require('staff.inc.php');
 if (!$thisstaff->hasPerm(User::PERM_DIRECTORY))
     Http::redirect('index.php');
 
+// Anpassung Anfang: TAPI-Funktion
+if($_REQUEST['tapi']){
+    $TAPI = array();
+    $TAPI['caller'] = $_REQUEST['callerTel'];
+    $TAPI['callerName'] = $_REQUEST['callerName'];
+    $TAPI['calledTel'] = $_REQUEST['calledTel'];
+    $TAPI['isDecoded'] = ($_REQUEST['tapi'] == 'urldecoded')?TRUE:FALSE;
+    if($TAPI['isDecoded']) { //codiert
+        $TAPI['caller'] = html_entity_decode($TAPI['caller'], ENT_COMPAT, 'UTF-8');
+        $TAPI['callerName'] = html_entity_decode($TAPI['callerName'], ENT_COMPAT, 'UTF-8');
+        $TAPI['calledTel'] = html_entity_decode($TAPI['calledTel'], ENT_COMPAT, 'UTF-8');
+    }
+    // meist wird die Übermittlungsstelle mit einem @ angehängt -> abschneiden
+    if(($pos = strpos($TAPI['caller'], '@')) ==! false) { $TAPI['caller'] = substr($TAPI['caller'],0,$pos); }
+    if(($pos = strpos($TAPI['calledTel'], '@')) ==! false) { $TAPI['calledTel'] = substr($TAPI['calledTel'],0,$pos); }
+    // Superglobals werden decodiert, dabei wird '+' zu Leerzeichen...
+    foreach($TAPI as $k=>$v) {
+        $TAPI[$k] = preg_replace("/[ ]/", "+", $v);
+    }
+    if(substr($TAPI['caller'], 0, 1) == '+') {
+        $TAPI['caller']= preg_replace("/[^0-9]/", "", $TAPI['caller']);
+        $TAPI['callerSearch'] = substr($TAPI['caller'], 2);
+        $TAPI['caller'] = "+".$TAPI['caller'];
+    } elseif(substr($TAPI['caller'], 0, 2) == '00') {
+        $TAPI['caller'] = preg_replace("/[^0-9]/", "", $TAPI['caller']);
+        $TAPI['callerSearch'] = substr($TAPI['caller'], 4);
+        $TAPI['caller'] = "+".$TAPI['callerSearch'];
+    } elseif(substr($TAPI['caller'], 0, 1) == '0') {
+        $TAPI['caller'] = preg_replace("/[^0-9]/", "", $TAPI['caller']);
+        $TAPI['callerSearch'] = substr($TAPI['caller'], 1);
+    } else {
+        $TAPI['caller'] = $TAPI['callerSearch'] = preg_replace("/[^0-9]/", "", $TAPI['caller']);
+    }
+    if(substr($TAPI['calledTel'], 0, 1) == '+') {
+        $TAPI['calledTel'] = "+".preg_replace("/[^0-9]/", "", $TAPI['calledTel']);
+    } elseif(substr($TAPI['calledTel'], 0, 2) == '00') {
+        $TAPI['calledTel'] = "+".substr(preg_replace("/[^0-9]/", "", $TAPI['calledTel']), 2);
+    } else {
+        $TAPI['calledTel'] = preg_replace("/[^0-9]/", "", $TAPI['calledTel']);
+    }
+
+    $_REQUEST['a'] = 'search';
+    $_REQUEST['query'] = $TAPI['callerSearch'];
+    $info['phone'] = $TAPI['caller'];
+
+    #echo 'Anrufer-Tel.: '.$TAPI['caller'].'<br>';
+    #echo 'Anrufer-Tel. Suche: '.$TAPI['callerSearch'].'<br>';
+    #echo 'Anrufer-Name: '.$TAPI['callerName'].'<br>';
+    #echo 'gewählte Nr.: '.$TAPI['calledTel'].'<br><br>';
+    #exit();
+}
+// Anpassung Ende: TAPI-Funktion
 require_once INCLUDE_DIR.'class.note.php';
 
 $user = null;
@@ -208,6 +260,9 @@ if ($user ) {
 }
 
 $nav->setTabActive('users');
+// Anpassung Anfang: TAPI-Funktion
+if(!isset($TAPI))
+// Anpassung Ende: TAPI-Funktion
 require(STAFFINC_DIR.'header.inc.php');
 require(STAFFINC_DIR.$page);
 include(STAFFINC_DIR.'footer.inc.php');

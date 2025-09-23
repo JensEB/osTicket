@@ -520,6 +520,24 @@ $(function() {
     }, 100);
     <?php
     } ?>
+// Anpassung Anfang: TAPI-Funktion
+    <?php
+    if($_GET['tel']) {
+        //$searchValue = 'Anrufer-Tel.: '.rawurldecode($_GET['tel']);
+        #$searchValue = rawurldecode($_GET['search']);
+        $searchValue = rawurldecode($_GET['tel']);
+        $callerDivValue = '<strong>Eingehender Anfruf!</strong> Tel: '.rawurldecode($_GET['tel']);
+        if($_GET['name']) {
+            //$searchValue .= ' - Anrufer-Name: '.rawurldecode($_GET['name']);
+            $callerDivValue .= ' '.preg_replace("/[ ]/", "&nbsp;", '(Name: '.rawurldecode($_GET['name']).')');
+        }
+        ?>
+        setTimeout(function() {
+            $("#user-search").val('<?php echo $searchValue; ?>');
+            $('<div id="msg_notice"><?php echo $callerDivValue; ?></div>').insertBefore("#user-search"); 
+        }, 1000);
+    <?php } ?>
+// Anpassung Ende: TAPI-Funktion
 });
 
 $(function() {
