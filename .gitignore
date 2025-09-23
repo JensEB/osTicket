@@ -20,3 +20,12 @@ stage
 include/mpdf/ttfontdata
 include/mpdf/tmp
 nbproject/
+!/include/plugins/audit.phar
+!/include/plugins/auth-2fa.phar
+!/include/plugins/storage-fs.phar
+!/include/plugins/storage-s3.phar
+!/include/plugins/auth-oauth2.phar
+!/include/plugins/time_recording.phar
+!/include/plugins/auth-password-policy.phar
+!/include/plugins/auth-passthru.phar
+!/include/plugins/auth-ldap.phar
