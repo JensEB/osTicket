@@ -47,16 +47,6 @@ if (!$selected_page->isActive() || $selected_page->getType() != 'other')
     Http::response(404, __('Page Not Found'));
 
 require(CLIENTINC_DIR.'header.inc.php');
-
-$BUTTONS = false;
-include CLIENTINC_DIR.'templates/sidebar.tmpl.php';
-?>
-<div class="main-content">
-<?php
-print $selected_page->getBodyWithImages();
-?>
-</div>
-
-<?php
+require(CLIENTINC_DIR.'pages_index.inc.php');
 require(CLIENTINC_DIR.'footer.inc.php');
-?>
+

@@ -77,7 +77,7 @@ $extensions = array(
 
 ?>
 <h2><?php echo __('About this osTicket Installation'); ?></h2>
-<table class="list" width="100%";>
+<table class="list" width="100%">
 <thead>
     <tr><th colspan="2"><?php echo __('Server Information'); ?></th></tr>
 </thead>
@@ -92,7 +92,7 @@ $extensions = array(
             echo sprintf("%s (%s)", THIS_VERSION, trim($commit)).' '.__('Patch').'-'.DE_VERSION.' — '.__('German Version').'</span>';
 
 // Anpassung Ende:  set de-Version
-/* Anpassung Anfang: display osTicket.com.de-Update-Button
+/* Anpassung Anfang: check for Updates - display osTicket.com.de-Update-Button
 $lv = $ost->getLatestVersion('core', MAJOR_VERSION);
 $tv = THIS_VERSION;
 $gv = (GIT_VERSION == '$git') ? substr(@`git rev-parse HEAD`, 0, 7) : (false ?: GIT_VERSION);

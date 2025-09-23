@@ -83,12 +83,7 @@ if ($ticket
     )
 ) {
     // Thank the user and promise speedy resolution!
-    echo Format::viewableImages(
-        $ticket->replaceVars(
-            $page->getLocalBody()
-        ),
-        ['type' => 'P']
-    );
+    require(CLIENTINC_DIR.'open-thankyou.inc.php');
 }
 else {
     require(CLIENTINC_DIR.'open.inc.php');
