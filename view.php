@@ -20,7 +20,12 @@ $errors = array();
 // Check if the client is already signed in. Don't corrupt their session!
 if ($_GET['auth']
         && $thisclient
+/* Anpassung Anfang: make authtoken  URL safe
         && ($u = TicketUser::lookupByToken($_GET['auth']))
+*/
+        // double check - some Browser decode the auth, some Browser not
+        && ($u = TicketUser::lookupByToken($_GET['auth']) ?: TicketUser::lookupByToken(urldecode($_GET['auth'])) )
+// Anpassung Ende: make authtoken  URL safe
         && ($u->getUserId() == $thisclient->getId())
 ) {
     // Switch auth keys ? (Otherwise the user can never use links for two
@@ -35,6 +40,13 @@ if ($_GET['auth']
 elseif (isset($_GET['auth']) || isset($_GET['t'])) {
     // TODO: Consider receiving an AccessDenied object
     $user =  UserAuthenticationBackend::processSignOn($errors, false);
+// Anpassung Anfang: make authtoken  URL safe
+    // double check - some Browser decode the auth, some Browser not
+    if(!$user) {
+        $_GET['auth'] = urldecode($_GET['auth']);
+        $user =  UserAuthenticationBackend::processSignOn($errors, false);
+    }
+// Anpassung Ende: make authtoken  URL safe
 }
 
 if (@$user && is_object($user) && $user->getTicketId())

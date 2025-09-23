@@ -1258,7 +1258,11 @@ class UserAccount extends VerySimpleModel {
             'link' => sprintf(
                 "%s/pwreset.php?token=%s",
                 $ost->getConfig()->getBaseUrl(),
+/* Anpassung Anfang: make authtoken  URL safe
                 $token),
+*/
+                urlencode($token)),
+// Anpassung Ende: make authtoken  URL safe
         );
         $vars['reset_link'] = &$vars['link'];
 

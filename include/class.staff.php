@@ -1153,7 +1153,11 @@ implements AuthenticatedUser, EmailContact, TemplateVariable, Searchable {
             'reset_link' => sprintf(
                 "%s/scp/pwreset.php?token=%s",
                 $ost->getConfig()->getBaseUrl(),
+/* Anpassung Anfang: make authtoken  URL safe
                 $token),
+*/
+                urlencode($token)),
+// Anpassung Ende: make authtoken  URL safe
         );
         $vars['link'] = &$vars['reset_link'];
 

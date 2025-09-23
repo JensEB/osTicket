@@ -108,7 +108,11 @@ implements EmailContact, ITicketUser {
             if ($this->getTicket()->getAuthToken($this)
                 && ($ticket=$this->getTicket())
                 && !$ticket->getThread()->getNumCollaborators()) {
+/* Anpassung Anfang: make authtoken  URL safe
                   $qstr['auth'] = $ticket->getAuthToken($this);
+*/
+                  $qstr['auth'] = urlencode($ticket->getAuthToken($this));
+// Anpassung Ende: make authtoken  URL safe
                   return sprintf('%s/view.php?%s',
                           $cfg->getBaseUrl(),
                           Http::build_query($qstr, false)
