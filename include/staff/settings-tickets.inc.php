@@ -234,6 +234,27 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
                 <?php echo __('Enable'); ?>&nbsp;<i class="help-tip icon-question-sign" href="#require_topic_to_close"></i>
             </td>
         </tr>
+<!-- Anpassung Anfang: Staff email reply is a response -->
+        <tr>
+            <td><?php echo __('Agent email responses'); ?>:</td>
+            <td>
+                <?php echo __('Agent email is a'); ?>:&nbsp;
+                <select name="agent_email_type">
+                    <?php
+                    $aert = ['N'=>__('Internal Note'), 'R'=>__('Response')];
+                    $config['agent_email_type'] = $config['agent_email_type'] ?: 'N';
+                    foreach($aert as $t => $desc) {
+                        echo sprintf('<option value="%s" %s>%s</option>',
+                                $t,
+                                ($config['agent_email_type'] && $t==$config['agent_email_type'])?'selected="selected"':'',
+                                $desc);
+                    }
+                    ?>
+                </select>&nbsp;
+                <em><?php echo __('Permissions will be checked'); ?></em>&nbsp;
+            </td>
+        </tr>
+<!-- Anpassung Ende: Staff email reply is a response -->
         <tr>
             <td><?php echo __('Allow External Images'); ?>:</td>
             <td>
