@@ -139,6 +139,24 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
                 </span>
             </td>
         </tr>
+<!-- Anpassung Anfang: sla_from_last_message -->
+        <tr>
+            <td><?php echo __('SLA from last message'); ?>:</td>
+            <td>
+                <input type="checkbox" name="sla_from_last_message" <?php echo $config['sla_from_last_message']?'checked="checked"':''; ?>>
+                <?php echo __('Calculate SLA from last message of the client instead of create date.'); ?>&nbsp;
+            </td>
+        </tr>
+<!-- Anpassung Ende: sla_from_last_message -->
+<!-- Anpassung Anfang: overdue_only_unanswered -->
+        <tr>
+            <td><?php echo __('only mark unanswered overdue'); ?>:</td>
+            <td>
+                <input type="checkbox" name="overdue_only_unanswered" <?php echo $config['overdue_only_unanswered']?'checked="checked"':''; ?>>
+                <?php echo __('only mark unanswered Tickets as overdue.'); ?>&nbsp;
+            </td>
+        </tr>
+<!-- Anpassung Ende: overdue_only_unanswered -->
         <tr>
             <td width="180"><?php echo __('Default Help Topic'); ?>:</td>
             <td>
