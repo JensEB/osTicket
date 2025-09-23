@@ -493,6 +493,20 @@ implements Searchable {
         if ($mailinfo['email']) {
           $staffSenderId = Staff::getIdByEmail($mailinfo['email']);
 
+// Anpassung Anfang: Staff email reply is a response
+          // detect, correct sender type
+          // ticket owner?
+          if ($object instanceof Ticket && strcasecmp($mailinfo['email'], $object->getEmail()) == 0 ) {
+              $mailinfo['userClass'] = 'U';
+              $mailinfo['userId'] = $object->getUserId();
+          }
+          // responding agent?
+          elseif($staffSenderId) {
+              $mailinfo['staffId'] = $staffSenderId;
+              $mailinfo['userClass'] = 'S';
+          }
+          // collaborator?
+// Anpassung Ende: Staff email reply is a response
           if (!$staffSenderId) {
             $senderId = UserEmailModel::getIdByEmail($mailinfo['email']);
             if ($senderId) {
@@ -528,6 +542,16 @@ implements Searchable {
             $vars['staffId'] = $mailinfo['staffId'];
             if ($vars['staffId'])
                 $vars['poster'] = Staff::lookup($mailinfo['staffId']);
+// Anpassung Anfang: Staff email reply is a response
+            if($vars['poster']
+               && $object instanceof Ticket
+               && $GLOBALS['cfg']->config['agent_email_type']->ht['value'] == 'R'
+               && ($role = $object->getRole($vars['poster']))
+               && $role->hasPerm(Ticket::PERM_REPLY)
+            ) {
+                $vars['thread-type'] = 'R';
+            }
+// Anpassung Ende: Staff email reply is a response
             break;
 
         // The user type was not identified by the mail parsing system. It
@@ -611,6 +635,19 @@ implements Searchable {
             elseif ($this instanceof ObjectThread)
                 return $this->addNote($vars, $errors);
             break;
+// Anpassung Anfang: Staff email reply is a response
+        case 'R':
+            if(!$GLOBALS['thisstaff'])
+                $GLOBALS['thisstaff'] = $vars['poster'];
+            $vars['reply_to'] = 'all';
+            $vars['ccs'] = FALSE;
+            $vars['response'] = $body;
+            if ($object instanceof Threadable)
+                return $object->postThreadEntry('R', $vars);
+            elseif ($this instanceof ObjectThread)
+                return $this->addResponse($vars, $errors);
+            break;
+// Anpassung Ende: Staff email reply is a response
         }
 
         throw new Exception('Unable to continue thread via email.');
