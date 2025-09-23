@@ -171,7 +171,7 @@
     - column_id: 9
       bits: 1
       sort: 1
-      sort: 9
+      sort: 2
       width: 150
       heading: Due Date
     - column_id: 3

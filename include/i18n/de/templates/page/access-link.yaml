@@ -1,0 +1,31 @@
+#
+# access-link.yaml
+#
+# Ticket access link sent to clients for guest-only systems where the ticket
+# number and email address will trigger an access link sent via email
+#
+---
+notes: >
+    Diese Vorlage definiert die Benachrichtigung für Kunden, an die ein
+    Zugangslink an ihre E-Mail-Adresse gesendet wurde. Mit Hilfe der
+    Ticketnummer und E-Mail-Adresse wird der Zugangslink erzeugt.
+name: "Ticket [#%{ticket.number}] Zugangslink"
+body: >
+    <h3><strong>Hallo %{recipient.name},</strong></h3> 
+    <div>
+    In Ihrem Namen wurde ein Zugangslink für das Ticket #%{ticket.number} vom
+    Helpdesk %{url} angefordert.<br />
+    <br />
+    Rufen Sie bitte den folgenden Link auf, um den Status des Tickets
+    #%{ticket.number} zu überprüfen.<br />
+    <br />
+    <a href="%{recipient.ticket_link}">%{recipient.ticket_link}</a><br />
+    <br />
+    Wenn Sie diesen Link <strong>nicht</strong> angefordert haben, können Sie
+    diese E-Mail löschen und ignorieren. Ihr Konto ist immer noch sicher und
+    niemandem wurde das Ticket zugänglich gemacht. Möglicherweise hat jemand
+    versehentlich Ihre E-Mail-Adresse eingegeben.<br />
+    <br />
+    <em>Ihr freundliches Supportteam</em><br />
+    %{company.name}
+    </div>

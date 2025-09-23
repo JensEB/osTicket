@@ -1,0 +1,93 @@
+#
+# This is popup help messages for the Account Panel ->
+#
+# Fields:
+# title - Shown in bold at the top of the popover window
+# content - The body of the help popover
+# links - List of links shows below the content
+#   title - Link title
+#   href - href of link (links starting with / are translated to the
+#       helpdesk installation path)
+#
+# The key names such as 'helpdesk_name' should not be translated as they
+# must match the HTML #ids put into the page template.
+#
+---
+page_title:
+    title: Benachrichtigungen
+    content: >
+        Benachrichtigungen sind automatisierte E-Mail-Benachrichtigungen, die an
+        Agenten versendet werden, sobald verschiedene Ticketereignisse ausgelöst werden.
+
+ticket_alert:
+    title: Benachrichtigung bei neuem Ticket
+    content: >
+        <p>
+        Benachrichtigung, die an Agenten versendet wird, wenn ein neues Ticket eröffnet wurde.
+        </p><p class="info-banner">
+        <i class="icon-info-sign"></i>
+        Diese Benachrichtigung wird nicht versendet, wenn das Ticket über einen Ticketfilter oder ein Hilfethema automatisch zugewiesen wird.
+        </p>
+    links:
+      - title: Standardvorlage zur Benachrichtigung bei neuen Tickets
+        href: /scp/templates.php?default_for=ticket.alert
+
+message_alert:
+    title: Benachrichtigung bei neuer Nachricht
+    content: >
+        Benachrichtigung, die an Agenten versendet wird, wenn eine neue
+        Kundenmitteilung zu einem bestehenden Ticket eingegangen ist.
+    links:
+      - title: Standardvorlage zur Benachrichtigung bei neuen Mitteilungen
+        href: /scp/templates.php?default_for=message.alert
+
+internal_note_alert:
+    title: Benachrichtigung bei neuer interner Aktivität
+    content: >
+        Benachrichtigung, die an Agenten versendet wird, wenn eine neue interne Aktivität wie z.B. eine neue interne Notiz oder eine Antwort eines
+        Agenten zu einem Ticket angehängt wird.
+    links:
+      - title: Standardvorlage zur Benachrichtigung bei internen Ticketaktivitäten
+        href: /scp/templates.php?default_for=note.alert
+
+assignment_alert:
+    title: Benachrichtigung bei Ticketzuweisung
+    content: >
+        Benachrichtigung, die an Agenten versendet wird, wenn Ihnen ein Ticket zugewiesen wird.
+    links:
+      - title: Standardvorlage zur Benachrichtigung bei Ticketzuweisungen
+        href: /scp/templates.php?default_for=assigned.alert
+
+transfer_alert:
+    title: Benachrichtigung bei Tickettransfer
+    content: >
+        Benachrichtigung, die an Agenten versendet wird, wenn ein Ticket zu einer anderen Abteilung weitergeleitet wird.
+    links:
+      - title: Standardvorlage zur Benachrichtigung über Tickettransfer
+        href: /scp/templates.php?default_for=transfer.alert
+
+overdue_alert:
+    title: Benachrichtigung bei überfälligem Ticket
+    content: >
+        Benachrichtigung, die an Agenten versendet wird, wenn ein Ticket auf
+        Grund des SLA-Plans oder des Fälligkeitsdatums überfällig wird.
+    links:
+      - title: Standardvorlage zur Benachrichtigung bei überfälligen Tickets
+        href: /scp/templates.php?default_for=ticket.overdue
+
+      - title: SLA-Pläne verwalten
+        href: /scp/slas.php
+
+system_alerts:
+    title: Systembenachrichtigungen
+    content: >
+        Wichtige Systemereignisse, die an den Administrator
+        (%{config.admin_email}) versendet werden. Je nach konfigurierter <span
+        class="doc-desc-title">Protokollebene</span>, sind die Ereignisse auch
+        in den <span class="doc-desc-title">Systemprotokollen</span> verfügbar.
+    links:
+      - title: System-Protokolle anzeigen
+        href: /scp/logs.php
+
+      - title: E-Mail-Adresse des Administrators ändern
+        href: /scp/settings.php?t=emails

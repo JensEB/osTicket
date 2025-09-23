@@ -1,0 +1,55 @@
+#
+# This is popup help messages for the Admin Panel -> Staff -> Teams
+#
+# Fields:
+# title - Shown in bold at the top of the popover window
+# content - The body of the help popover
+# links - List of links shows below the content
+#   title - Link title
+#   href - href of link (links starting with / are translated to the
+#       helpdesk installation path)
+#
+# The key names such as 'helpdesk_name' should not be translated as they
+# must match the HTML #ids put into the page template.
+#
+---
+teams:
+    title: Teams
+    content: >
+        Teams bestehen aus einem oder mehreren Agenten, denen Tickets
+        zugewiesen werden können. Die Teammitgliedschaft kann sich über die
+        Abteilungsgrenzen hinweg erstrecken.
+
+status:
+    title: Status
+    content: >
+        Wenn das Team <span class="doc-desc-opt">deaktiviert</span> ist, kann
+        ihm weder ein Ticket zugewiesen werden noch kann es Benachrichtigungen
+        über frühere Zuweisungen empfangen.
+
+lead:
+    title: Teamleiter
+    content: >
+        Für jedes <span class="doc-desc-title">Team</span> kann ein Teamleiter
+        festgelegt werden, der unabhängig von den Teammitgliedern <span
+        class="doc-desc-title">Benachrichtigungen</span> empfangen kann.
+    links:
+      - title: Benachrichtigungen konfigurieren
+        href: /scp/settings.php?t=alerts
+
+assignment_alert:
+    title: Benachrichtigung bei Ticketzuweisung
+    content: >
+        Sie können hier die <span class="doc-desc-title">Benachrichtigung bei
+        Ticketzuweisung</span> für Tickets deaktivieren, die diesem Team zugewiesen sind.
+    links:
+      - title: Benachrichtigungen konfigurieren
+        href: /scp/settings.php?t=alerts
+
+members:
+    title: Teammitglieder
+    content: >
+        Die Teammitgliedschaft wird im Adminportal über das Konto des Agenten konfiguriert.
+    links:
+      - title: Agenten verwalten
+        href: /scp/staff.php

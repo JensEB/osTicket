@@ -1,0 +1,24 @@
+#
+# registration-staff.yaml
+#
+# Initial (optional) email sent to staff members when accounts are created
+# for them in the staff control panel
+#
+---
+notes: >
+    Diese Vorlage definiert die Bestätigungs-E-Mail (optional), die an Agenten
+    versendet wird, wenn in ihrem Namen ein Konto erstellt wurde.
+name: "Willkommen bei osTicket"
+body: >
+    <h3><strong>Hallo %{recipient.name},</strong></h3>
+    <div>
+    Es wurde für Sie ein Agentenkonto bei unserem Helpdesk auf %{url} erstellt.<br />
+    <br />
+    Folgen Sie bitte dem Link unten, um Ihr Konto zu bestätigen und Zugang zum
+    Helpdesk zu erhalten.<br />
+    <br />
+    <a href="%{link}">%{link}</a><br />
+    <br />
+    <em style="font-size: small"> Ihr freundliches Supportteam<br />
+    %{company.name}</em>
+    </div>

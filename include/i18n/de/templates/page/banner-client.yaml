@@ -1,0 +1,12 @@
+#
+# banner-client.yaml
+#
+# This forms the header on the staff login page. It can be useful to inform
+# your clients about your login and registration policies.
+---
+notes: >
+    Dies ist der einleitende Text, der auf der Anmeldeseite für Kunden angezeigt wird. Es kann
+    hilfreich sein, Ihre Kunden über Ihre Anmelde- und Registrierungsrichtlinien zu informieren.
+name: "Anmeldung bei %{company.name}"
+body: >
+    Um Ihnen besser helfen zu können, empfehlen wir unseren Kunden sich bei unserem Helpdesk zu registrieren.

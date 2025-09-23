@@ -1,0 +1,50 @@
+#
+# This is popup help messages for the Admin Panel -> Manage -> SLA Plan
+#
+# Fields:
+# title - Shown in bold at the top of the popover window
+# content - The body of the help popover
+# links - List of links shows below the content
+#   title - Link title
+#   href - href of link (links starting with / are translated to the
+#       helpdesk installation path)
+#
+# The key names such as 'helpdesk_name' should not be translated as they
+# must match the HTML #ids put into the page template.
+#
+---
+name:
+    title: Name
+    content: >
+        Wählen Sie einen erklärenden Namen für diesen <span class="doc-desc-title">SLA-Plan</span>
+        aus, der dessen Zweck wiederspiegelt.
+
+grace_period:
+    title: Ablaufzeit
+    content: >
+        Legen Sie fest, ab wie vielen Stunden nach der Eröffnung eines Tickets,
+        das Ticket als überfällig markiert wird.
+        <br><br>
+        <em>Stunden werden während des angegebenen Zeitplans gezählt. Die Rangfolge der Zeitpläne ist
+        Abteilungszeitplan, SLA-Zeitplan und dann Systemstandardzeitplan. Wenn kein Zeitplan konfiguriert
+        ist, werden die Stunden rund um die Uhr (auch außerhalb der Geschäftszeiten) gezählt, bis das
+        Ticket überfällig ist.</em>
+
+transient:
+    title: Überschreibbarkeit
+    content: >
+        Überschreibbare SLA-Pläne werden vorläufig berücksichtigt und können von
+        einem nicht-überschreibbaren SLA-Plan bei einem <span
+        class="doc-desc-opt">Abteilungstransfer</span> oder einer Änderung des
+        <span class="doc-desc-title">Hilfethemas</span> überschrieben werden.
+
+schedule:
+    title: Zeitplan
+    content: >
+        Wählen Sie den Zeitplan aus, der von diesem SLA-Plan zur Berechnung
+        von überfälligen Tickets verwendet werden soll.
+        <br><br>
+        Bitte beachten Sie, dass die Abteilungseinstellungen diesen Zeitplan überschreiben können.
+    links:
+      - title: Zeitpläne verwalten
+        href: /scp/schedules.php

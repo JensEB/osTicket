@@ -1,0 +1,91 @@
+#
+# This is popup help messages for the Staff Panel -> Dashboard -> Dashboard
+#
+# Fields:
+# title - Shown in bold at the top of the popover window
+# content - The body of the help popover
+# links - List of links shows below the content
+#   title - Link title
+#   href - href of link (links starting with / are translated to the
+#       helpdesk installation path)
+#
+# The key names such as 'helpdesk_name' should not be translated as they
+# must match the HTML #ids put into the page template.
+#
+---
+ticket_activity:
+    title: Ticket-Aktivität
+    content: >
+        Wählen Sie einen Zeitraum, um das Diagramm und die Tabelle (vgl. <span
+        class="doc-desc-title"> Statistik</span>) für die gewählte Zeitspanne
+        anzuzeigen. Die Grafik unten gibt immer einen umfassenden Überblick über
+        die Daten des gesammten Systems wider. Sie können jedoch durch die <span
+        class="doc-desc-title">Statistiktabelle</span> unten navigieren, um
+        sich auf einen bestimmten Teilbereich zu konzentrieren (z.B.
+        Abteilungen, Hilfethemen oder Agenten). Darüber hinaus können Sie
+        alle Daten exportieren, die aktuell in der <span
+        class="doc-desc-title">Statistik</span>-Tabelle angezeigt werden.
+
+report_timeframe:
+    title: Berichtszeitraum
+    content: >
+        Wählen Sie mit der Datumsauswahl ein Startdatum für den gewünschten
+        Bericht. Wählen Sie bitte anschließend die Zeitspanne, ab diesem
+        Zeitpunkt, um das Enddatum des Berichts festzulegen.
+
+statistics:
+    title: Statistiken
+    content: >
+        Navigieren Sie zu einem bestimmten Thema, indem Sie auf den
+        entsprechenden Reiter kicken, damit Ihnen die gewünschten Daten
+        angezeigt werden. Die Kreise in der Tabelle repräsentieren die Größe der
+        Nenndaten. Daher, je größer die Zahl einer bestimmten Zelle, desto größer ist auch der angezeigte Kreis in dieser Zelle.
+
+opened:
+    title: Geöffnet
+    content: >
+        Tickets, die ursprünglich mit einer Abteilungs- oder Hilfethemenangabe eröffnet wurden,
+        inklusiv der Tickets, die ein Agent im Auftrag eines Kunden geöffnet hat.
+
+assigned:
+    title: Zugewiesen
+    content: >
+        Tickets, die entweder einem Agenten oder einem Team zugewiesen wurden. Die Nummer enthält Tickets,
+        die manuell Agenten oder Teams zugewiesen werden, übernommene Tickets und Tickets,
+        die durch Ticketfilter oder andere Regeln automatisch zugewiesen wurden.
+
+overdue:
+    title: Überfällig
+    content: >
+        Tickets, die vom System als "Überfällig" markiert wurden. Das sind Tickets, die die vom SLA-Plan
+        vorgegebene Zeit überschritten haben, der diesen Tickets zugewiesen wurde, sodass sie nach dem
+        Fälligkeitsdatum immer noch den Status 'Offen' haben.
+
+closed:
+    title: Geschlossen
+    content: >
+        Dies ist die Anzahl der Tickets, die aktuell den Status 'Geschlossen' haben.
+
+reopened:
+    title: Wieder geöffnet
+    content: >
+        Die Gesamtzahl, wie oft ein Ticket erneut geöffnet wurde. Tickets werden wieder geöffnet,
+        wenn ihr Status von Geschlossen zu Offen geändert wird.
+
+deleted:
+    title: Gelöscht
+    content: >
+        Die Anzahl der Tickets, die gelöscht wurden.
+
+service_time:
+    title: Servicezeit
+    content: >
+        Die Servicezeit bezieht sich auf die Dauer der Zeit, die bei der Eröffnung eines Tickets
+        beginnt und endet, wenn das Ticket geschlossen wird. Die Spalte Servicezeit gibt die
+        durchschnittliche Servicezeit pro Ticket in Stunden an.
+
+response_time:
+    title: Reaktionszeit
+    content: >
+        Die Reaktionszeit gibt die durchschnittliche Antwortzeit eines Agenten in Stunden an,
+        die zum Beantworten eines Tickets benötigt wird.

@@ -19,6 +19,12 @@ client_name_format:
     content: >
         Choose a format for Users names throughout the system. Email templates
         will use it for names if no other format is specified.
+# PlusAnpassung Anfang: Add Pull Request #6448 - Ability to remove staff login link from the client login page
+remove_staff_login_link:
+    title: Remove Staff Login Link
+    content: >
+        If enabled, this will remove the Staff Login Link from the client login page.
+# PlusAnpassung Ende: Add Pull Request #6448 - Ability to remove staff login link from the client login page
 
 # Authentication settings
 client_password_policy:

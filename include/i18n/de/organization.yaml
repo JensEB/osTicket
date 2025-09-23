@@ -1,0 +1,13 @@
+#
+# Initial organizations defined for the system.
+#
+# Fields:
+# name - Descriptive name for the organization
+# fields - custom fields
+#
+---
+- name: osTicket
+  fields:
+    address:
+    phone: 
+    website: http://osticket.com.de

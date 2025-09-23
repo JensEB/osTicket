@@ -34,8 +34,8 @@ email_address:
         Enter Agent's email that will receive <span
         class="doc-desc-title">Alerts &amp; Notices</span> from the <span
         class="doc-desc-title">Help Desk</span>.
-		<br><br>
-		Staff can sign in into the staff control panel with either username or email address.
+        <br><br>
+        Staff can sign in into the staff control panel with either username or email address.
 
 welcome_email:
     title: Welcome Email
@@ -102,6 +102,26 @@ primary_role_on_assign:
         <span class="doc-desc-title">extended access</span> departments.
         Otherwise the agent will have view only access.
 
+# PlusAnpassung Anfang: Add Pull Request #6458 - Added Staff features in admin panel
+max_page_size:
+    title: Maximum Page Size
+    content: >
+        Choose the number of items shown per page in the Ticket Queues in the
+        Staff Panel. Each Agent can also customize this number for their own
+        account under <span class="doc-desc-title">Profile</span>.
+auto_refresh_rate:
+    title: Auto Refresh Rate
+    content: >
+        Choose the default Tickets page refresh rate in minutes for this agent.<br/>
+        Each Agent can also customize the refresh rate for their own
+        account under <span class="doc-desc-title">Profile</span>.
+default_signature:
+    title: Default Signature
+    content: >
+        Select the signature that should be preselected for replies from this Agent.<br/>
+        Each Agent can also change the preselected signature for their own
+        account under <span class="doc-desc-title">Profile</span>.
+# PlusAnpassung Ende: Add Pull Request #6458 - Added Staff features in admin panel
 daylight_saving:
     title: Daylight Saving
     content: >
@@ -130,3 +150,18 @@ vacation_mode:
         receive any <span class="doc-desc-title">Alerts &amp; Notices</span>
         nor be available for tickets assignment.
 
+# PlusAnpassung Anfang: backup assignment for vacation
+backupAssignment:
+    title: Backup Assignment
+    content: >
+        If the vacation mode is activated for this agent and a backup assignment
+        is stored, the following actions are redirected: 
+        <ul>
+            <li>All tickets assigned to this agent are automatically assigned to
+            the vacation replacement</li>
+            <li>All notifications about tickets assigned to this agent will be
+            redirected to the vacation replacement.<br>
+            This applies to all e-mails for new messages and internal activities.
+            </li>
+        </ul>
+# PlusAnpassung Ende: backup assignment for vacation

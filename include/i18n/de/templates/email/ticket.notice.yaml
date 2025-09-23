@@ -1,0 +1,47 @@
+#
+# Email template: ticket.notice.yaml
+#
+# Sent to a user when a staff member creates a ticket on the user's behalf.
+# This is most commonly performed when user's call in on the phone.
+#
+---
+notes: >
+    Wird an den Kunden versendet, wenn ein Agent ein Ticket im Namen des Kunden eröffnet. 
+    Dies kommt in der Regel dann vor, wenn der Kunde sein Problem per Telefon meldet.
+
+subject: >
+    %{ticket.subject} [#%{ticket.number}]
+body: |
+    <h3><strong>Hallo %{recipient.name},</strong></h3>
+    unser Support hat in Ihrem Namen ein Ticket mit der Ticketnummer <a
+    href="%{recipient.ticket_link}">#%{ticket.number}</a> und folgendem
+    Inhalt eröffnet:
+    <br>
+    <br>
+    Thema: <strong>%{ticket.topic.name}</strong>
+    <br>
+    Betreff: <strong>%{ticket.subject}</strong>
+    <br>
+    <br>
+    %{message}
+    <br>
+    <br>
+    %{response}
+    <br>
+    <br>
+    Sollte es notwendig sein, wird sich unser Support so schnell wie
+     möglich mit Ihnen in Verbindung setzen. Sie können <a href="%{recipient.ticket_link}">
+    den Verlauf Ihres Tickets hier online abrufen</a>.
+    <br>
+    <br>
+    <div style="color: rgb(127, 127, 127);">
+    Ihr Supportteam von %{company.name},<br>
+    %{signature}</div>
+    <hr>
+    <div style="color: rgb(127, 127, 127); font-size: small; text-align:
+    center"><em>Wenn Sie uns zusätzliche Informationen zu Ihrer Anfrage
+    mitteilen wollen, antworten Sie bitte einfach auf diese E-Mail oder 
+    <a href="%{recipient.ticket_link}"><span style="color: rgb(84, 141, 212);">
+    melden Sie sich bei unserem Helpdesk an</span></a>. Dort erhalten Sie eine
+    komplette Übersicht zu Ihren Supportanfragen.</em>
+    </div>

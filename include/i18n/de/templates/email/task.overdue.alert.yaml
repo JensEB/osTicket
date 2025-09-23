@@ -1,0 +1,37 @@
+#
+# Email template: task.overdue.alert.yaml
+#
+# Sent to agents when a tasks transitions to overdue in the system.
+# Overdue tasks occur based on set due-date.
+#
+---
+notes: |
+    Benachrichtigung, die an Agenten versendet wird, wenn eine Aufgabe im System überfällig
+    wird Überfällige Aufgaben entstehen aufgrund des gesetzten Fälligkeitsdatums
+
+subject: |
+    Benachrichtigung bei überfälliger Aufgabe
+body: |
+    <h3><strong>Hallo %{recipient.name}</strong>,</h3>
+    Die Aufgabe <a href="%{task.staff_link}">#%{task.number}</a> ernsthaft
+    überfällig.
+    <br>
+    <br>
+    Wir sollten alle hart daran arbeiten, dass alle Aufgaben garantiert
+    fristgerecht erledigt werden.
+    <br>
+    <br>
+    Benachrichtigt von,<br>
+    %{task.dept.manager.name}
+    <hr>
+    <div>Sie erhalten diese Benachrichtigung, da die Aufgabe Ihnen direkt, oder
+    einer Abteilung bzw. Team, zu dem Sie gehören zugewiesen wurde.Um die
+    Aufgabe anzusehen oder zu bearbeiten, melden Sie sich bitte am <a
+    href="%{task.staff_link}"><span style="color: rgb(84, 141, 212);"
+    >Helpdesk</span></a> an.</div>
+    <em style="color: rgb(127,127,127); font-size: small; ">Ihr freundliches
+    Supportteam von %{company.name}</em><br>
+    <a href="http://osticket.com.de/">
+    <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc"
+    alt="Powered by osTicket" width="126" height="19" style="width: 126px;">
+    </a>

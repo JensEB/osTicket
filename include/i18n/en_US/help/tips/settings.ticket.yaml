@@ -161,3 +161,32 @@ ticket_attachment_settings:
         class="doc-desc-title">issue details</span> field. These settings
         are used for all new tickets and new messages regardless of the
         source channel (web portal, email, api, etc.).
+
+# Anpassung Anfang: block parent helptopic (globale Einstellung)
+blockParentTopic:
+    title: Block parent topics
+    content: >
+        Useful in nested topics, if the parent topic should not be selectable.<br>
+        Changeable for each topic, if not global blocked.
+# Anpassung Ende: block parent helptopic (globale Einstellung)
+# PlusAnpassung Anfang: helptopic restrictions
+orgRestrictToTopics:
+    title: Organisation / Topic restrictions
+    content: >
+        <b>If a organisation is selected</b>, members of this organisation will only
+        see topics, restricted to your organisation.<br>
+        <b>If a organisation is NOT selected,</b> members of this organisation will see
+        topics, resticted to your organisation <u>&nbsp;and&nbsp;</u> all topics without
+        restrictions.
+# PlusAnpassung Ende: helptopic restrictions
+# PlusAnpassung Anfang: list decoration read normal / not read bold
+enableSeenUnseenTickets:
+    title: Function Read / Unread
+    content: >
+        If this function is activated, viewed tickets are marked as read.<br>
+        Similar to an e-mail program, on queues tickets that have not yet been viewed
+        are displayed in bold, and tickets viewed in normal font.<br><br>
+        In order to continue to see whether a ticket has been answered or not,
+        the Annotation "Unanswered" is available, which can be displayed,
+        for example, in the subject field. 
+# PlusAnpassung Ende: list decoration seen normal / not seen bold

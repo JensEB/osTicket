@@ -1,0 +1,147 @@
+#
+# This is popup help messages for the Admin Panel -> Staff -> Add New Department -> Department Form
+#
+# Fields:
+# title - Shown in bold at the top of the popover window
+# content - The body of the help popover
+# links - List of links shows below the content
+#   title - Link title
+#   href - href of link (links starting with / are translated to the
+#       helpdesk installation path)
+#
+# The key names such as 'helpdesk_name' should not be translated as they
+# must match the HTML #ids put into the page template.
+#
+---
+status:
+    title: Status
+    content: >
+        Falls deaktiviert oder archiviert, ist diese <span class="doc-desc-title">Abteilung</span>
+        nicht verfügbar.
+type:
+    title: Typ
+    content: >
+        Wählen Sie <span class="doc-desc-opt">Intern</span> aus, wenn die
+        Abteilungszuweisungen im Kundenportal nicht angezeigt werden sollen.
+        Ausserdem wird bei einer <span class="doc-desc-opt">Internen</span>
+        Abteilung <span class="doc-desc-title">keine Abteilungssignatur</span>
+        in E-Mail-Antworten angezeigt.
+        <br/> <br/>
+        Mindestens eine Abteilung muss <span
+        class="doc-desc-opt">Öffentlich</span> sein.
+
+email:
+    title: Absender-E-Mail-Adresse der Abteilung
+    content: >
+        Diese E-Mail-Adresse wird beim Versenden von Antworten an Kunden
+        verwendet, wenn Agenten dieser Abteilung Tickets beantworten.
+
+template:
+    title: Vorlagensatz
+    content: >
+        Der E-Mail-<span class="doc-desc-title">Vorlagensatz</span>, der für
+        Rückmeldungen und Benachrichtigungen verwendet wird, die zu dieser
+        Abteilung zugeordnet wurden.
+    links:
+      - title: E-Mail-Vorlagen verwalten
+        href: /scp/templates.php
+
+sla:
+    title: SLA-Plan
+    content: >
+        Dies ist der SLA-Plan (Service Level Agreement) für Tickets, die dieser Abteilung zugeordnet wurden.
+    links:
+      - title: SLA-Pläne verwalten
+        href: /scp/slas.php
+
+schedule:
+    title: Zeitplan
+    content: >
+        Zeitplan, der vom SLA-Plan verwendet wird, um die Fälligkeit zu berechnen,
+        wenn das Ticket dieser Abteilung zugewiesen wird.
+        <br><br>
+        Diese Einstellung hat Vorrang vor den System- und SLA-Zeitplaneinstellungen.
+    links:
+      - title: Zeitpläne verwalten
+        href: /scp/schedules.php
+
+manager:
+    title: Abteilungsleiter
+    content: >
+        Wählen Sie einen <span class="doc-desc-title">Verantwortlichen</span> für diese Abteilung.
+        <br/> <br/>
+        Für Abteilungsleiter können spezielle Benachrichtigungen eingerichtet
+        werden und zudem erhalten Sie das Recht, Ticketzuweisungen aufzuheben.
+    links:
+      - title: Benachrichtigungen verwalten
+        href: /scp/settings.php?t=tickets#alerts
+
+group_membership:
+    title: Empfänger von Benachrichtigungen
+    content: >
+        Empfänger der konfigurierten <span
+        class="doc-desc-title">Benachrichtigungen</span> auswählen.
+    links:
+      - title: Benachrichtigungen konfigurieren
+        href: /scp/settings.php?t=tickets#alerts
+
+sandboxing:
+    title: Ticketzuweisungen einschränken
+    content: >
+        Aktivieren Sie diese Funktion, um das Zuweisen von Tickets nur auf 
+        Mitglieder dieser Abteilung zu beschränken. Der Abteilungszugang 
+        kann auf Gruppen erweitert werden, wenn die <span class="doc-desc-title">
+        Gruppenmitgliedschaft</span> ebenfalls aktiviert ist.
+
+disable_auto_claim:
+    title: Automatische Zuweisung deaktivieren
+    content: >
+        Aktivieren Sie diese Option, um die automatische Zuweisung  bei
+        Mitteilungen für diese Abteilung zu <strong>deaktivieren</strong>.
+        <br><br>
+        Agenten können manuell sich selbst noch nicht zugewiesene Tickets zuweisen.
+
+disable_reopen_auto_assign:
+    title: Automatisches Zuweisen bei Wiedereröffnungen deaktivieren
+    content: >
+        Markieren Sie diese Option, um die automatische Zuweisung für wiedereröffnete
+        Tickes in dieser Abteilung zu <strong>deaktivieren</strong>.
+        <br><br>
+        Andernfalls wird das Ticket automatisch dem letzten antwortenden Agenten zugewiesen
+
+auto_response_settings:
+    title: Einstellungen für Rückmeldungen
+    content: >
+        Hier wird Ihnen das Überschreiben der gobalen Einstellungen zu den
+        Rückmeldungen für diese Abteilung ermöglicht.
+
+new_ticket:
+    title: Rückmeldung bei neuem Ticket
+    content: >
+        Hier können Sie die Rückmeldung deaktivieren, die bei der Eröffnung
+        eines Tickets versendet wird, welches dieser Abteilung zugeordnet wurde.
+
+new_message:
+    title: Rückmeldung bei neuer Mitteilung
+    content: >
+        Hier können Sie die Rückmeldungen deaktivieren, die an Kunden versendet
+        werden, um Sie über den Eingang einer neuen Mitteilung zu einem Ticket dieser Abteilung zu informieren.
+
+auto_response_email:
+    title: Absender-E-Mail-Adresse für Rückmeldungen
+    content: >
+        Wählen Sie eine E-Mail-Adresse aus, die als Absenderadresse für
+        Rückmeldungen dieser Abteilung verwendet werden soll.
+
+department_access:
+    title: Zugang für Gruppen
+    content: >
+        Erlauben Sie Agenten anderer Abteilungen den Zugang zu Tickets
+        dieser Abteilung.
+
+department_signature:
+    title: Abteilungssignatur
+    content: >
+        Die Signatur kann in <span class="doc-desc-opt">Öffentlichen</span>
+        Abteilungen bei Antworten von Agenten optional ausgewählt werden.<br>
+        Diese Signatur wird jedoch nur bei ausgehenden E-Mails angehängt.

@@ -1,0 +1,77 @@
+#
+# This is popup help messages for the Account Panel ->
+#
+# Fields:
+# title - Shown in bold at the top of the popover window
+# content - The body of the help popover
+# links - List of links shows below the content
+#   title - Link title
+#   href - href of link (links starting with / are translated to the
+#       helpdesk installation path)
+#
+# The key names such as 'helpdesk_name' should not be translated as they
+# must match the HTML #ids put into the page template.
+#
+---
+company_information:
+    title: Betreiberinformationen
+    content: >
+        Dies bezieht sich auf die Firma oder Organisation, welche osTicket
+        einsetzt und deren Agenten. Diese Informationen erscheinen in
+        E-Mail-Signaturen (z.B. im Fußbereich), wenn Tickets von den Agenten
+        beantwortet werden.
+    links:
+      - title: Formular für die Betreiberinformationen
+        href: /scp/forms.php?type=C
+
+landing_page:
+    title: Startseite
+    content: >
+        Die <span class="doc-desc-title">Startseite</span> erscheint als erste
+        Seite des Helpdesks im Kundenportal.
+
+offline_page:
+    title: Offlineseite
+    content: >
+        Die <span class="doc-desc-title">Offlineseite</span> wird angezeigt,
+        wenn der Helpdesk für Kunden abgeschaltet wurde. Sie können den Helpdesk
+        Status im Adminportal unter Einstellungen -&gt; System -&gt; Helpdesk Status einsehen.
+
+default_thank_you_page:
+    title: Standard Dankeseite
+    content: >
+        Die <span class="doc-desc-title">Dankeseite</span> wird dem <span
+        class="doc-desc-title">Kunden</span> angezeigt, nachdem dieser ein neues
+        Ticket übermittelt hat.
+        <br/><br/>
+        <span class="doc-desc-title">Dankeseiten</span> können Hilfethemen
+        zugeordnet werden.
+
+logos:
+    title: Logos
+    content: >
+        Sie können das <span class="doc-desc-title">Logo</span> anpassen, dass
+        den Kunden auf dem Kundenportal (Ihrem Helpdesk) angezeigt wird.
+
+upload_a_new_logo:
+    title: Ein neues Logo hochladen
+    content: >
+        Wählen Sie ein Bild in den Formaten .gif, .jpg oder .png aus. Die Größe
+        des Bildes wird bei der Anzeige proportional angepasst. Die Bilddatei selbst wird jedoch nicht verändert. Um die Ladezeiten 
+        zu beschleunigen,wird deshalb empfohlen, dass Sie bei dem Bild 
+        möglichst nah an der Standardbildgröße bleiben (817px &times; 170px).
+
+backdrops:
+    title: Hintergründe
+    content: >
+        Sie können den <span class="doc-desc-title">Hintergrund</span> anpassen,
+        der bei der Anmeldeseite für Agenten angezeigt wird.
+
+upload_a_new_backdrop:
+    title: Neuen Hintergrund hochladen
+    content: >
+        Wählen Sie ein Bild im .gif, .jpg oder .png-Format. Das Bild wird
+        proportional an die Hintergrundfläche angepasst. Es wird jedoch nicht die Dateigröße
+        verändert. Daher ist es empfehlenswert, die Dateigröße relativ gering zu halten,
+        um die Ladezeiten gering zu halten. Beachten Sie ebenfalls die
+        PHP-Einstellung max-upload-settings, damit die Datei hochgeladen werden kann.

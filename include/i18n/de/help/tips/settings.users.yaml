@@ -1,0 +1,94 @@
+#
+# This is popup help messages for the Admin Panel -> Settings -> Users
+#
+# Fields:
+# title - Shown in bold at the top of the popover window
+# content - The body of the help popover
+# links - List of links shows below the content
+#   title - Link title
+#   href - href of link (links starting with / are translated to the
+#       helpdesk installation path)
+#
+# The key names such as 'helpdesk_name' should not be translated as they
+# must match the HTML #ids put into the page template.
+#
+---
+# General Settings
+client_name_format:
+    title: Formatierung für Kundennamen
+    content: >
+        Wählen Sie ein Format für die Kundennamen, das systemweit verwendet werden soll. 
+        Dieses Format wird auch bei den E-Mail-Vorlagen verwendet, sofern kein anderes Format vorgegeben ist
+# PlusAnpassung Anfang: Add Pull Request #6448 - Ability to remove staff login link from the client login page
+remove_staff_login_link:
+    title: Agentenanmeldelink entfernen
+    content: >
+        Wenn diese Option aktiviert ist, wird der Agentenanmeldelink von der Anmeldeseite des Kunden entfernt.
+# PlusAnpassung Ende: Add Pull Request #6448 - Ability to remove staff login link from the client login page
+
+# Authentication settings
+client_password_policy:
+    title: Richtlinie zum Verwalten von Passwörter
+    content: >
+        Wählen Sie eine <span class="doc-desc-title">Passwortrichtlinie</span> für <span class="doc-desc-title">Kunden</span>.
+        <br><br>
+        Zusätzliche Richtlinien können durch das Installieren des Plugins <span class="doc-desc-title">Password Policy</span> hinzugefügt werden.
+
+client_session_timeout:
+    title: Inaktivitätslimit für Kunden
+    content: >
+        Geben Sie die maximale Inaktivitätsdauer (in Minuten) an, bevor ein
+        Kunde automatisch abgemeldet wird. 
+        <br><br>
+        Wenn Sie die Funktion <span class="doc-desc-title">Inaktivitätslimit für
+        Kunden</span> deaktivieren möchten, geben Sie "0" ein.
+
+registration_method:
+    title: Registrierungsoptionen
+    content: >
+        <span class="doc-desc-title">Registrierungsmethode</span> und <span
+        class="doc-desc-title">Registrierung erforderlich</span> werden
+        gemeinsam verwendet, um zu konfigurieren wie sich Kunden registrieren
+        können und anschließend auf das Kundenportal Ihres Helpdesks zugreifen
+        können. Die folgende Tabelle fasst zusammen, wie die beiden Einstellungen vom System interpretiert werden. 
+        <table border="1" cellpadding="2px" cellspacing="0" style="margin-top:7px"
+            ><tbody style="vertical-align:top;">
+            <tr><th>Registrierung erforderlich</th>
+                <th>Registrierungsmethode</th>
+                <th>Ergebnis</th></tr>
+            <tr><td>Nein</td> <td>Öffentlich</td>
+                <td>Aufforderung zur Registrierung, aber nicht für neue
+                    Tickets erforderlich.</td></tr>
+            <tr><td>Ja</td><td>Öffentlich</td>
+                <td>Registrierung und Anmeldung werden für neue Tickets benötigt</td></tr>
+            <tr><td>Nein</td><td>Intern</td>
+                <td>Jeder kann ein Ticket erstellen, aber nur Agenten können
+                    Kundenkonten registrieren</td></tr>
+            <tr><td>Ja</td><td>Intern</td>
+                <td>Kunden können erst dann ein Ticket erstellen, nachdem ein Konto für Sie von einem Agenten angelegt wurde.</td></tr>
+            <tr><td>Nein</td><td>Deaktiviert</td>
+                <td>Niemand kann ein Konto registrieren, aber jeder kann ein
+                    Ticket erstellen. <em>So funktionierte osTicket vor
+                    Version 1.9</em></td></tr>
+            <tr><td>Ja</td><td>Deaktiviert</td>
+                <td>Neue Tickets über das Kundenportal deaktivieren</td></tr>
+        </tbody></table>
+
+client_verify_email:
+    title: E-Mail-Überprüfung erforderlich
+    content: >
+        Deaktivieren Sie diese Option, um Ihren Kunden direkten Zugang zu
+        Tickets über den Link "Ticketstatus überprüfen" im
+        Kundenportal zu geben. Wenn diese Option aktiviert wurde (das ist die
+        Standardeinstellung), ist es notwendig, dass die Kunden eine E-Mail mit
+        einem Zugangslink erhalten, über den sie das Ticket einsehen können. 
+        <br><br>
+        Das Deaktivieren der E-Mail-Überprüfung könnte es Dritten ermöglichen
+        (z.B. die "beteiligten Personen") sich als Ticketbesitzer auszugeben.
+
+allow_auth_tokens:
+    title: Authentifizierungstoken akivieren
+    content: >
+        Aktivieren Sie diese Option um Authentifizierungstoken zu verwenden und
+        es Kunden dadurch zu ermöglichen, sich automatisch anzumelden, wenn Sie
+        auf einen Ticketlink klicken.

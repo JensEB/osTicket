@@ -1,0 +1,42 @@
+#
+# Email template: ticket.autoreply.yaml
+#
+# Sent to a user when an automatic canned response is posted to a ticket
+# when it is created
+#
+---
+notes: >
+    Wird an den Kunden versendet, wenn eine Antwortvorlage zu einem neu
+    eröffneten Ticket hinzugefügt wird.
+
+    Verfügbare Platzhalter zum Ersetzen: %{ticket.*}, %{response}
+
+subject: >
+    Aw: [#%{ticket.number}] %{ticket.subject}
+body: >
+    <h3><strong>Hallo %{recipient.name},</strong></h3>
+    Ihre Supportanfrage ist bei uns eingegangen und erhielt die Ticketnummer <a
+    href="%{recipient.ticket_link}">#%{ticket.number}</a>. Folgende Rückmeldung
+    wurde an Sie durch unser System versendet:
+    <br>
+    <br>
+    Hilfethema: <strong>%{ticket.topic.name}</strong>
+    <br>
+    Betreff: <strong>%{ticket.subject}</strong>
+    <br>
+    <br>
+    %{response}
+    <br>
+    <br>
+    <div style="color: rgb(127, 127, 127);"> Ihr Supportteam von<br>
+    %{company.name}<br>
+    %{signature}</div>
+    <hr>
+    <div style="color: rgb(127, 127, 127); font-size: small; text-align:
+    center"><em>Wir hoffen, dass diese Antwort Ihre Fragen zufriedenstellend
+    beantwortet hat. Wenn Sie uns zusätzliche Informationen zu Ihrer Anfrage
+    mitteilen wollen, antworten Sie bitte einfach auf diese E-Mail oder 
+    <a href="%{recipient.ticket_link}"><span style="color: rgb(84, 141, 212);">
+    melden Sie sich bei unserem Helpdesk an</span></a>. Dort erhalten Sie eine
+    komplette Übersicht zu Ihren Supportanfragen.</em>
+    </div>

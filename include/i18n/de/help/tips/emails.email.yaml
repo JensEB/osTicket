@@ -1,0 +1,186 @@
+#
+# This is popup help messages for the Admin Panel -> Emails -> Add New Email
+#
+# Fields:
+# title - Shown in bold at the top of the popover window
+# content - The body of the help popover
+# links - List of links shows below the content
+#   title - Link title
+#   href - href of link (links starting with / are translated to the
+#       helpdesk installation path)
+#
+# The key names such as 'helpdesk_name' should not be translated as they
+# must match the HTML #ids put into the page template.
+#
+---
+new_ticket_help_topic:
+    title: Hilfethema für neues Ticket
+    content: >
+        Wählen Sie ein <span class="doc-desc-title">Hilfethema</span>, welches
+        automatisch den Tickets zugewiesen wird, die über diese E-Mail-Adresse
+        eröffnet werden.
+        <br/><br/>
+        Formulare, die mit diesem Hilfethema verbunden sind, werden dem Ticket
+        hinzugefügt, enthalten aber keine Daten.
+    links:
+      - title: Hilfethemen verwalten
+        href: /scp/helptopics.php
+
+new_ticket_priority:
+    title: Priorität für neues Ticket
+    content: >
+        Wählen Sie die <span class="doc-desc-title">Priorität</span>, die neuen
+        Tickets zugewiesen wird, die über diese E-Mail-Adresse eröffnet werden.
+
+new_ticket_department:
+    title: Abteilung für neues Ticket
+    content: >
+        Wählen Sie die <span class="doc-desc-title">Abteilung</span> aus, zu
+        der neue Tickets zugeordnet werden, wenn sie über diese E-Mail-Adresse eröffnet werden.
+    links:
+      - title: Abteilungen verwalten
+        href: /scp/departments.php
+
+auto_response:
+    title: Rückmeldung bei neuem Ticket
+    content: >
+        Sie können die Rückmeldung deaktivieren, die an den Kunden gesendet
+        wird, wenn ein neues Ticket über diese E-Mail-Adresse eröffnet wird.
+
+userid:
+    title: Benutzername
+    content: >
+        Der Benutzername wird bei der E-Mail-Authentifizierung verwendet.
+        Es werden einzelne Adresskennungen, "shared mailbox" Kennungen,
+        Kennungen aus Servername + Benutzername und eine Kombination aus alldem akzeptiert.
+    links:
+      - title: Weiterführende Informationen (engl.)
+        href: https://docs.osticket.com/en/latest/Admin/Emails/Emails.html
+
+username:
+    title: Benutzername
+    content: >
+
+password:
+    title: Passwort
+    content: >
+
+login_information:
+    title: E-Mail-Anmeldedaten
+    content: >
+        Der <span class="doc-desc-title">Benutzername</span> und das <span
+        class="doc-desc-title">Passwort</span> werden benötigt, um E-Mails aus
+        den IMAP- / POP-Postfächern abzurufen, sowie für das Versenden von E-Mails über SMTP.
+
+mail_account:
+    title: Abrufen der E-Mails
+    content: >
+        Ruft E-Mails von einem entfernten IMAP- oder POP-Postfach ab und
+        wandelt diese zu Tickets im Helpdesk um.
+    links:
+      - title: <span class="doc-desc-title">E-Mail-Abruf</span> &amp; <span class="doc-desc-title">Auto-Cron</span>-Einstellungen verwalten.
+        href: /scp/settings.php?t=emails
+
+host_and_port:
+    title: Servername
+    content: >
+        Geben Sie den <span class="doc-desc-title">Hostnamen</span> und den
+        dazugehörigen <span class="doc-desc-title">Port</span> für Ihren
+        E-Mail-Server an. Sie erhalten diese Informationen von Ihrem Provider
+        oder von Ihrem E-Mail-Server-Administrator.
+        <br/><br/>
+        Wenn Ihr Mailserver keinen <span class="doc-desc-title">Standardport</span> mit
+        <span class="doc-desc-title">Verschlüsselung</span> verwendet,
+        stellen Sie dem Hostnamen das Protokoll ssl:// oder tls://
+        voran, um auf die verwendete Verschlüsselung hinzuweisen.
+        Bei Standardports ist dies nicht erforderlich, da dort das Protokoll automatisch hinzugefügt wird.
+        <br/><br/>
+        Um eine unverschlüsselte Verbindung zu erzwingen, selbst wenn ein <span class="doc-desc-title">Standard-Port</span>
+        für verschlüsselte Verbindungen verwendet wird, verwenden Sie das Protokoll plain://.
+
+mailbox_folder:
+    title: E-Mail Ordner
+    content: >
+        Geben Sie den Namen des <span class="doc-desc-title">Ordners</span> an, aus dem Sie
+        E-Mails abrufen möchten. Wenn Sie das Feld leer lassen, ruft das System die Mails aus dem Ordner
+        INBOX ab.<br><br>
+        <span>Hinweis:</span> Trennen Sie die Ordner mit einem Punkt, wenn Sie einen Unterordner angeben möchten. z.B. INBOX.Unterordner
+
+protocol:
+    title: Postfachprotokoll
+    content: >
+        Wählen Sie das von Ihrem E-Mail-Server unterstützte Postfachprotokoll.
+        Verwenden Sie wenn möglich das IMAP-Protokoll mit SSL, sofern beides von Ihrem E-Mail-Server unterstützt wird.
+
+authentication:
+    title: Authentifizierung
+    content: >
+        Für die moderne Authentifizierung mit OAuth2 benötigt osTicket das
+        <span class="doc-desc-title">OAuth2 Plugin</span>.
+    links:
+      - title: Download osTicket Plugins
+        href: https://osticket.com/download/
+
+fetch_frequency:
+    title: Abrufintervall
+    content: >
+        Geben Sie an, wie oft (in Minuten) das Postfach abgefragt werden soll.
+        <br/><br/>
+        Diese Einstellung beeinflusst ebenfalls die Zeit, bis eine Antwort des
+        Kunden die per E-Mail an dieses Postfach zurückkommt ins System übernommen wird, und eine Rückmeldung generiert wird.
+
+emails_per_fetch:
+    title: E-Mails pro Abruf
+    content: >
+        Geben Sie die Anzahl der E-Mails an, die gleichzeitig verarbeitet werden.
+
+fetched_emails:
+    title: Abgerufene E-Mails
+    content: >
+        Entscheiden Sie, was mit verarbeiteten E-Mails geschehen soll:
+        <br/><br/>
+        <span class="doc-desc-opt"><b>in Ordner verschieben</b></span>: Die
+        E-Mails werden aus dem POSTEINGANG in einen bestimmten Ordner
+        verschoben. Wenn der Ordner noch nicht auf dem Server vorhanden ist,
+        wird das System versuchen ihn anzulegen.
+        (<b>Empfohlen</b>)<br><br>
+        <span>Hinweis:</span> Trennen Sie die Ordner mit einem Punkt, wenn Sie einen Unterordner angeben möchten. z.B. INBOX.Unterordner
+        <hr>
+        <span class="doc-desc-opt"><b>vom Server löschen</b></span>: Nachdem
+        die E-Mails aus dem POSTEINGANG verarbeitet wurden, werden sie vom Server gelöscht. 
+        <hr>
+        <span class="doc-desc-opt"><b>Nichts tun</b></span>: Die E-Mails werden
+        im POSTEINGANG belassen. Das System wird die Nachrichten-IDs der
+        E-Mails speichern und versuchen diese nicht erneut abzurufen. Diese
+        Option kann jedoch zu doppelten Tickets führen.
+        (<em>Nicht empfohlen</em>)
+
+smtp_settings:
+    title: SMTP-Einstellungen
+    content: >
+        E-Mails, die von diesem Helpdesk versendet werden, können über einen
+        SMTP-Server versendet werden. Wenn möglich sollte ein SMTP-Server
+        verwendet werden, da dadurch die Zustellbarkeit der E-Mails verbessert wird. Zudem sinkt die Warscheinlichkeit, dass die E-Mails als Spam erkannt
+        werden.
+
+header_spoofing:
+    title: Manipulation des E-Mail-Headers erlauben
+    content: >
+        Aktivieren Sie diese Funktion, wenn Sie zulassen wollen, dass E-Mails
+        von diesem Postfach mit einer anderen Absender-Adresse, als der oben eingestellten 
+        <span class="doc-desc-title">E-Mail-Adresse</span>, versendet werden können.
+        <br/><br/>
+        Diese erweiterte Einstellung wird hauptsächlich beim Versenden von
+        Alias-Adressen dieses Postfaches eingesetzt.
+
+strict_matching:
+    title: Strikter E-Mail-Abgleich
+    content: >
+        <b>Aktivieren</b> Sie diese Option, damit die E-Mail-Adresse und der Eigentümer der
+        Token-Ressource übereinstimmen müssen. Dies ist nützlich, um eine
+        versehentliche Autorisierung eines völlig anderen Kontos zu verhindern.
+        <br><br>
+        <b>Deaktivieren</b> Sie diese Option, um einen anderen Ressourcenbesitzer für das
+        Token als die E-Mail-Adresse zuzulassen. Dies ist nützlich für gemeinsame
+        Postfächer/Aliase/usw. bei denen Sie ein Dienstkonto oder einen globalen Administrator
+        verwenden müssen, um im Namen der E-Mail zu autorisieren.

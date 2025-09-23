@@ -1,0 +1,26 @@
+#
+# email2fa-staff.yaml
+#
+# Template of the email sent to staff members when using the Email
+# Two Factor Authentication
+---
+notes: >
+    Diese Vorlage definiert die E-Mail, die an Agenten gesendet wird,
+    die E-Mail für die Zwei-Faktor-Authentifizierung verwenden
+name: "osTicket Zwei-Faktor-Authentifizierung"
+body: >
+    <h3><strong>Hallo %{staff.name.full},</strong></h3>
+    <div>
+    Sie haben sich gerade am Helpdesk unter %{url} angemeldet.<br />
+    <br />
+    Verwenden Sie bitte den folgenden Bestätigungscode, um die
+    Anmeldung am Helpdesk abzuschließen.<br />
+    <br />
+    %{otp}<br />
+    <br />
+    <em style="font-size: small">Ihr freundliches Supportteam</em><br />
+    %{company.name}
+    <br />
+    <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc" alt="Powered by
+    osTicket" width="126" height="19" style="width: 126px" />
+    </div>

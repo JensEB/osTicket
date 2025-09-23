@@ -99,3 +99,18 @@ signature:
     links:
       - title: Create Emails Templates in the Admin Panel
         href: /scp/templates.php
+# PlusAnpassung Anfang: backup assignment for vacation
+backupAssignment:
+    title: Backup Assignment
+    content: >
+        If the vacation mode is activated for you and a vacation replacement
+        is stored, the following actions are redirected: 
+        <ul>
+            <li>All tickets assigned to you are automatically assigned to
+            your vacation replacement</li>
+            <li>All notifications about tickets that are assigned to you will be
+            redirected to your vacation replacement.<br>
+            This applies to all e-mails for new messages and internal activities.
+            </li>
+        </ul>
+# PlusAnpassung Ende: backup assignment for vacation

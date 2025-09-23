@@ -1,0 +1,53 @@
+#
+# This is popup help messages for the Admin Panel -> Manage -> API Keys
+#
+# Fields:
+# title - Shown in bold at the top of the popover window
+# content - The body of the help popover
+# links - List of links shows below the content
+#   title - Link title
+#   href - href of link (links starting with / are translated to the
+#       helpdesk installation path)
+#
+# The key names such as 'helpdesk_name' should not be translated as they
+# must match the HTML #ids put into the page template.
+#
+---
+
+api_key:
+    title: API-Schlüssel
+    content: >
+        API-Schlüssel werden zur Authentifizierung der Clientanwendung
+        verwendet, wenn neue Tickets über die Programmschnittstelle von osTicket
+        (API) eröffnet werden. API-Schlüssel werden anstelle von Passwörtern
+        verwendet. Da API-Schlüssel nicht verschlüsselt übertragen werden können,
+        sind sie mit der IP-Adresse der jeweiligen Clientanwendung verknüpft.
+    links:
+      - title: osTicket API-Dokumentation
+        href: https://github.com/osTicket/osTicket-1.8/blob/develop/setup/doc/api.md
+
+ip_addr:
+    title: IP-Adresse
+    content: >
+        IP-Adresse der Clientanwendung. Jede eindeutige IP-Adresse einer
+        Clientanwendung benötigt einen eigenen API-Schlüssel.
+# PlusAnpassung Anfang: #3932 API key support for wildchard/regex for ip addresses
+ip_addr_plus:
+    title: IP-Adresse
+    content: >
+        IP-Adresse der Clientanwendung. Jede eindeutige IP-Adresse einer
+        Clientanwendung benötigt einen eigenen API-Schlüssel. Erlaubte Formate:<br/>
+        <b>IP <i>( 1.2.3.4 )</i></b><br/> Vergleich mit eindeutiger Quell-IP<br/>
+        <b>IP Wildcard <i>( 1.2.*.*  )</i></b><br/> Vergleich mit Platzhaltern
+        in der Quell-IP<br/>
+        <b>IP Regex <i>( regex:/^123.\d{1,3}.789.0$/</i></b><br/>Vergleich, ob die
+        Quell-IP einem Regex-Ausdruck entspricht<br/>
+        <b>Hostname <i>( hostname:some.example.domain.com )</i></b><br/> Vergleich
+        der IP, die beim DNS-Lookup des Hostnamens geliefert wird mit der Quell-IP<br/>
+        <b>Hostname Wildcard <i>( hostname:*.*.example.domain.com )</i></b><br/>
+        Vergleich der IP, die beim DNS-Lookup des Hostnamens geliefert wird mit der
+        Quell-IP mit Platzhaltern<br/>
+        <b>Hostname Regex <i>( hostname:regex:/\w+?\.example(\.domain)?\.com/i )</i></b><br/>
+        reverse dns lookup mit der Quell-IP, anschließend Vergleich mit dem gelieferten
+        Hostnamen und dem angegebenen Regex-Ausdruck<br/>
+# PlusAnpassung Ende: #3932 API key support for wildchard/regex for ip addresses

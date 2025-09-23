@@ -1,0 +1,33 @@
+#
+# Email template: message.autoresp.yaml
+#
+# Sent to a user when the user posts a new message to a ticket. This can
+# happen if the users responds to an email from the system or visits the
+# customer web portal and posts a new message there.
+#
+---
+notes: >
+    Wird an einen Kunden versendet, wenn er eine neue Mitteilung zu einem Ticket
+    erstellt. Dies geschieht, wenn der Kunde auf eine E-Mail antwortet, die vom
+    Helpdesk versendet wurde oder eine neue Mitteilung über das Kundenportal erstellt.
+
+subject: >
+    [#%{ticket.number}] Mitteilung hinzugefügt
+body: >
+    <h3><strong>Hallo %{recipient.name},</strong></h3>
+    Ihre Antwort zur Supportanfrage <a
+    href="%{recipient.ticket_link}">#%{ticket.number}</a> wurde gespeichert.
+    <br>
+    <br>
+    <div style="color: rgb(127, 127, 127); ">
+    Ihr Supportteam von %{company.name}<br>
+    %{signature}
+    </div>
+    <hr>
+    <div style="color: rgb(127, 127, 127); font-size: small; text-align:
+    center"><em>Wenn Sie uns zusätzliche Informationen zu Ihrer Anfrage
+    mitteilen wollen, antworten Sie bitte einfach auf diese E-Mail oder 
+    <a href="%{recipient.ticket_link}"><span style="color: rgb(84, 141, 212);">
+    melden Sie sich bei unserem Helpdesk an</span></a>. Dort erhalten Sie eine
+    komplette Übersicht zu Ihren Supportanfragen.</em>
+    </div>

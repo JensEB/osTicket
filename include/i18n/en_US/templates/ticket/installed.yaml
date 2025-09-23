@@ -8,8 +8,8 @@
 ---
 deptId: 1 # support
 topicId: 1 # support
-name: osTicket Team
-email: feedback@osticket.com
+name: osTicket Support
+email: support@osticket.com.de
 source: Web # notrans
 subject: osTicket Installed!
 message: |
@@ -43,7 +43,7 @@ message: |
     Cheers,
     </p><p>
     -<br/>
-    osTicket Team - https://osticket.com/
+    osTicket Team - https://osticket.com.de/
     </p><p>
     <strong>PS.</strong> Don't just make customers happy, make happy
     customers!

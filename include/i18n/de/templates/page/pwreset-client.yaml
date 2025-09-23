@@ -1,0 +1,30 @@
+#
+# pwreset-client.yaml
+#
+# Template of the email sent to clients when using the Forgot My Password
+# link on the login page
+---
+notes: >
+    Diese Vorlage definiert die E-Mail, welche an die Kunden versendet wird, die
+    den <strong>Passwort-vergessen</strong>-Link im Kundenportal ausgewählt haben.
+name: "%{company.name} Helpdeskzugang"
+body: >
+    <h3><strong>Hallo %{user.name},</strong></h3>
+    <div>
+    Es wurde in Ihrem Namen ein Link zum Zurücksetzen des Passworts für den
+    Helpdesk auf %{url} angefordert. <br />
+    <br />
+    Wenn Sie diesen Vorgang irrtümlicherweise oder nicht selbst angefordert
+    haben,  können Sie diese E-Mail ignorieren und löschen. Ihr Konto ist
+    weiterhin sicher und niemandem wurde Zugang dazu gewährt. Das Konto wurde
+    weder gesperrt noch das Passwort zurückgesetzt. Möglicherweise hat jemand
+    fälschlicherweise Ihre E-Mail-Adresse eingegeben.<br />
+    <br />
+    Folgen Sie dem Link unten, um sich am Helpdesk anzumelden und Ihr Passwort zu ändern.<br />
+    <br />
+    <a href="%{link}">%{link}</a><br />
+    <br />
+    <em style="font-size: small">Ihr freundliches Supportteam
+    <br />
+    %{company.name}</em>
+    </div>

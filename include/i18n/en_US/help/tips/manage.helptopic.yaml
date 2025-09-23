@@ -127,3 +127,21 @@ custom_numbers:
         Choose "Custom" here to override the system default ticket numbering
         format for tickets created in this help topic.  See the help tips on
         the Settings / Tickets page for more details on the settings.
+
+# PlusAnpassung Anfang: helptopic restrictions
+notSelectable:
+    title: Topic not selectable
+    content: >
+        Useful in nested topics, if the parent topic should not be selectable.
+        Blocking parent topics can be done globaly too.
+    links:
+      - title: Global Ticket Settings
+        href: /scp/settings.php?t=tickets
+
+restrictToOrgs:
+    title: Restrict to organisations
+    content: >
+        If organisations are selected, the topic will only be visible to users
+        belonging to these selected organisations.<br>If no organisations are
+        selected, all users can see this topic.
+# PlusAnpassung Ende: helptopic restrictions
