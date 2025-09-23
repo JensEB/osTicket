@@ -120,6 +120,16 @@ class Mailer {
     function addFileObject(\FileObject $file) {
         $this->attachments[$file->getUId()] = $file;
     }
+// Anpassung Anfang: support adding files from String
+    function addFileArray(Array $file) {
+        // expected array format:
+        // array('data'=>$filedata,'name'=>$filename,'mimetype'=>$mimetype);
+        // empty mimetype will be set to 'application/octet-stream'
+        // add an unique ID
+        $file['id'] = md5($file['name']);
+        $this->attachments[$file['id']] = $file;
+    }
+// Anpassung Ende: support adding files from String
 
     function addAttachments($attachments) {
         foreach ($attachments as $a) {
@@ -129,6 +139,10 @@ class Mailer {
                 $this->addAttachmentFile($a);
             elseif ($a instanceof \FileObject)
                 $this->addFileObject($a);
+// Anpassung Anfang: support adding files from String
+            elseif (is_array($a))
+                $this->addFileArray($a);
+// Anpassung Ende: support adding files from String
         }
     }
 
@@ -139,6 +153,14 @@ class Mailer {
         foreach ($this->getAttachments() as $uid => $F) {
             if ($F instanceof \Attachment)
                 $F = $F->getFile();
+// Anpassung Anfang: support adding files from String
+            if(is_array($F) ) {
+                if(strcasecmp($file['id'], $key) === 0)
+                    return $F;
+                else
+                    continue;
+            }
+// Anpassung Ende: support adding files from String
             if (strcasecmp($F->getKey(), $key) === 0)
                 return $F;
         }
@@ -562,6 +584,14 @@ class Mailer {
                 if ($file instanceof \Attachment) {
                     $filename = $file->getFilename();
                     $file = $file->getFile();
+// Anpassung Anfang: support adding files from String
+                } elseif(is_array($file)) {
+                    // do not attach inline images twice
+                    if(in_array($file['id'], $inlineImageList??[]) ) {
+                        continue;
+                    }
+                    $filename = $file['name'];
+// Anpassung Ende: support adding files from String
                 } else {
                     $filename = $file->getName();
                 }

@@ -133,9 +133,19 @@ namespace osTicket\Mail {
         }
 
         public function addAttachment($file, $name=null)  {
+// Anpassung Anfang: support adding files from String
+            if(is_array($file)) {
+                $f = new MimePart($file['data']);
+                $f->type = $file['mimetype']?:'application/octet-stream';
+                $f->filename = $name ?: $file['name'];
+            } else {
+// Anpassung Ende: support adding files from String
             $f = new MimePart($file->getData());
             $f->type = $file->getMimeType();
             $f->filename = $name ?: $file->getName();
+// Anpassung Anfang: support adding files from String
+            }
+// Anpassung Ende: support adding files from String
             $f->disposition = Mime::DISPOSITION_ATTACHMENT;
             $f->encoding = Mime::ENCODING_BASE64;
             $this->addMimePart($f);
