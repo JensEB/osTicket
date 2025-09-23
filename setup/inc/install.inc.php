@@ -43,6 +43,16 @@ $info=($_POST && $errors)?Format::htmlchars($_POST):array('prefix'=>'ost_','dbho
                 <a class="tip" href="#default_lang"><i class="icon-question-sign help-tip"></i></a>
                 <font class="error">&nbsp;<?php echo $errors['lang_id']; ?></font>
                 </div>
+<!-- Anpassung Anfang: TimeRecordingPlugin - select installing Plugin on install -->
+                <div class="row">
+                    <label for="installTimeRecording" style="display: inline-block; vertical-align: text-bottom;">
+                        <?php echo __('Install Time Recording Plugin');?>:
+                    </label>
+                    <input type="checkbox" id="installTimeRecording" name="installTimeRecording"
+                           <?php echo $_POST['s'] != 'prereq' && !$info['installTimeRecording']?'':'checked';?>
+                           value="1">
+                </div>
+<!-- Anpassung Ende: TimeRecordingPlugin - select installing Plugin on install -->
 
                 <h4 class="head admin"><?php echo __('Admin User');?></h4>
                 <span class="subhead"><?php echo __('Your primary administrator account - you can add more users later.');?></span>

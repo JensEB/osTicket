@@ -1,4 +1,8 @@
 <?php
+// Anpassung Anfang: TimeRecordingPlugin - send object.new-Signal
+$data = ['type'=>'Task'];
+Signal::send('object.new', $info, $data);
+// Anpassung Ende: TimeRecordingPlugin
 
 if (!$info['title'])
     $info['title'] = __('New Task');

@@ -411,6 +411,13 @@ class CustomForm extends SimpleForm {
         foreach (parent::getFields() as $field) {
             if ($isedit && !$field->isEditable($user))
                 continue;
+// Anpassung Anfang: TimeRecordingPlugin - hide hidden fields in dynamic forms
+            if (   isset($options['type']) // is set form type?
+                && !($field->isRequiredForStaff() || $field->isRequiredForUsers() )
+                && !($field->isVisibleToStaff() || $field->isVisibleToUsers())
+               )
+                continue;
+// Anpassung Ende: TimeRecordingPlugin - hide hidden fields in dynamic forms
 
             $fields[] = $field;
         }

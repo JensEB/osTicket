@@ -177,6 +177,9 @@ list($sort_cols, $sort_dir) = $_SESSION[$queue_sort_key];
 $orm_dir = $sort_dir ? QuerySet::ASC : QuerySet::DESC;
 $orm_dir_r = $sort_dir ? QuerySet::DESC : QuerySet::ASC;
 
+// Anpassung Anfang: TimeRecordingPlugin - add time column to task list
+Signal::send('tasklist.prepare', $tasks, $queue_columns);
+// Anpassung Ende: TimeRecordingPlugin - add time column to task list
 switch ($sort_cols) {
 case 'number':
     $queue_columns['number']['sort_dir'] = $sort_dir;
@@ -457,6 +460,9 @@ if ($thisstaff->hasPerm(Task::PERM_DELETE, false)) {
                 </td>
                 <td nowrap>&nbsp;<?php echo Format::truncate($dept, 40); ?></td>
                 <td nowrap>&nbsp;<?php echo $assignee; ?></td>
+<?php // Anpassung Anfang: TimeRecordingPlugin - add time column to task list
+Signal::send('tasklist.field', $T);
+// Anpassung Ende: TimeRecordingPlugin - add time column to task list ?>
             </tr>
             <?php
             } //end of foreach

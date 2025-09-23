@@ -69,6 +69,9 @@ if ($user && $cfg->isAvatarsEnabled())
             <span class="label label-bare"><?php echo __('Cc Collaborator'); ?></span>
         <?php   } ?>
         </span>
+<!-- Anpassung Anfang: TimeRecordingPlugin - add time to entry header -->
+        <?php Signal::send('threadentry.header', $entry); ?>
+<!-- Anpassung Ende: TimeRecordingPlugin - add time to entry header -->
         </div>
 <?php
         echo sprintf(__('<b>%s</b> posted %s'), $name,
