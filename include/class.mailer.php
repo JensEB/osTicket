@@ -372,6 +372,9 @@ class Mailer {
 
          // Create new ostTicket/Mail/Message object
         $message = new Message();
+// Anpassung Anfang: set encoding to utf-8 to support special chars in mail header
+        $message->setEncoding('utf-8');
+// Anpassung Ende: set encoding to utf-8 to support special chars in mail header
         // Set our custom Message-Id
         $message->setMessageId($messageId);
         // Set From Address
