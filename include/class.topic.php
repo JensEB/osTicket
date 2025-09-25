@@ -547,7 +547,7 @@ implements TemplateVariable, Searchable {
 
         if ($vars['custom-numbers'] && !preg_match('`(?!<\\\)#`', $vars['number_format']))
             $errors['number_format'] =
-                'Ticket number format requires at least one hash character (#)';
+                __('Ticket number format requires at least one hash character (#)');
 
         if ($cfg) {
             //Make sure at least 1 Topic is Public
