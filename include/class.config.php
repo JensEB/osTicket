@@ -1450,7 +1450,7 @@ class OsticketConfig extends Config {
         }
 
         if (!preg_match('`(?!<\\\)#`', $vars['ticket_number_format']))
-            $errors['ticket_number_format'] = 'Ticket number format requires at least one hash character (#)';
+            $errors['ticket_number_format'] = __('Ticket number format requires at least one hash character (#)');
 
         if (!isset($vars['default_ticket_queue']))
             $errors['default_ticket_queue'] = __("Select a default ticket queue");
@@ -1511,7 +1511,7 @@ class OsticketConfig extends Config {
         $f['default_task_priority_id']=array('type'=>'int',   'required'=>1, 'error'=>__('Selection required'));
 
         if (!preg_match('`(?!<\\\)#`', $vars['task_number_format']))
-            $errors['task_number_format'] = 'Task number format requires at least one hash character (#)';
+            $errors['task_number_format'] = __('Task number format requires at least one hash character (#)');
 
         Validator::process($f, $vars, $errors);
 

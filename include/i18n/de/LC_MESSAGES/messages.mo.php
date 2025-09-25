@@ -4112,6 +4112,8 @@ verwendet werden, um Sequenzen für unterschiedliche Zwecke zu erzeugen.',
   'No valid MTA' => 'Kein gültiger MTA',
   'No mail template found' => 'Keine E-Mail-Vorlage gefunden',
 // PlusAnpassung Ende: spam protection - send ticket confirmation mail to unknown email senders
+  'Ticket number format requires at least one hash character (#)' => 'Im Ticketnummern-Format muss mindestens ein #-Zeichen enthalten sein.',
+  'Task number format requires at least one hash character (#)' => 'Im Aufgabennummern-Format muss mindestens ein #-Zeichen enthalten sein.',
 
   0 => 
   array (
