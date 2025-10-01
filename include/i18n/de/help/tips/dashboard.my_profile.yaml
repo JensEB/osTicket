@@ -1,116 +1,102 @@
-#
-# This is popup help messages for the Staff Panel -> Dashboard -> My Profile
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Staff Panel -> Dashboard -> My Profile
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 contact_information:
-    title: Kontaktinformationen
-    content: >
+  title: Kontaktinformationen
+  content: >
 
 username:
-    title: Benutzername
-    content: >
-        Ausschließlich Agenten mit Administratorrechten können einen
-        Benutzernamen ändern. Wenn Sie ein Agenten mit Administratorrechten
-        sind, können Sie diese Änderung durchrühren, indem Sie den zu bearbeitenden Agenten aus dem <span class="doc-desc-title">Agentenverzeichnis</span> auswählen.
-    links:
-      - title: Benutzernamen als Administrator ändern
-        href: /scp/staff.php
-
+  title: Benutzername
+  content: >
+    Ausschließlich Agenten mit Administratorrechten können einen Benutzernamen ändern. Wenn Sie ein Agenten mit Administratorrechten sind, können Sie diese Änderung durchrühren, indem Sie den zu bearbeitenden Agenten aus dem <span class="doc-desc-title">Agentenverzeichnis</span> auswählen.
+  links:
+    - 
+      title: Benutzernamen als Administrator ändern
+      href: /scp/staff.php
 config2fa:
-    title: Zwei-Faktor-Authentifizierung
-    content: >
-        Die Zwei-Faktor-Authentifizierung bietet eine zusätzliche Sicherheitsebene,
-        wenn Sie sich am Helpdesk anmelden. Sobald Sie Ihren Benutzernamen und Ihr
-        Passwort korrekt übermittelt haben, müssen Sie ein Token eingeben, um die
-        Anmeldung am Helpdesk abzuschließen.
-
+  title: Zwei-Faktor-Authentifizierung
+  content: >
+    Die Zwei-Faktor-Authentifizierung bietet eine zusätzliche Sicherheitsebene, wenn Sie sich am Helpdesk anmelden. Sobald Sie Ihren Benutzernamen und Ihr Passwort korrekt übermittelt haben, müssen Sie ein Token eingeben, um die Anmeldung am Helpdesk abzuschließen.
 time_zone:
-    title: Zeitzone
-    content: >
+  title: Zeitzone
+  content: >
 
 daylight_saving:
-    title: Sommerzeit
-    content: >
+  title: Sommerzeit
+  content: >
 
 maximum_page_size:
-    title: Maximale Seitengröße
-    content: >
+  title: Maximale Seitengröße
+  content: >
 
 auto_refresh_rate:
-    title: Aktualisierungsintervall
-    content: >
+  title: Aktualisierungsintervall
+  content: >
 
 default_signature:
-    title: Standardsignatur
-    content: >
+  title: Standardsignatur
+  content: >
 
 default_paper_size:
-    title: Standardpapierformat
-    content: >
+  title: Standardpapierformat
+  content: >
 
 show_assigned_tickets:
-    title: Zugewiesene Tickets anzeigen
-    content: >
-        <p>
-        Aktivieren Sie diese Option, um die globale Einstellung zu überschreiben,
-        die zugewiesene Tickets auf den Übersichtsseiten der offenen Tickets ausblendet.
-        </p>
-        <p class="info-banner">
-        <i class="icon-info-sign"></i>
-        Diese Option ist nur verfügbar, wenn zugewiesene Tickets global
-        ausgeblendet werden.
-        </p>
-
+  title: Zugewiesene Tickets anzeigen
+  content: >
+    <p>
+    Aktivieren Sie diese Option, um die globale Einstellung zu überschreiben,
+    die zugewiesene Tickets auf den Übersichtsseiten der offenen Tickets ausblendet.
+    </p>
+    <p class="info-banner">
+    <i class="icon-info-sign"></i>
+    Diese Option ist nur verfügbar, wenn zugewiesene Tickets global
+    ausgeblendet werden.
+    </p>
 password:
-    title: Passwort
-    content: >
+  title: Passwort
+  content: >
 
 current_password:
-    title: Aktuelles Passwort
-    content: >
+  title: Aktuelles Passwort
+  content: >
 
 new_password:
-    title: Neues Passwort
-    content: >
+  title: Neues Passwort
+  content: >
 
 confirm_new_password:
-    title: Neues Passwort bestätigen
-    content: >
+  title: Neues Passwort bestätigen
+  content: >
 
 signature:
-    title: Signatur
-    content: >
-        Erstellen Sie eine optionale <span class="doc-desc-title">Signatur</span>,
-        die möglicherweise am Ende Ihrer Ticketantworten erscheint. Ob diese
-        <span class="doc-desc-title">Signatur</span> erscheint, oder nicht,
-        hängt von der <span class="doc-desc-title">E-Mail-Vorlage</span> ab, die
-        für diese Ticket-Antwort verwendet wird.
-    links:
-      - title: E-Mail-Vorlagen im Adminportal erstellen
-        href: /scp/templates.php
+  title: Signatur
+  content: >
+    Erstellen Sie eine optionale <span class="doc-desc-title">Signatur</span>, die möglicherweise am Ende Ihrer Ticketantworten erscheint. Ob diese <span class="doc-desc-title">Signatur</span> erscheint, oder nicht, hängt von der <span class="doc-desc-title">E-Mail-Vorlage</span> ab, die für diese Ticketantwort verwendet wird.
+  links:
+    - 
+      title: E-Mail-Vorlagen im Adminportal erstellen
+      href: /scp/templates.php
 # PlusAnpassung Anfang: backup assignment for vacation
 backupAssignment:
-    title: Urlaubsvertretung
-    content: >
-        Wenn der Urlaubsmodus für Sie aktiviert und eine Urlaubsvertretung hinterlegt ist,
-        hinterlegt ist, werden folgende Aktionen umgeleitet:
-        <ul>
-            <li>Alle Tickets, die Ihnen zugewiesen werden, werden automatisch
-            Ihrer Urlaubsvertretung zugewiesen</li>
-            <li>Alle Benachrichtigungen zu Tickets, die Ihnen zugewiesen sind,
-            werden zu Ihrer Urlaubsvertretung umgeleitet.<br>
-            Das betrifft alle E-Mails bei neuen Mitteilungen und internen Aktivitäten.
-            </li>
-        </ul>
+  title: Urlaubsvertretung
+  content: >
+    Wenn der Urlaubsmodus für Sie aktiviert und eine Urlaubsvertretung hinterlegt ist,
+    hinterlegt ist, werden folgende Aktionen umgeleitet:
+    <ul>
+        <li>Alle Tickets, die Ihnen zugewiesen werden, werden automatisch
+        Ihrer Urlaubsvertretung zugewiesen</li>
+        <li>Alle Benachrichtigungen zu Tickets, die Ihnen zugewiesen sind,
+        werden zu Ihrer Urlaubsvertretung umgeleitet.<br>
+        Das betrifft alle E-Mails bei neuen Mitteilungen und internen Aktivitäten.
+        </li>
+    </ul>
 # PlusAnpassung Ende: backup assignment for vacation

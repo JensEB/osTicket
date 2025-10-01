@@ -1,38 +1,34 @@
-#
-# Email template: ticket.autoresp.yaml
-#
-# Sent to a user when a new ticket is created
-#
+#Email template: ticket.autoresp.yaml
+#Sent to a user when a new ticket is created
 ---
-notes: >
-    Wird an den Kunden gesendet, wenn ein neues Ticket eröffnet wird
-
-subject: >
-    Supportticket geöffnet [#%{ticket.number}]
-body: >
-    <h3><strong>Hallo %{recipient.name},</strong></h3>
-    <p>
-    Wir haben Ihre Anfrage erhalten. Ihr wurde die Ticketnummer #%{ticket.number}
-    zugewiesen. Unser Support wird sich so schnell wie möglich mit Ihnen in
-    Verbindung setzen. Sie können <a href="%{recipient.ticket_link}">den Verlauf
-    Ihres Tickets online abrufen</a>.
-    <br><br>
-    Hilfethema: <strong>%{ticket.topic.name}</strong><br>
-    Betreff: <strong>%{ticket.subject}</strong>
-    <br>
-    Übermittelt am: <strong>%{ticket.create_date}</strong>
-    </p>
-    <br>
-    <div style="color: rgb(127, 127, 127)">
-    Ihr Supportteam von %{company.name}
-    <br>
-    %{signature}
-    </div>
-    <hr>
-    <div style="color: rgb(127, 127, 127); font-size: small; text-align:
-    center"><em>Wenn Sie uns zusätzliche Informationen zu Ihrer Anfrage
-    mitteilen wollen, antworten Sie bitte einfach auf diese E-Mail oder 
-    <a href="%{recipient.ticket_link}"><span style="color: rgb(84, 141, 212);">
-    melden Sie sich bei unserem Helpdesk an</span></a>. Dort erhalten Sie eine
-    komplette Übersicht zu Ihren Supportanfragen.</em>
-    </div>
+notes: |
+  Wird an den Kunden gesendet, wenn ein neues Ticket eröffnet wird
+subject: |
+  Supportticket geöffnet [#%{ticket.number}]
+body: |
+  <h3><strong>Hallo %{recipient.name},</strong></h3>
+  <p>
+  Wir haben Ihre Anfrage erhalten. Ihr wurde die Ticketnummer #%{ticket.number}
+  zugewiesen. Unser Support wird sich so schnell wie möglich mit Ihnen in
+  Verbindung setzen. Sie können <a href="%{recipient.ticket_link}">den Verlauf
+  Ihres Tickets online abrufen</a>.
+  <br><br>
+  Hilfethema: <strong>%{ticket.topic.name}</strong><br>
+  Betreff: <strong>%{ticket.subject}</strong>
+  <br>
+  Übermittelt am: <strong>%{ticket.create_date}</strong>
+  </p>
+  <br>
+  <div style="color: rgb(127, 127, 127)">
+  Ihr Supportteam von %{company.name}
+  <br>
+  %{signature}
+  </div>
+  <hr>
+  <div style="color: rgb(127, 127, 127); font-size: small; text-align:
+  center"><em>Wenn Sie uns zusätzliche Informationen zu Ihrer Anfrage
+  mitteilen wollen, antworten Sie bitte einfach auf diese E-Mail oder 
+  <a href="%{recipient.ticket_link}"><span style="color: rgb(84, 141, 212);">
+  melden Sie sich bei unserem Helpdesk an</span></a>. Dort erhalten Sie eine
+  komplette Übersicht zu Ihren Supportanfragen.</em>
+  </div>

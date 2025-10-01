@@ -18,7 +18,7 @@ if(!defined('OSTSCPINC') || !$thisstaff) die('Access Denied');
             Diese Funktion ist nun als kostenpflichtige Ergänzung hier verfügbar.
             <br><br>
             Eine ausführliche Anleitung zum Advanced Dashboard finden Sie hier:<br>
-            <a href="https://osticket.com.de/support/pages/advanced-dashboard-fur-osticket" target="_blank">
+            <a href="https://support.osticket.com.de/pages/advanced-dashboard-fur-osticket" target="_blank">
                 Advanced Dashboard für osTicket - Anleitung
             </a>
             <br><br>

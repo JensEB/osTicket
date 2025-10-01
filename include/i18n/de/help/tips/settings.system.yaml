@@ -1,240 +1,208 @@
-#
-# This is popup help messages for the Admin Panel -> Settings -> System
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Settings -> System
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 helpdesk_status:
-    title: Helpdesk Status
-    content: >
-        Wenn der Status auf <span class="doc-desc-opt">Offline</span> geändert
-        wird, ist das Kundenportal deaktiviert und es wird stattdessen die
-        Offlineseite angezeigt. Das Agentenportal bleibt davon unberührt
+  title: Helpdesk Status
+  content: >
+    Wenn der Status auf <span class="doc-desc-opt">Offline</span> geändert wird, ist das Kundenportal deaktiviert und es wird stattdessen die Offlineseite angezeigt. Das Agentenportal bleibt davon unberührt
         und ist weiterhin nutzbar.
-
 helpdesk_url:
-    title: Helpdesk URL
-    content: >
-        Diese URL ist die Basis Ihrer osTicket-Installation. Diese wird in der
-        E-Mail-Kommunikation dazu verwendet, Kunden zu Ihrem Helpdesk zurück zu leiten.
-
+  title: Helpdesk URL
+  content: >
+    Diese URL ist die Basis Ihrer osTicket-Installation. Diese wird in der E-Mail-Kommunikation dazu verwendet, Kunden zu Ihrem Helpdesk zurück zu leiten.
 helpdesk_name_title:
-    title: Helpdesk Name/Titel
-    content: >
-        Dies ist der Titel, der auf der Registerkarte im Browser angezeigt wird.
-        Dieser Name/Titel wird ebenfalls vernwendet, wenn der Helpdesk als Lesezeichen gespeichert wird.
-
+  title: Helpdesk Name/Titel
+  content: >
+    Dies ist der Titel, der auf der Registerkarte im Browser angezeigt wird. Dieser Name/Titel wird ebenfalls vernwendet, wenn der Helpdesk als Lesezeichen gespeichert wird.
 default_department:
-    title: Standardabteilung
-    content: >
-        Wählen Sie eine <span class="doc-desc-title">Standardabteilung</span>
-        für Tickets, die nicht automatisch einer Abteilung zugeordnet werden. 
-        <br/><br/>
-        Das Ticket kann aufgrund des gewählten Hilfethemas, der eingehenden
-        E-Mail-Adresse oder der Ticketfiltereinstellungen einer bestimmten Abteilung zugeordnet werden.
-
+  title: Standardabteilung
+  content: >
+    Wählen Sie eine <span class="doc-desc-title">Standardabteilung</span>
+    für Tickets, die nicht automatisch einer Abteilung zugeordnet werden. 
+    <br/><br/>
+    Das Ticket kann aufgrund des gewählten Hilfethemas, der eingehenden
+    E-Mail-Adresse oder der Ticketfiltereinstellungen einer bestimmten Abteilung zugeordnet werden.
 default_schedule:
-    title: Standardzeitplan
-    content: >
-        Wählen Sie den Standardzeitplan aus, der vom SLA-Plan beim Berechnen der Fälligkeit von
-        Tickets verwendet werden soll.
-    links:
-      - title: Zeitpläne verwalten
-        href: /scp/schedules.php
-
+  title: Standardzeitplan
+  content: >
+    Wählen Sie den Standardzeitplan aus, der vom SLA-Plan beim Berechnen der Fälligkeit von
+    Tickets verwendet werden soll.
+  links:
+    - 
+      title: Zeitpläne verwalten
+      href: /scp/schedules.php
 force_https:
-    title: HTTPS erzwingen
-    content: >
-        Mit dieser Einstellung können Administratoren konfigurieren, ob sie HTTPS
-        systemweit erzwingen möchten oder nicht. Wenn aktiviert, wird jede Anforderung,
-        die das HTTP-Protokoll verwendet, an das HTTPS-Protokoll umgeleitet. Beachten Sie,
-        dass dies nur funktioniert, wenn Sie ein SSL-Zertifikat installiert und HTTPS auf
-        dem Server konfiguriert haben.
-        <br/><br/>
-        <b>Hinweis:</b><rb/>
-        Dies kann sich auf Remote-Piping-Skripte auswirken. Verweisen Sie auf die neuen Skripte, 
-        die in <code>./setup/scripts/</code> enthalten sind, um Updates zu erhalten.
-
+  title: HTTPS erzwingen
+  content: >
+    Mit dieser Einstellung können Administratoren konfigurieren, ob sie HTTPS
+    systemweit erzwingen möchten oder nicht. Wenn aktiviert, wird jede Anforderung,
+    die das HTTP-Protokoll verwendet, an das HTTPS-Protokoll umgeleitet. Beachten Sie,
+    dass dies nur funktioniert, wenn Sie ein SSL-Zertifikat installiert und HTTPS auf
+    dem Server konfiguriert haben.
+    <br/><br/>
+    <b>Hinweis:</b><rb/>
+    Dies kann sich auf Remote-Piping-Skripte auswirken. Verweisen Sie auf die neuen Skripte, 
+    die in <code>./setup/scripts/</code> enthalten sind, um Updates zu erhalten.
 default_page_size:
-    title: Standard-Seitengröße
-    content: >
-        Wählen Sie die Anzahl der Elemente pro Seite, die in den Ticketübersichtsseiten
-        im Agentenportal angezeigt werden sollen. Jeder Agent kann
-        diese Anzahl unter <span class="doc-desc-title">Meine Einstellungen</span> selbst anpassen.
-
+  title: Standard-Seitengröße
+  content: >
+    Wählen Sie die Anzahl der Elemente pro Seite, die in den Ticketübersichtsseiten im Agentenportal angezeigt werden sollen. Jeder Agent kann diese Anzahl unter <span class="doc-desc-title">Meine Einstellungen</span> selbst anpassen.
 default_log_level:
-    title: Standardprotokollebene
-    content: >
-        Bestimmen Sie die niedrigste Ebene für Ereignisse, die im <span
-        class="doc-desc-title">Systemprotokoll</span> aufgezeichnet werden
-        soll. <span class="doc-desc-opt">Test (Debug)</span> stellt die niedrigste
-        Ebene dar, <span class="doc-desc-opt">Fehler</span> dagegen die oberste
-        Ebene. Wenn Sie beispielsweise alle Ereignisse in den <span
-        class="doc-desc-title">System-Protokollen</span> anzeigen lassen
-        wollen, wählen Sie <span class="doc-desc-opt">Test (Debug)</span>.
-
+  title: Standardprotokollebene
+  content: >
+    Bestimmen Sie die niedrigste Ebene für Ereignisse, die im <span
+    class="doc-desc-title">Systemprotokoll</span> aufgezeichnet werden
+    soll. <span class="doc-desc-opt">Test (Debug)</span> stellt die niedrigste
+    Ebene dar, <span class="doc-desc-opt">Fehler</span> dagegen die oberste
+    Ebene. Wenn Sie beispielsweise alle Ereignisse in den <span
+    class="doc-desc-title">System-Protokollen</span> anzeigen lassen
+    wollen, wählen Sie <span class="doc-desc-opt">Test (Debug)</span>.
 purge_logs:
-    title: Protokolle bereinigen
-    content: >
-        Legen Sie fest, wie lange die <span class="doc-desc-title">
-        Systemprotokolle</span> gespeichert werden sollen, bevor sie gelöscht werden.
-
+  title: Protokolle bereinigen
+  content: >
+    Legen Sie fest, wie lange die <span class="doc-desc-title">
+    Systemprotokolle</span> gespeichert werden sollen, bevor sie gelöscht werden.
 enable_richtext:
-    title: HTML-Text aktivieren
-    content: >
-        Wenn aktiviert, ist es möglich HTML-Tags bei der Kommunikation zwischen
-        Kunden und Agenten zu verwenden.
-
+  title: HTML-Text aktivieren
+  content: >
+    Wenn aktiviert, ist es möglich HTML-Tags bei der Kommunikation zwischen Kunden und Agenten zu verwenden.
 enable_avatars:
-    title: Profilbild bei der Ticketansicht aktivieren
-    content: >
-        Aktivieren Sie diese Option um <span class="doc-desc-title">Profilbilder</span> im Ticketverlauf anzuzeigen.
-        <br><br>
-        Das <span class="doc-desc-title">Profilbild Quelle</span> kann im Adminportal unter Einstellungen->Agenten bzw. Kunden festgelegt werden.
-    links:
-      - title: Agenteneinstellungen
-        href: /scp/settings.php?t=agents
-
-      - title: Kundeneinstellungen
-        href: /scp/settings.php?t=users
-
+  title: Profilbild bei der Ticketansicht aktivieren
+  content: >
+    Aktivieren Sie diese Option um <span class="doc-desc-title">Profilbilder</span> im Ticketverlauf anzuzeigen.
+    <br><br>
+    Das <span class="doc-desc-title">Profilbild Quelle</span> kann im Adminportal unter Einstellungen->Agenten bzw. Kunden festgelegt werden.
+  links:
+    - 
+      title: Agenteneinstellungen
+      href: /scp/settings.php?t=agents
+    - 
+      title: Kundeneinstellungen
+      href: /scp/settings.php?t=users
 collision_avoidance:
-    title: Agentenkollisionskontrolle
-    content: >
-        Geben Sie die maximale Zeit an, durch die ein Agent, ein Ticket
-        oder eine Aufgabe ohne irgend einer Aktivität sperren kann.
-        <br><br>
-        Geben Sie <span class="doc-desc-opt">0</span> ein, um die Sperrfunktion zu deaktivieren.
-
+  title: Agentenkollisionskontrolle
+  content: >
+    Geben Sie die maximale Zeit an, durch die ein Agent, ein Ticket
+    oder eine Aufgabe ohne irgend einer Aktivität sperren kann.
+    <br><br>
+    Geben Sie <span class="doc-desc-opt">0</span> ein, um die Sperrfunktion zu deaktivieren.
 allow_iframes:
-    title: Einbinden des Systems als iFrame erlauben
-    content: >
-        Geben Sie eine durch Kommas getrennte Liste von URLs/Domains an, in die das System per iFrame 
-        eingebunden werden darf. Wenn Sie dieses Feld leer lassen, wird standardmäßig "self" verwendet
-        und das Einbinden per iFrame unterbunden. 
-        Hier sind Domainplatzhalter, HTTP/HTTPS-URL-Schema und Portnummern erlaubt.
-        <br><br>
-        <b>Beispiel:</b>
-        <br>
-        https://domain.tld, sub.domain.tld:443, http://*.domain.tld
-    links:
-      - title: Syntax Informationen (host-source)
-        href: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors#Sources"
-
+  title: Einbinden des Systems als iFrame erlauben
+  content: >
+    Geben Sie eine durch Kommas getrennte Liste von URLs/Domains an, in die das System per iFrame 
+    eingebunden werden darf. Wenn Sie dieses Feld leer lassen, wird standardmäßig "self" verwendet
+    und das Einbinden per iFrame unterbunden. 
+    Hier sind Domainplatzhalter, HTTP/HTTPS-URL-Schema und Portnummern erlaubt.
+    <br><br>
+    <b>Beispiel:</b>
+    <br>
+    https://domain.tld, sub.domain.tld:443, http://*.domain.tld
+  links:
+    - 
+      title: Syntax Informationen (host-source)
+      href: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors#Sources"
 acl:
-    title: ACL (Access Control List)
-    content: >
-        Geben Sie eine durch Kommas getrennte Liste von IP-Adressen ein, um den Zugriff auf das System zu ermöglichen.
-        Es sind vier Optionen möglich, auf welche Bereiche die ACL angewendet werden kann.
-        <table border="1" cellpadding="2px" cellspacing="0" style="margin-top:7px"
-            ><tbody style="vertical-align:top;">
-            <tr><th>Anwenden auf</th>
-                <th>Beschreibung</th></tr>
-            <tr><td>Deaktiviert</td>
-                <td>Deaktiviert die ACL komplett</td></tr>
-            <tr><td>Alle</td>
-                <td>Aktiviert die ACL bei allen Bereichen. (z.B. Kunden-, Agenten- und
-                 Adminportal)</td></tr>
-            <tr><td>Kundenportal</td>
-                <td>Aktiviert die ACL nur beim Kundenportal.</td></tr>
-            <tr><td>Agentenportal</td>
-                <td>Aktiviert die ACL nur beim Agenten- und Adminportal.</td></tr>
-        </tbody></table>
-
+  title: ACL (Access Control List)
+  content: >
+    Geben Sie eine durch Kommas getrennte Liste von IP-Adressen ein, um den Zugriff auf das System zu ermöglichen.
+    Es sind vier Optionen möglich, auf welche Bereiche die ACL angewendet werden kann.
+    <table border="1" cellpadding="2px" cellspacing="0" style="margin-top:7px"
+        ><tbody style="vertical-align:top;">
+        <tr><th>Anwenden auf</th>
+            <th>Beschreibung</th></tr>
+        <tr><td>Deaktiviert</td>
+            <td>Deaktiviert die ACL komplett</td></tr>
+        <tr><td>Alle</td>
+            <td>Aktiviert die ACL bei allen Bereichen. (z.B. Kunden-, Agenten- und
+             Adminportal)</td></tr>
+        <tr><td>Kundenportal</td>
+            <td>Aktiviert die ACL nur beim Kundenportal.</td></tr>
+        <tr><td>Agentenportal</td>
+            <td>Aktiviert die ACL nur beim Agenten- und Adminportal.</td></tr>
+    </tbody></table>
 embedded_domain_whitelist:
-    title: Domainwhitelist für iFrames im System
-    content: >
-        Geben Sie eine durch Kommas getrennte Liste von Domainnamen an, die für iFrames
-        innerhalb des Systems verwendet werden dürfen. Geben Sie für die Domainnamen kein
-        <code>http(s)</ code> oder <code>www</ code> ein. Es wird nur der Domainname akzeptiert.
-        Dies wird verwendet, wenn Sie Inhalte per iFrame über das Kundenportal, die Wissensdatenban
-        usw. in das System einbetten möchten (z. B. YouTube-Video). Wenn Sie ein
-        iFrame mit einer nicht erlaubten Domain hinzufügen, wird der iFrame vom System automatisch entfernt.
-        Standardmäßig erlaubt das System iFrames von YouTube, Vimeo, DailyMotion und Microsoft Stream.
-        <br><br>
-        <b>Beispiel:</b>
-        <br>
-        domain.tld, sub.domain.tld
-
+  title: Domainwhitelist für iFrames im System
+  content: >
+    Geben Sie eine durch Kommas getrennte Liste von Domainnamen an, die für iFrames
+    innerhalb des Systems verwendet werden dürfen. Geben Sie für die Domainnamen kein
+    <code>http(s)</ code> oder <code>www</ code> ein. Es wird nur der Domainname akzeptiert.
+    Dies wird verwendet, wenn Sie Inhalte per iFrame über das Kundenportal, die Wissensdatenban
+    usw. in das System einbetten möchten (z. B. YouTube-Video). Wenn Sie ein
+    iFrame mit einer nicht erlaubten Domain hinzufügen, wird der iFrame vom System automatisch entfernt.
+    Standardmäßig erlaubt das System iFrames von YouTube, Vimeo, DailyMotion und Microsoft Stream.
+    <br><br>
+    <b>Beispiel:</b>
+    <br>
+    domain.tld, sub.domain.tld
 # Date and time options
 date_time_options:
-    title: 'Datums- und Zeitoptionen'
-    content: >
-        Die folgenden Einstellungen legen die Datums- &amp; Zeiteinstellungen
-        für den Helpdesk fest. Sie können das Standardformat des gewählten
-        Gebietsschemas (locale) verwenden oder Sie können das Format Ihren
-        Bedürfnissen entsprechend anpassen. Verwenden Sie die ICU
-        Format-Strings als Referenz für Ihre Anpassungen. Die unten angezeigten
-        Daten verdeutlichen das Ergebnis der entsprechnenden Werte.
-    links:
-      - title: Die ICU-Datum-Formatierungs-Tabelle anzeigen
-        href: http://userguide.icu-project.org/formatparse/datetime
-
+  title: 'Datums- und Zeitoptionen'
+  content: >
+    Die folgenden Einstellungen legen die Datums- &amp; Zeiteinstellungen
+    für den Helpdesk fest. Sie können das Standardformat des gewählten
+    Gebietsschemas (locale) verwenden oder Sie können das Format Ihren
+    Bedürfnissen entsprechend anpassen. Verwenden Sie die ICU
+    Format-Strings als Referenz für Ihre Anpassungen. Die unten angezeigten
+    Daten verdeutlichen das Ergebnis der entsprechnenden Werte.
+  links:
+    - 
+      title: Die ICU-Datum-Formatierungs-Tabelle anzeigen
+      href: http://userguide.icu-project.org/formatparse/datetime
 languages:
-    title: System Sprachen
-    content: >
-        Whählen Sie eine primäre Systemsprache und optional eine sekundäre
-        Sprache, um die Oberfläche für die Agenten und Kunden anzupassen
-
+  title: System Sprachen
+  content: >
+    Wählen Sie eine primäre Systemsprache und optional eine sekundäre Sprache, um die Oberfläche für die Agenten und Kunden anzupassen.
 primary_language:
-    title: Primäre Systemsprache
-    content: >
-        Der Inhalt dieser Sprache wird den Agenten und Kunden angezeigt,
-        wenn deren Spracheinstellungen momentan nicht verfügbar sind.
-        Dies betrifft die Oberfläche, sowie personalisierten Inhalt wie
-        Dankeseiten und E-Mail-Mitteilungen 
-        <br/><br/>
-        Dies ist die Sprache in der Ihre unübersetzten Versionen des Inhalt
-        verfasst sein sollten.
-
+  title: Primäre Systemsprache
+  content: >
+    Der Inhalt dieser Sprache wird den Agenten und Kunden angezeigt,
+    wenn deren Spracheinstellungen momentan nicht verfügbar sind.
+    Dies betrifft die Oberfläche, sowie personalisierten Inhalt wie
+    Dankeseiten und E-Mail-Mitteilungen 
+    <br/><br/>
+    Dies ist die Sprache in der Ihre unübersetzten Versionen des Inhalt
+    verfasst sein sollten.
 secondary_language:
-    title: Sekundäre Systemsprache
-    content: >
-        Wählen Sie die Optionen für die Spracheinstellungen Ihrer Agenten
-        und Kunden. Die Oberfläche wird in diesen Sprachen verfügbar sein und
-        benutzerdefinierter Inhalt wie Dankeseiten und Namen der Hilfethemen
-        kann in diese Sprachen übersetzt werden.
-
-# Attachments
+  title: Sekundäre Systemsprache
+  content: >
+    Wählen Sie die Optionen für die Spracheinstellungen Ihrer Agenten
+    und Kunden. Die Oberfläche wird in diesen Sprachen verfügbar sein und
+    benutzerdefinierter Inhalt wie Dankeseiten und Namen der Hilfethemen
+    kann in diese Sprachen übersetzt werden.
+#Attachments
 attachments:
-    title: Einstellungen und Speicherung von Anhängen
-    content: >
-        Geben Sie an, wie Anhänge gespeichert werden sollen
-
+  title: Einstellungen und Speicherung von Anhängen
+  content: >
+    Geben Sie an, wie Anhänge gespeichert werden sollen
 default_storage_bk:
-    title: Dateispeicherungsbackend
-    content: >
-        Wählen Sie, wie Anhänge gespeichert werden.
-        <br><br>
-        Zusätzliche Speicherungsbackends können durch das Installieren von Speicherungsplugins hinzugefügt werden
-
+  title: Dateispeicherungsbackend
+  content: >
+    Wählen Sie, wie Anhänge gespeichert werden.
+    <br><br>
+    Zusätzliche Speicherungsbackends können durch das Installieren von Speicherungsplugins hinzugefügt werden
 max_file_size:
-    title: Maximale Dateigröße
-    content: >
-        Wählen Sie die maximale Dateigröße für Anhänge, die von Agenten
-        hochgeladen werden können. Das schließt vorbereitete Anhänge, Artikel
-        der WissensDB, sowie Anhänge bei Antworten auf Tickets und
-        Aufträge. Die maximale Größe für Anhänge wird von der PHP-Einstellung <code>upload_max_filesize</code> beschränkt.
-    links:
-      - title: PHP.ini-Einstellungen
-        href: "http://php.net/manual/en/ini.core.php#ini.upload-max-filesize"
-
+  title: Maximale Dateigröße
+  content: >
+    Wählen Sie die maximale Dateigröße für Anhänge, die von Agenten hochgeladen werden können. Das schließt vorbereitete Anhänge, Artikel der WissensDB, sowie Anhänge bei Antworten auf Tickets und Aufträge. Die maximale Größe für Anhänge wird von der PHP-Einstellung <code>upload_max_filesize</code> beschränkt.
+  links:
+    - 
+      title: php.ini-Einstellungen
+      href: "http://php.net/manual/de/ini.core.php#ini.upload-max-filesize"
 files_req_auth:
-    title: Anmeldung erforderlich
-    content: >
-        Aktivieren Sie diese Option um zu unterbinden, dass unauthorisierte
-        Personen Anhänge erhalten. Dies bedeutet, dass sich Kunden und
-        Agenten zuerst am System anmelden müssen, um Anhänge sehen zu können.
-        <br><br>
-        Seien Sie sich aus Sicherheitsgründen bewusst, dass der Browser der Kunden und
-        Agenten zuvor gesehene Dateien im Cache gespeichert haben könnte. Daher
-        verlieren alle Links zu Dateien automatisch nach 24 Stunden ihre Gültigkeit.
+  title: Anmeldung erforderlich
+  content: >
+    Aktivieren Sie diese Option um zu unterbinden, dass unauthorisierte
+    Personen Anhänge erhalten. Dies bedeutet, dass sich Kunden und
+    Agenten zuerst am System anmelden müssen, um Anhänge sehen zu können.
+    <br><br>
+    Seien Sie sich aus Sicherheitsgründen bewusst, dass der Browser der Kunden und
+    Agenten zuvor gesehene Dateien im Cache gespeichert haben könnte. Daher
+    verlieren alle Links zu Dateien automatisch nach 24 Stunden ihre Gültigkeit.

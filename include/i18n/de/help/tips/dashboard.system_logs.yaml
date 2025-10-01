@@ -1,75 +1,47 @@
-#
-# This is popup help messages for the Admin Panel -> Dashboard  -> System Logs page
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Dashboard  -> System Logs page
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 system_logs:
-    title: Systemprotokolle
-    content: >
-        Hier finden Sie alle Protokolle, die Ihnen bei der Fehlerbehebung
-        nützlich sein können. (z.B.  Warnungen, Bedienungs- oder Programmfehler).
-    links:
-      - title: Stellen Sie hier ein, welche Aktivitäten protokolliert werden sollen, indem Sie die <span class="doc-desc-title">Standard Protokollebene</span> anpassen.
-        href: /scp/settings.php?t=system
-
+  title: Systemprotokolle
+  content: >
+    Hier finden Sie alle Protokolle, die Ihnen bei der Fehlerbehebung nützlich sein können. (z.B.  Warnungen, Bedienungs- oder Programmfehler).
+  links:
+    - 
+      title: Stellen Sie hier ein, welche Aktivitäten protokolliert werden sollen, indem Sie die <span class="doc-desc-title">Standard Protokollebene</span> anpassen.
+      href: /scp/settings.php?t=system
 date_span:
-    title: Zeitraum
-    content: >
-        Wählen Sie den Zeitraum, für den die <span
-        class="doc-desc-title">Systemprotokolle</span> angezeigt werden sollen.
-
+  title: Zeitraum
+  content: >
+    Wählen Sie den Zeitraum, für den die <span class="doc-desc-title">Systemprotokolle</span> angezeigt werden sollen.
 type:
-    title: Protokollebene
-    content: >
-        Wählen Sie eine Option aus, um Ihren Blick auf eine bestimmte
-        Protokollebene zu richten. <span class="doc-desc-opt">Test</span>
-        stellt dabei den geringsten Schweregrad dar, <span
-        class="doc-desc-opt">Fehler</span> dagegen den größten.
-
+  title: Protokollebene
+  content: >
+    Wählen Sie eine Option aus, um Ihren Blick auf eine bestimmte Protokollebene zu richten. <span class="doc-desc-opt">Test</span> stellt dabei den geringsten Schweregrad dar, <span class="doc-desc-opt">Fehler</span> dagegen den größten.
 showing_logs:
-    title: Protokolle anzeigen&hellip;
-    content: >
-        Achten Sie bitte auf den unteren <span class="doc-desc-title">
-        Seitenbereich</span>, damit Sie keine Einträge übersehen. Möglicherweise
-        gibt es mehrere Seiten mit Systemprotokollen, die nicht alle auf einer Seite angezeigt werden können.
-
+  title: Protokolle anzeigen&hellip;
+  content: >
+    Achten Sie bitte auf den unteren <span class="doc-desc-title">Seitenbereich</span>, damit Sie keine Einträge übersehen. Möglicherweise gibt es mehrere Seiten mit Systemprotokollen, die nicht alle auf einer Seite angezeigt werden können.
 log_title:
-    title: Protokolltitel
-    content: >
-        Klicken Sie auf <span class="doc-desc-title">Protokolltitel</span> in
-        der Spaltenüberschrift, wenn Sie die Ergebnisse nach dem entsprechenden
-        <span class="doc-desc-title">Protokolltitel</span> sortieren möchten.
-
+  title: Protokolltitel
+  content: >
+    Klicken Sie auf <span class="doc-desc-title">Protokolltitel</span> in der Spaltenüberschrift, wenn Sie die Ergebnisse nach dem entsprechenden <span class="doc-desc-title">Protokolltitel</span> sortieren möchten.
 log_type:
-    title: Protokollebene
-    content: >
-        Klicken Sie einfach auf <span class="doc-desc-title">Protokollebene</span> in der Spaltenüberschrift, wenn
-        Sie die Ergebnisse nach der <span class="doc-desc-title">
-        Protokollebene</span> sortieren möchten.
-
+  title: Protokollebene
+  content: >
+    Klicken Sie einfach auf <span class="doc-desc-title">Protokollebene</span> in der Spaltenüberschrift, wenn Sie die Ergebnisse nach der <span class="doc-desc-title">Protokollebene</span> sortieren möchten.
 log_date:
-    title: Protokolldatum
-    content: >
-        Das ist der Zeitpunkt, zu dem der Protokoll-Eintrag vom System erzeugt
-        wurde. Wenn Sie die Ergebnisse nach dem <span class="doc-desc-title">
-        Protokoll-Datum</span> sortieren möchten, klicken Sie einfach auf <span
-        class="doc-desc-title">Protokoll-Datum</span> in der Spaltenüberschrift.
-       (Sie können den <span class="doc-desc-title">Zeitraum</span>, den Sie
-        betrachten möchten, über die Datumsfelder oberhalb eingrenzen.)
-
+  title: Protokolldatum
+  content: >
+    Das ist der Zeitpunkt, zu dem der Protokoll-Eintrag vom System erzeugt wurde. Wenn Sie die Ergebnisse nach dem <span class="doc-desc-title">Protokoll-Datum</span> sortieren möchten, klicken Sie einfach auf <span class="doc-desc-title">Protokoll-Datum</span> in der Spaltenüberschrift. (Sie können den <span class="doc-desc-title">Zeitraum</span>, den Sie betrachten möchten, über die Datumsfelder oberhalb eingrenzen.)
 ip_address:
-    title: IP-Adresse
-    content: >
-        Dies ist entweder die <span class="doc-desc-title">IP-Adresse</span> des
-        Agenten oder des Kunden, der osTicket zu der Zeit verwendet hat,
-        als der Protokolleintrag erstellt wurde.
+  title: IP-Adresse
+  content: >
+    Dies ist entweder die <span class="doc-desc-title">IP-Adresse</span> des Agenten oder des Kunden, der osTicket zu der Zeit verwendet hat, als der Protokolleintrag erstellt wurde.

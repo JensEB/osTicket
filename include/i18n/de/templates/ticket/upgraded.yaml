@@ -1,50 +1,47 @@
-#
-# Upgrade completed ticket
-#
-# This ticket is added to the system after the completion of an upgrade. It
-# might include information specific to the release, perhaps with some new
-# feature highlights, etc.
-#
+#Upgrade completed ticket
+#This ticket is added to the system after the completion of an upgrade. It
+#might include information specific to the release, perhaps with some new
+#feature highlights, etc.
 ---
 source: Web # notrans
 name: osTicket.com.de Support
 email: support@osticket.com.de
 subject: osTicket erfolgreich aktualisiert!
 message: |
-    <p>
-    osTicket erfolgreich aktualisiert! Bitte lesen Sie die Release Notes
-    (https://github.com/osTicket/osTicket/releases)
-    für mehr Informationen über Änderungen und neue Features.
-    </p><p>
-    Bitte stellen Sie sicher, dass Sie den osTicket Foren <a
-    href="https://forum.osticket.com">(englisch)</a> <a
-    href="https://forum.osticket.com.de/">(deutsch)</a> beitreten und sich
-    in die Entwickler-Mailingliste <a href="https://osticket.com/">(englisch)</a>
-    <a href="https://osticket.com.de/contact/">(deutsch)</a> eintragen, um
-    stets über die neuesten Nachrichten, Sicherheitswarnungen und Updates
-    informiert zu sein. Neben den
-    Foren bietet die <a href="https://docs.osticket.com">
-    osTicket-Dokumentation (engl.)</a> eine nützliche Sammlung von
-    Schulungsmaterialien, Dokumentationen und Hinweisen aus der Community.
-    Wir freuen uns über Ihren Beitrag zur osTicket Gemeinschaft!
-    </p><p>
-    Das osTicket Team ist engagiert alle Benutzer über unsere freien online
-    Ressourcen zu unterstützen. Außerdem steht Ihnen auch eine vollständige
-    Palette an kommerziellen Support-Paketen und Dienstleistungen zur Verfügung.
-    Kontaktieren Sie uns noch heute unter https://osticket.com.de/contact/ für
-    weitere Informationen und um ihre Anforderungen zu besprechen. Wir freuen
-    uns auf Ihre Rückmeldungen.
-    </p><p>
-    Wenn die Verwaltung und Aktualisierung dieser osTicket-Installation für Sie
-    zu aufwendig  ist, können Sie osTicket auch als gehosteten Dienst auf <a
-    href="https://osticket.com.de/products/cloud/">https://osticket.com.de/products/cloud/</a> nutzen -- es
-    ist keine Installation erforderlich und wir können, falls erforderlich, Ihre
-    Daten importieren! Mit "Isohelpdesk" erhalten sie eine fertige
-    osTicket-Infrastruktur, so dass Sie sich auf Ihre Kunden konzentrieren
-    können, mit der Sicherheit, dass die Anwendung stabil und sicher läuft und
-    gewartet wird.
-    </p><p>
-    -<br/>
-    Ihr osTicket Team<br/>
-    https://osticket.com.de/
-    </p>
+  <p>
+  osTicket erfolgreich aktualisiert! Bitte lesen Sie die Release Notes
+   (https://github.com/osTicket/osTicket/releases)
+  für mehr Informationen über Änderungen und neue Features.
+  </p><p>
+  Bitte stellen Sie sicher, dass Sie den osTicket Foren <a
+  href="https://forum.osticket.com">(englisch)</a> <a
+  href="https://forum.osticket.com.de">(deutsch)</a> beitreten und sich
+  in die Entwickler-Mailingliste <a href="https://osticket.com/">(englisch)</a>
+  <a href="https://osticket.com.de/contact/">(deutsch)</a> eintragen, um
+  stets über die neuesten Nachrichten, Sicherheitswarnungen und Updates
+  informiert zu sein. Neben den
+  Foren bietet die <a href="https://docs.osticket.com">
+  osTicket-Dokumentation (engl.)</a> eine nützliche Sammlung von
+  Schulungsmaterialien, Dokumentationen und Hinweisen aus der Community.
+  Wir freuen uns über Ihren Beitrag zur osTicket Gemeinschaft!
+  </p><p>
+  Das osTicket Team ist engagiert alle Benutzer über unsere freien online
+  Ressourcen zu unterstützen. Außerdem steht Ihnen auch eine vollständige
+  Palette an kommerziellen Support-Paketen und Dienstleistungen zur Verfügung.
+  Kontaktieren Sie uns noch heute unter https://osticket.com.de/contact/ für
+  weitere Informationen und um ihre Anforderungen zu besprechen. Wir freuen
+  uns auf Ihre Rückmeldungen.
+  </p><p>
+  Wenn die Verwaltung und Aktualisierung dieser osTicket-Installation für Sie
+  zu aufwendig  ist, können Sie osTicket auch als gehosteten Dienst auf <a
+  href="https://osticket.com.de/products/cloud/">https://osticket.com.de/products/cloud/</a> nutzen -- es
+  ist keine Installation erforderlich und wir können, falls erforderlich, Ihre
+  Daten importieren! Mit "Isohelpdesk" erhalten sie eine fertige
+  osTicket-Infrastruktur, so dass Sie sich auf Ihre Kunden konzentrieren
+  können, mit der Sicherheit, dass die Anwendung stabil und sicher läuft und
+  gewartet wird.
+  </p><p>
+  -<br/>
+  Ihr osTicket Team<br/>
+  https://osticket.com.de/
+  </p>

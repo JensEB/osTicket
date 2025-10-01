@@ -1,28 +1,25 @@
-#
-# registration-staff.yaml
-#
-# Confirmation email sent to clients when accounts are created for them by
-# staff or via the client portal. This email serves as an email address
-# verification.
-#
+#registration-staff.yaml
+#Confirmation email sent to clients when accounts are created for them by
+#staff or via the client portal. This email serves as an email address
+#verification.
 ---
 notes: >
-    Diese Vorlage definiert die E-Mail, die an den Kunden versendet wird, wenn
-    sein Konto über das Kundenportal oder durch einen Agenten in seinem Namen
-    erstellt wurde. Diese E-Mail dient zur Überprüfung der E-Mail-Adresse.
-    Bitte verwenden Sie %{link} irgendwo im Inhalt/Text der E-Mail.
+  Diese Vorlage definiert die E-Mail, die an den Kunden versendet wird, wenn
+  sein Konto über das Kundenportal oder durch einen Agenten in seinem Namen
+  erstellt wurde. Diese E-Mail dient zur Überprüfung der E-Mail-Adresse.
+  Bitte verwenden Sie %{link} irgendwo im Inhalt/Text der E-Mail.
 name: "Willkommen bei %{company.name}"
 body: >
-    <h3><strong>Hallo %{recipient.name},</strong></h3>
-    <div>
-    Es wurde für Sie ein Kundenkonto bei unserem Helpdesk auf %{url} erstellt.<br />
-    <br />
-    Folgen Sie bitte dem Link unten, um Ihr Konto zu bestätigen und Zugang zu
-    Ihren Tickets zu erhalten. <br />
-    <br />
-    <a href="%{link}">%{link}</a><br />
-    <br />
-    <em style="font-size: small"> Ihr freundliches Supportteam
-    <br />
-    %{company.name}</em>
-    </div>
+  <h3><strong>Hallo %{recipient.name},</strong></h3>
+  <div>
+  Es wurde für Sie ein Kundenkonto bei unserem Helpdesk auf %{url} erstellt.<br />
+  <br />
+  Folgen Sie bitte dem Link unten, um Ihr Konto zu bestätigen und Zugang zu
+  Ihren Tickets zu erhalten. <br />
+  <br />
+  <a href="%{link}">%{link}</a><br />
+  <br />
+  <em style="font-size: small"> Ihr freundliches Supportteam
+  <br />
+  %{company.name}</em>
+  </div>

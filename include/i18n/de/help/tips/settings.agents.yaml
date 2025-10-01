@@ -1,87 +1,60 @@
-#
-# This is popup help messages for the Admin Panel -> Settings -> Agents
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Settings -> Agents
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
+#General Settings
 ---
-
-# General Settings
 agent_name_format:
-    title: Formatierung für Agentennamen
-    content: >
-        Wählen Sie ein Format für die Agentennamen, das systemweit verwendet werden soll. 
-        Dieses Format wird auch bei den E-Mail-Vorlagen verwendet, sofern kein anderes Format vorgegeben ist
-
+  title: Formatierung für Agentennamen
+  content: >
+    Wählen Sie ein Format für die Agentennamen, das systemweit verwendet werden soll.  Dieses Format wird auch bei den E-Mail-Vorlagen verwendet, sofern kein anderes Format vorgegeben ist
 staff_identity_masking:
-    title: Agentenidentität verbergen
-    content: >
-        Sofern aktiviert, wird der Name des Agenten wärend jeder
-        Kommunikation mit dem Kunden vor ihm verborgen. 
-
+  title: Agentenidentität verbergen
+  content: >
+    Sofern aktiviert, wird der Name des Agenten wärend jeder Kommunikation mit dem Kunden vor ihm verborgen.
 disable_agent_collabs:
-    title: Agenten als beteiligte Personen deaktivieren
-    content: >
-        Wenn die Option aktiviert ist, werden alle Agenten, die von Kunden als beteiligte Personen
-        hinzugefügt werden, automatisch deaktiviert. Die ist hilfreich, wenn Kunden blind
-        Agenten im CC-Feld hinzufügen, wodurch diese Agenten alle Kundenbenachrichtigungen ebenfalls erhalten.
-        <br><br>
-        <strong>Hinweis:</strong>
-        <br>
-        Diese Einstellung gilt global für alle vom Benutzer erstellten Tickets über API, (Piping und Fetching) E-Mail.
-
-# Authentication settings
+  title: Agenten als beteiligte Personen deaktivieren
+  content: >
+    Wenn die Option aktiviert ist, werden alle Agenten, die von Kunden als beteiligte Personen hinzugefügt werden, automatisch deaktiviert. Die ist hilfreich, wenn Kunden blind Agenten im CC-Feld hinzufügen, wodurch diese Agenten alle Kundenbenachrichtigungen ebenfalls erhalten.
+    <br><br>
+    <strong>Hinweis:</strong><br>
+    Diese Einstellung gilt global für alle vom Benutzer erstellten Tickets über API, (Piping und Fetching) E-Mail.
+#Authentication settings
 agent_password_policy:
-    title: Richtlinie zum Verwalten von Passwörter
-    content: >
-        Wählen Sie eine <span class="doc-desc-title">Passwortrichtlinie</span> für <span class="doc-desc-title">Agenten</span>.
-        <br><br>
-        Zusätzliche Richtlinien können durch das Installieren des Plugins <span class="doc-desc-title">Password Policy</span> hinzugefügt werden.
-
+  title: Richtlinie zum Verwalten von Passwörter
+  content: >
+    Wählen Sie eine <span class="doc-desc-title">Passwortrichtlinie</span> für <span class="doc-desc-title">Agenten</span>.
+    <br><br>
+    Zusätzliche Richtlinien können durch das Installieren des Plugins <span class="doc-desc-title">Password Policy</span> hinzugefügt werden.
 allow_password_resets:
-    title: Zurücksetzen von Passwörtern erlauben
-    content: >
-        Aktivieren Sie diese Option, wenn Sie nach einem fehlgeschlagenen Anmeldeversuch bei der
-        <span class="doc-desc-title">Agentenanmeldung</span> 
-        den <span class="doc-desc-title">Passwort-vergessen</span>-Link anzeigen lassen möchten.
-
+  title: Zurücksetzen von Passwörtern erlauben
+  content: >
+    Aktivieren Sie diese Option, wenn Sie nach einem fehlgeschlagenen Anmeldeversuch bei der
+    <span class="doc-desc-title">Agentenanmeldung</span> 
+    den <span class="doc-desc-title">Passwort-vergessen</span>-Link anzeigen lassen möchten.
 reset_token_expiration:
-    title: Gültigkeitsdauer für den Passwort-Zurücksetzen-Link
-    content: >
-        Wählen Sie die Dauer (in Minuten), für die der <span class="doc-desc-title">
-        Passwort-Zurücksetzen-Link</span> gültig sein soll. Wenn ein Agent das <span
-        class="doc-desc-title">Zurücksetzen seines Passwortes</span> anfordert,
-        wird ein Link an ihn versendet, welcher das Zurücksetzen ermöglicht.
-
+  title: Gültigkeitsdauer für den Passwort-Zurücksetzen-Link
+  content: >
+    Wählen Sie die Dauer (in Minuten), für die der <span class="doc-desc-title">Passwort-Zurücksetzen-Link</span> gültig sein soll. Wenn ein Agent das <span class="doc-desc-title">Zurücksetzen seines Passwortes</span> anfordert, wird ein Link an ihn versendet, welcher das Zurücksetzen ermöglicht.
 staff_session_timeout:
-    title: Inaktivitätslimit für Agenten
-    content: >
-        Geben Sie die maximale Inaktivitätsdauer (in Minuten) an, bevor ein
-        Agent automatisch abgemeldet wird. 
-        <br><br>
-        Wenn Sie die Funktion <span class="doc-desc-title">Inaktivitätslimit für
-        Agenten</span> deaktivieren möchten, geben Sie "0" ein.
-
+  title: Inaktivitätslimit für Agenten
+  content: >
+    Geben Sie die maximale Inaktivitätsdauer (in Minuten) an, bevor ein Agent automatisch abgemeldet wird. 
+    <br><br>
+    Wenn Sie die Funktion <span class="doc-desc-title">Inaktivitätslimit für Agenten</span> deaktivieren möchten, geben Sie "0" ein.
 bind_staff_session_to_ip:
-    title: Agenten-Sitzung an IP-Adresse binden
-    content: >
-        Aktivieren Sie diese Funktion, wenn die Sitzung des Agenten beim
-        Anmelden an seine aktuelle IP-Adresse gebunden werden soll. 
-        <br><br>
-        Diese Funktion wird nicht für Agenten mit einer dynamischen IP-Adresse empfohlen.
-
+  title: Agenten-Sitzung an IP-Adresse binden
+  content: >
+    Aktivieren Sie diese Funktion, wenn die Sitzung des Agenten beim Anmelden an seine aktuelle IP-Adresse gebunden werden soll.
+    <br><br>
+    Diese Funktion wird nicht für Agenten mit einer dynamischen IP-Adresse empfohlen.
 require_agent_2fa:
-     title: Zwei-Faktor-Authentifizierung erforderlich
-     content: >
-         Aktivieren Sie diese Funktion, wenn Sie eine zusätzliche Authentifizierungsebene 
-         für Agenten einrichten möchten, wenn diese sich am Helpdesk anmelden. Sobald
-         sie ihren Benutzernamen und ihr Passwort korrekt übermittelt haben, müssen sie
-         ein Token übermitteln, um die Anmeldung am Helpdesk abzuschließen.
+  title: Zwei-Faktor-Authentifizierung erforderlich
+  content: >
+    Aktivieren Sie diese Funktion, wenn Sie eine zusätzliche Authentifizierungsebene  für Agenten einrichten möchten, wenn diese sich am Helpdesk anmelden. Sobald sie ihren Benutzernamen und ihr Passwort korrekt übermittelt haben, müssen sie ein Token übermitteln, um die Anmeldung am Helpdesk abzuschließen.

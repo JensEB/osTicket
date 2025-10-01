@@ -1,194 +1,171 @@
-#
-# This is popup help messages for the Admin Panel -> Settings -> Tickets
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Settings -> Tickets
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 number_format:
-    title: Ticketnummernformat
-    content: >
-        Dieses Format wird zum Generieren von Ticketnummern verwendet.
-        Verwenden Sie das Raute-Zeichen ('#') an den Stellen, die mit Ziffern
-        belegt werden sollen. Jeder andere Text in der Nummernformatierung
-        bleibt erhalten. Für <span class="doc-desc-title">Hilfethemen</span> können benutzerdefinierte Nummernformate definiert werden.
-        <br/><br/>
-        Sie können zum Beispiel für eine Nummer aus sechs Ziffern die Zeichenkette <code>######</code> verwenden.
-
+  title: Ticketnummernformat
+  content: >
+    Dieses Format wird zum Generieren von Ticketnummern verwendet.
+    Verwenden Sie das Raute-Zeichen ('#') an den Stellen, die mit Ziffern
+    belegt werden sollen. Jeder andere Text in der Nummernformatierung
+    bleibt erhalten. Für <span class="doc-desc-title">Hilfethemen</span> können benutzerdefinierte Nummernformate definiert werden.
+    <br/><br/>
+    Sie können zum Beispiel für eine Nummer aus sechs Ziffern die Zeichenkette <code>######</code> verwenden.
 sequence_id:
-    title: Ticketnummernsequenz
-    content: >
-        Wählen Sie eine Sequenz, die zum Erstellen neuer Ticketnummern
-        verwendet wird. Das System enthält standardmäßig eine inkrementelle und
-        eine zufällige Sequenz. Sie können beliebig viele Sequenzen erstellen.
-        Sie können verschiedene Sequenzen für die Konfiguration des <span
-        class="doc-desc-title">Ticketnummernformats</span> für Hilfethemenverwenden.
-
+  title: Ticketnummernsequenz
+  content: >
+    Wählen Sie eine Sequenz, die zum Erstellen neuer Ticketnummern
+    verwendet wird. Das System enthält standardmäßig eine inkrementelle und
+    eine zufällige Sequenz. Sie können beliebig viele Sequenzen erstellen.
+    Sie können verschiedene Sequenzen für die Konfiguration des <span
+    class="doc-desc-title">Ticketnummernformats</span> für Hilfethemenverwenden.
 queue_bucket_counts:
-    title: Ticketanzahl auf oberster Ebene
-    content: >
-        Diese Einstellung wird verwendet, um die Ticketanzahl in Übersichtsseiten
-        der Hauptebene auszublenden oder anzuzeigen.
-
+  title: Ticketanzahl auf oberster Ebene
+  content: >
+    Diese Einstellung wird verwendet, um die Ticketanzahl in Übersichtsseiten
+    der Hauptebene auszublenden oder anzuzeigen.
 default_ticket_status:
-    title: Standardstatus für neue Tickets
-    content: >
-        Wählen Sie einen Status als Standard für neue Tickets. Falls gewünscht,
-        kann dieser Status für jedes Hilfethema separat definiert werden. Er
-        kann auch von einem Ticketfilter überschrieben werden.
-    links:
-      - title: Ticketstatus verwalten
-        href: /scp/lists.php?type=ticket-status
-
+  title: Standardstatus für neue Tickets
+  content: >
+    Wählen Sie einen Status als Standard für neue Tickets. Falls gewünscht,
+    kann dieser Status für jedes Hilfethema separat definiert werden. Er
+    kann auch von einem Ticketfilter überschrieben werden.
+  links:
+    - 
+      title: Ticketstatus verwalten
+      href: /scp/lists.php?type=ticket-status
 default_sla:
-    title: Standard-SLA-Plan
-    content: >
-        Wählen Sie den Standard-SLA-Plan, um festzulegen wie lange ein Ticket
-        "offen" bleiben kann, bis es als "überfällig" markiert wird.
-    links:
-      - title: Weitere SLA-Pläne erstellen
-        href: /scp/slas.php
-
+  title: Standard-SLA-Plan
+  content: >
+    Wählen Sie den Standard-SLA-Plan, um festzulegen wie lange ein Ticket
+    "offen" bleiben kann, bis es als "überfällig" markiert wird.
+  links:
+    - 
+      title: Weitere SLA-Pläne erstellen
+      href: /scp/slas.php
 default_ticket_queue:
-    title: Standardticketübersichtsseite
-    content: >
-        Einstellung zum Festlegen der Standardübersichtsseite für Agenten nach dem Anmelden.
-        Agenten können die Standardübersichtsseite auch in Ihrem Profil festlegen
-        und damit diese Einstellung überschreiben.
-
+  title: Standardticketübersichtsseite
+  content: >
+    Einstellung zum Festlegen der Standardübersichtsseite für Agenten nach dem Anmelden.
+    Agenten können die Standardübersichtsseite auch in Ihrem Profil festlegen
+    und damit diese Einstellung überschreiben.
 default_priority:
-    title: Standardpriorität
-    content: >
-        Wählen Sie eine <span class="doc-desc-title">Priorität</span> für
-        Tickets denen nicht automatisch eine Priorität zugewiesen wurde.
-        <br/><br/>
-        Prioritäten können über das Hilfethema, die dazugehörige Abteilung oder
-        die Ticketfiltereinstellungen zugewiesen werden.
-
+  title: Standardpriorität
+  content: >
+    Wählen Sie eine <span class="doc-desc-title">Priorität</span> für
+    Tickets denen nicht automatisch eine Priorität zugewiesen wurde.
+    <br/><br/>
+    Prioritäten können über das Hilfethema, die dazugehörige Abteilung oder
+    die Ticketfiltereinstellungen zugewiesen werden.
 maximum_open_tickets:
-    title: Maximale Anzahl offener Tickets
-    content: >
-        Geben Sie die maximale <em>Anzahl</em> von Tickets an, die ein Kunde
-        gleichzeitig in Ihrem Helpdesk <strong>eröffnen</strong> kann.
-        <br><br>
-        Geben Sie den Wert "0" an, wenn Sie diese Einschränkung deaktivieren möchten.
-
+  title: Maximale Anzahl offener Tickets
+  content: >
+    Geben Sie die maximale <em>Anzahl</em> von Tickets an, die ein Kunde
+    gleichzeitig in Ihrem Helpdesk <strong>eröffnen</strong> kann.
+    <br><br>
+    Geben Sie den Wert "0" an, wenn Sie diese Einschränkung deaktivieren möchten.
 email_ticket_priority:
-    title: Ticketpriorität bei E-Mails
-    content: >
-        Priorität verwenden, die bei E-Mails durch deren Mail-Sende-Dienst vorgegeben wird.
-
+  title: Ticketpriorität bei E-Mails
+  content: >
+    Priorität verwenden, die bei E-Mails durch deren Mail-Sende-Dienst vorgegeben wird.
 show_related_tickets:
-    title: Alle Tickets anzeigen
-    content: >
-        Geben Sie an, ob dem Kunden nach erfolgter Anmeldung alle von ihm erstellten Tickets angezeigt werden sollen -
-        ansonsten wird nur ein Ticket pro Anmeldung angezeigt.
-
+  title: Alle Tickets anzeigen
+  content: >
+    Geben Sie an, ob dem Kunden nach erfolgter Anmeldung alle von ihm erstellten Tickets angezeigt werden sollen - ansonsten wird nur ein Ticket pro Anmeldung angezeigt.
 human_verification:
-    title: Überprüfung auf reale Person
-    content: >
-        Aktivieren Sie die CAPTCHA-Funktion auf dem Kundenportal, um sicherzustellen,
-        dass eingehende Tickets durch reale Personen eröffnet werden.
-        <br><br>
-        Erfordert die PHP-Bibliothek GDLib
-
+  title: Überprüfung auf reale Person
+  content: >
+    Aktivieren Sie die CAPTCHA-Funktion auf dem Kundenportal, um sicherzustellen,
+    dass eingehende Tickets durch reale Personen eröffnet werden.
+    <br><br>
+    Erfordert die PHP-Bibliothek GDLib
 claim_tickets:
-    title: Tickets beim Antworten zuweisen
-    content: >
-        Aktivieren Sie diese Funktion, damit das Ticket den Agenten beim Beantworten automatisch zugewiesen wird. 
-        <br><br>
-        Wieder eröffnete Tickets werden immer dem Agenten zugewiesen, der zuletzt geantwortet hat
-        sofern die automatische Zuweisung bei Wiedereröffnung eines Tickets nicht auf Abteilungsebene deaktiviert wurde.
-
+  title: Tickets beim Antworten zuweisen
+  content: >
+    Aktivieren Sie diese Funktion, damit das Ticket den Agenten beim Beantworten automatisch zugewiesen wird. 
+    <br><br>
+    Wieder eröffnete Tickets werden immer dem Agenten zugewiesen, der zuletzt geantwortet hat
+    sofern die automatische Zuweisung bei Wiedereröffnung eines Tickets nicht auf Abteilungsebene deaktiviert wurde.
 auto_refer:
-    title: Beim Schließen automatisch verlinken
-    content: >
-        Aktivieren Sie diese Option, um Tickets automatisch mit dem zugewiesenen oder
-        schließenden Agenten verlinken, wenn ein Ticket geschlossen wird.
-        <br><br>
-        Dies ist erforderlich, wenn Sie Agenten mit eingeschränktem Zugriff weiterhin
-        Zugriff auf zugewiesene Tickets gewähren möchten, nachdem diese geschlossen wurden.
-
+  title: Beim Schließen automatisch verlinken
+  content: >
+    Aktivieren Sie diese Option, um Tickets automatisch mit dem zugewiesenen oder
+    schließenden Agenten verlinken, wenn ein Ticket geschlossen wird.
+    <br><br>
+    Dies ist erforderlich, wenn Sie Agenten mit eingeschränktem Zugriff weiterhin
+    Zugriff auf zugewiesene Tickets gewähren möchten, nachdem diese geschlossen wurden.
 collaborator_ticket_visibility:
-    title: Ticketsichtbarkeit für beteiligte Personen
-    content: >
-        Wenn diese Option aktiviert ist, haben Kunden Zugriff auf ALLE Tickets, an denen sie beteiligt sind,
-        wenn sie sich beim Webportal anmelden.
-        <br><br>
-        Wenn diese Option deaktiviert ist, können Kunden nur ihre eigenen Tickets sehen, wenn sie sich
-        im Webportal anmelden.
-
+  title: Ticketsichtbarkeit für beteiligte Personen
+  content: >
+    Wenn diese Option aktiviert ist, haben Kunden Zugriff auf ALLE Tickets, an denen sie beteiligt sind,
+    wenn sie sich beim Webportal anmelden.
+    <br><br>
+    Wenn diese Option deaktiviert ist, können Kunden nur ihre eigenen Tickets sehen, wenn sie sich
+    im Webportal anmelden.
 require_topic_to_close:
-    title: Hilfethema erforderlich zum Schließen
-    content: >
-        Wenn aktiviert, muss ein Ticket über ein Hilfethema verfügen, um von einem Agenten geschlossen
-        werden zu können.
-
+  title: Hilfethema erforderlich zum Schließen
+  content: >
+    Wenn aktiviert, muss ein Ticket über ein Hilfethema verfügen, um von einem Agenten geschlossen werden zu können.
 allow_external_images:
-    title: Externe Bilder erlauben
-    content: >
-        Wenn diese Option aktiviert ist, lässt das System externe Inline-Bilder mit einer gültigen Dateiendung
-        (.png, .jpg, .jpeg, .gif) zu. Wenn deaktiviert, schließt das System alle externen Inline-Bilder aus.
-        Eine Einschränkung ist, dass bei deaktivierter Einstellung weiterhin externe Inline-Bilder mit einer
-        gültigen Bilderweiterung gespeichert werden, falls die Einstellung in Zukunft erneut aktiviert wird.
-
+  title: Externe Bilder erlauben
+  content: >
+    Wenn diese Option aktiviert ist, lässt das System externe Inline-Bilder mit einer gültigen Dateiendung
+    (.png, .jpg, .jpeg, .gif) zu. Wenn deaktiviert, schließt das System alle externen Inline-Bilder aus.
+    Eine Einschränkung ist, dass bei deaktivierter Einstellung weiterhin externe Inline-Bilder mit einer
+    gültigen Bilderweiterung gespeichert werden, falls die Einstellung in Zukunft erneut aktiviert wird.
 assigned_tickets:
-    title: Zugewiesene Tickets ausblenden
-    content: >
-        Aktivieren Sie diese Funktion, damit zugewiesene Tickets nicht auf der
-        Ticketübersichtsseite <span class="doc-desc-title">Offene Tickets</span> angezeigt werden. 
-        Zugewiesene Tickets werden dadurch nur noch auf der Ticketübersichtsseite
-        <span class="doc-desc-title">Meine Tickets</span> des jeweiligen Agenten angezeigt
-
+  title: Zugewiesene Tickets ausblenden
+  content: >
+    Aktivieren Sie diese Funktion, damit zugewiesene Tickets nicht auf der
+    Ticketübersichtsseite <span class="doc-desc-title">Offene Tickets</span> angezeigt werden. 
+    Zugewiesene Tickets werden dadurch nur noch auf der Ticketübersichtsseite
+    <span class="doc-desc-title">Meine Tickets</span> des jeweiligen Agenten angezeigt
 answered_tickets:
-    title: Beantwortete Tickets separat anzeigen
-    content: >
-        Aktivieren Sie diese Funktion, damit beantwortete Tickets separat auf
-        der Ticketübersichtsseite <span class="doc-desc-title">Beantwortete
-        Tickets</span> angezeigt werden. Ansonsten werden diese Tickets auf der
-        Ticketübersichtsseite <span class="doc-desc-title">Offene Tickets</span> angezeigt.
-
+  title: Beantwortete Tickets separat anzeigen
+  content: >
+    Aktivieren Sie diese Funktion, damit beantwortete Tickets separat auf
+    der Ticketübersichtsseite <span class="doc-desc-title">Beantwortete
+    Tickets</span> angezeigt werden. Ansonsten werden diese Tickets auf der
+    Ticketübersichtsseite <span class="doc-desc-title">Offene Tickets</span> angezeigt.
 ticket_attachment_settings:
-    title: Anhänge für Ticketantworten
-    content: >
-        Konfiguriert die Einstellungen für Dateianhänge, die dem <span
-        class="doc-desc-title">Antwortfeld</span> angehängt werden. Diese
-        Einstellungen werden für alle neuen Tickets und Mitteilungen verwendet,
-        ungeachtet der Herkunft (Webportal, E-Mail, API, usw.)
-
+  title: Anhänge für Ticketantworten
+  content: >
+    Konfiguriert die Einstellungen für Dateianhänge, die dem <span
+    class="doc-desc-title">Antwortfeld</span> angehängt werden. Diese
+    Einstellungen werden für alle neuen Tickets und Mitteilungen verwendet,
+    ungeachtet der Herkunft (Webportal, E-Mail, API, usw.)
 # Anpassung Anfang: block parent helptopic (globale Einstellung)
 blockParentTopic:
-    title: Übergeordnete Hilfethemen sperren
-    content: >
-        Hilfreich bei verschachtelten Hilfethemen, wenn es nicht möglich sein soll,
-        übergeordnete Hilfethemen auszuwählen.<br>Für jedes Hilfethema separat
-        änderbar, sofern dies nicht global gesperrt ist.
+  title: Übergeordnete Hilfethemen sperren
+  content: >
+    Hilfreich bei verschachtelten Hilfethemen, wenn es nicht möglich sein soll,
+    übergeordnete Hilfethemen auszuwählen.<br>Für jedes Hilfethema separat
+    änderbar, sofern dies nicht global gesperrt ist.
 # Anpassung Ende: block parent helptopic (globale Einstellung)
 # PlusAnpassung Anfang: helptopic restrictions
 orgRestrictToTopics:
-    title: Organisationen / Hilfethemen Einschränkungen
-    content: >
-        <b>Wenn eine Organisation ausgewählt ist,</b> werden den Mitgliedern dieser
-        Organisation nur Hilfethemen angezeigt, die auf ihre Organisation eingeschränkt
-        sind.<br><b>Wenn eine Organisation NICHT ausgewählt ist,</b> werden den Mitgliedern
-        dieser Organisation Themen angezeigt, die auf diese Organisation eingeschränkt sind,
-         <u>&nbsp;und&nbsp;</u> alle Themen ohne Einschränkungen.
+  title: Organisationen / Hilfethemen Einschränkungen
+  content: >
+    <b>Wenn eine Organisation ausgewählt ist,</b> werden den Mitgliedern dieser
+    Organisation nur Hilfethemen angezeigt, die auf ihre Organisation eingeschränkt
+    sind.<br><b>Wenn eine Organisation NICHT ausgewählt ist,</b> werden den Mitgliedern
+    dieser Organisation Themen angezeigt, die auf diese Organisation eingeschränkt sind,
+     <u>&nbsp;und&nbsp;</u> alle Themen ohne Einschränkungen.
 # PlusAnpassung Ende: helptopic restrictions
 # PlusAnpassung Anfang: list decoration read normal / not read bold
 enableSeenUnseenTickets:
-    title: Funktion Gelesen / Ungelesen
-    content: >
-        Wird diese Funktion aktiviert, werden angesehene Tickets als gelesen markiert.<br>
-        Ähnlich wie in einem E-Mail-Programm werden auf Übersichtsseiten noch nicht angesehene
-        Tickets in fetter Schrift, angesehene Tickets in normaler Schrift dargestellt.<br><br>
-        Um weiterhin zu sehen, ob ein Tickets beantwortet ist, oder nicht, steht die Anmerkung
-        "Unbeantwortet" zur Verfügung, die z.B. beim Feld Betreff eingeblendet werden kann.
+  title: Funktion Gelesen / Ungelesen
+  content: >
+    Wird diese Funktion aktiviert, werden angesehene Tickets als gelesen markiert.<br>
+    Ähnlich wie in einem E-Mail-Programm werden auf Übersichtsseiten noch nicht angesehene
+    Tickets in fetter Schrift, angesehene Tickets in normaler Schrift dargestellt.<br><br>
+    Um weiterhin zu sehen, ob ein Tickets beantwortet ist, oder nicht, steht die Anmerkung
+    "Unbeantwortet" zur Verfügung, die z.B. beim Feld Betreff eingeblendet werden kann.
 # PlusAnpassung Ende: list decoration read normal / not read bold

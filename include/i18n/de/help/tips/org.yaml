@@ -1,36 +1,28 @@
-#
-# This is the view / management page for an organization in the user
-# directory
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is the view / management page for an organization in the user
+#directory
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 org_sharing:
-    title: Ticket Sharing
-    content: >
-        <p>
-        Das Ticketsharing für Organisationen erlaubt deren Mitgliedern Zugriff
-        auf Tickets, die anderen Mitgliedern dieser Organisation gehören.
-        </p>
-        <p class="info-banner">
-        <i class="icon-info-sign"></i>
-        Beteiligte haben immer Zugang zu den Tickets.
-        </p>
-
+  title: Ticketfreigabe
+  content: >
+    <p>
+    Die Ticketfreigabe für Organisationen erlaubt deren Mitgliedern Zugriff
+    auf Tickets, die anderen Mitgliedern dieser Organisation gehören.
+    </p>
+    <p class="info-banner">
+    <i class="icon-info-sign"></i>
+    Beteiligte Personen haben immer Zugang zu den Tickets.
+    </p>
 email_domain:
-    title: E-Mail Domain
-    content: >
-        Kunden können anhand der Domain(s) Ihrer E-Mail-Adresse automatisch zu
-        dieser Organisation hinzugefügt werden. Verwenden Sie die Eingabebox
-        unten, um eine oder mehrere Domains einzugeben. Diese müssen durch ein
-        Komma von einander getrennt sein. Geben Sie  z.B. <code>meinefirma.de</code> für Kunden mit der E-Mail-Adress-Endung @meinefirma.de ein.
+  title: E-Mail Domain
+  content: >
+    Kunden können anhand der Domain(s) Ihrer E-Mail-Adresse automatisch zu dieser Organisation hinzugefügt werden. Verwenden Sie die Eingabebox unten, um eine oder mehrere Domains einzugeben. Diese müssen durch ein Komma von einander getrennt sein. Geben Sie  z.B. <code>meinefirma.de</code> für Kunden mit der E-Mail-Adress-Endung @meinefirma.de ein.
 

@@ -1,31 +1,27 @@
-#
-# Email template: task.transfer.alert.yaml
-#
-# Sent to agents when a task is transfered to their department.
-#
+#Email template: task.transfer.alert.yaml
+#Sent to agents when a task is transfered to their department.
 ---
 notes: |
-    Benachrichtigung, die an Agenten versendet wird, wenn eine Aufgabe zu
-    einer Abteilung übertragen wird, zu der sie gehören.
+  Benachrichtigung, die an Agenten versendet wird, wenn eine Aufgabe zu einer Abteilung übertragen wird, zu der sie gehören.
 subject: |
-    Aufgabe #%{task.number} übertragen - %{task.dept.name}
+  Aufgabe #%{task.number} übertragen - %{task.dept.name}
 body: |
-    <h3>Hallo %{recipient.name},</h3>
-    Die Aufgabe <a href="%{task.staff_link}">#%{task.number}</a> wurde zur
-    Abteilung %{task.dept.name} durch
-    <strong>%{staff.name.short}</strong> übertragen.
-    <br>
-    <br>
-    <blockquote>
-        %{comments}
-    </blockquote>
-    <hr>
-    <div>Um die Aufgabe anzusehen oder zu bearbeiten, melden Sie sich bitte am
-    <a href="%{task.staff_link}"><span style="color: rgb(84, 141, 212);"
-    >Helpdesk</span></a> an.</div>
-    <em style="color: rgb(127,127,127); font-size: small; ">Ihr freundliches
-    Supportteam von %{company.name}</em><br>
-    <a href="https://osticket.com.de/">
-    <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc"
-    alt="Powered by osTicket" width="126" height="19" style="width: 126px;">
-    </a>
+  <h3>Hallo %{recipient.name},</h3>
+  Die Aufgabe <a href="%{task.staff_link}">#%{task.number}</a> wurde zur
+  Abteilung %{task.dept.name} durch
+  <strong>%{staff.name.short}</strong> übertragen.
+  <br>
+  <br>
+  <blockquote>
+      %{comments}
+  </blockquote>
+  <hr>
+  <div>Um die Aufgabe anzusehen oder zu bearbeiten, melden Sie sich bitte am
+  <a href="%{task.staff_link}"><span style="color: rgb(84, 141, 212);"
+  >Helpdesk</span></a> an.</div>
+  <em style="color: rgb(127,127,127); font-size: small; ">Ihr freundliches
+  Supportteam von %{company.name}</em><br>
+  <a href="https://osticket.com.de">
+  <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc"
+  alt="Powered by osTicket" width="126" height="19" style="width: 126px;">
+  </a>

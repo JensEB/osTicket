@@ -1,29 +1,24 @@
-#
-# Email template: task.activity.notice.yaml
-#
-# Notice sent to collaborators on task activity e.g reply or message
-#
+#Email template: task.activity.notice.yaml
+#Notice sent to collaborators on task activity e.g reply or message
 ---
 notes: |
-    Benachrichtigung, die an Beteiligte einer Aufabe bei einer Aktivität
-    wie z.B. einer Antwort oder Mitteilung versendet wird
-
+  Benachrichtigung, die an Beteiligte Personen einer Aufabe bei einer Aktivität wie z.B. einer Antwort oder Mitteilung versendet wird
 subject: |
-    Aw: %{task.title} [#%{task.number}]
+  Aw: %{task.title} [#%{task.number}]
 body: |
-    <h3><strong>Hallo %{recipient.name.first},</strong></h3>
-    <div>
-        <em>%{poster.name}</em> hat gerade eine Mitteilung zu einer
-        Aufgabe hinzugefügt, an der Sie beteiligt sind.
-    </div>
-    <br>
-    %{message}
-    <br>
-    <br>
-    <hr>
-    <div style="color: rgb(127, 127, 127); font-size: small; text-align: center;">
-    <em>Sie erhalten diese E-Mail, da Sie an der Aufgabe #%{task.number}
-    beteiligt sind. Wenn Sie uns zusätzliche Informationen zu dem Ticket, an dem
-    Sie beteiligt sind, mitteilen wollen, antworten Sie bitte einfach
-    auf diese E-Mail.</em>
-    </div>
+  <h3><strong>Hallo %{recipient.name.first},</strong></h3>
+  <div>
+      <em>%{poster.name}</em> hat gerade eine Mitteilung zu einer
+      Aufgabe hinzugefügt, an der Sie beteiligt sind.
+  </div>
+  <br>
+  %{message}
+  <br>
+  <br>
+  <hr>
+  <div style="color: rgb(127, 127, 127); font-size: small; text-align: center;">
+  <em>Sie erhalten diese E-Mail, da Sie an der Aufgabe #%{task.number}
+  beteiligt sind. Wenn Sie uns zusätzliche Informationen zu dem Ticket, an dem
+  Sie beteiligt sind, mitteilen wollen, antworten Sie bitte einfach
+  auf diese E-Mail.</em>
+  </div>

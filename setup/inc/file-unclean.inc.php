@@ -13,6 +13,6 @@ if(!defined('SETUPINC')) die('Kwaheri!');
     <div id="sidebar">
             <h3><?php echo __('Need Help?');?></h3>
             <p>
-            <?php echo __('We provide <u>professional installation services</u> and commercial support with guaranteed response times, and access to the core development team.');?> <a target="_blank" href="https://osticket.com.de/support"><?php echo __('Learn More!');?></a>
+            <?php echo __('We provide <u>professional installation services</u> and commercial support with guaranteed response times, and access to the core development team.');?> <a target="_blank" href="https://support.osticket.com.de"><?php echo __('Learn More!');?></a>
             </p>
     </div>

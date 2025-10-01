@@ -1,18 +1,16 @@
-#
-# Default system data for ticket statuses
-#
-# Fields:
-#  id - (int:optional) id number in the database
-#  name - (string) descriptive name of the status
-#  state - (string) Main status of a ticket
-#  (open, closed, archived, deleted)
-#  mode - (bit) access mask (1 - enabled, 2 - internal)
-#  flags - (bit) flags that can be set on a ticket
-#  properties:
-#   description - (string) Description of the status
-#
+- 
+  #Default system data for ticket statuses
+  #Fields:
+  #id - (int:optional) id number in the database
+  #name - (string) descriptive name of the status
+  #state - (string) Main status of a ticket
+  #(open, closed, archived, deleted)
+  #mode - (bit) access mask (1 - enabled, 2 - internal)
+  #flags - (bit) flags that can be set on a ticket
+  #properties:
+  #description - (string) Description of the status
 ---
-- id: 1
+  id: 1
   name: Offen
   state: open
   mode: 3
@@ -20,9 +18,9 @@
   flags: 0
   properties:
     description: >
-        Offene Tickets.
-
-- id: 2
+      Offene Tickets.
+- 
+  id: 2
   name: Gelöst
   state: closed
   mode: 1
@@ -32,9 +30,9 @@
     allowreopen: true
     reopenstatus: 0
     description: >
-        Gelöste Tickets
-
-- id: 3
+      Gelöste Tickets
+- 
+  id: 3
   name: Geschlossen
   state: closed
   mode: 3
@@ -44,9 +42,10 @@
     allowreopen: false
     reopenstatus: 0
     description: >
-        Geschlossene Tickets. Die Tickets werden weiterhin im Kunden- und Agentenportal zugänglich sein.
+      Geschlossene Tickets. Diese Tickets werden weiterhin im Kunden- und Agentenportal zugänglich sein.
 
-- id: 4
+- 
+  id: 4
   name: Archiviert
   state: archived
   mode: 3
@@ -56,8 +55,8 @@
     description: >
         Tickets, die nur administrativ zugänglich sind aber nicht mehr in den
         Ticketübersichtsseiten und im Kundenportal angezeigt werden.
-
-- id: 5
+- 
+  id: 5
   name: Gelöscht
   state: deleted
   mode: 3

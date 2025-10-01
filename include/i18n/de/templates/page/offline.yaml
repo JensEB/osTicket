@@ -1,19 +1,16 @@
-#
-# Page template: offline.yaml
-#
-# The offline page is served to the customer portal when the help desk is
-# configured offline in the Admin Panel
-#
+#Page template: offline.yaml
+#The offline page is served to the customer portal when the help desk is
+#configured offline in the Admin Panel
 ---
-notes: >
-    Die Offlineseite erscheint im Kundenportal, wenn der Helpdesk offline ist.
+notes: |
+  Die Offlineseite erscheint im Kundenportal, wenn der Helpdesk offline ist.
 
 name: Offlineseite
-body: >
-    <div><h1>
-    <span style="font-size: medium">Helpdesk nicht erreichbar</span>
-    </h1>
-    <p>Vielen Dank dass Sie sich an uns wenden möchten.</p>
-    <p>Unser Helpdesk ist momentan leider nicht erreichbar. Bitte versuchen Sie
-    es zu einem späteren Zeitpunkt erneut.</p>
-    </div>
+body: |
+  <div><h1>
+  <span style="font-size: medium">Helpdesk nicht erreichbar</span>
+  </h1>
+  <p>Vielen Dank dass Sie sich an uns wenden möchten.</p>
+  <p>Unser Helpdesk ist momentan leider nicht erreichbar. Bitte versuchen Sie
+  es zu einem späteren Zeitpunkt erneut.</p>
+  </div>

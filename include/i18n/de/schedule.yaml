@@ -1,163 +1,184 @@
-#  Initial set of schedules and entries
-#
-# Fields:
-# id:
-# flags:
-#   0x01:   FLAG_BIZHRS (Business Hours - Otherwise Holidays is assumed)
-# sort:     Manual sort order
-# name:     Name of the Schedule
-# timezone:   Timezone of the Schedule
-# description:   Description of the Schedule
-# entries:     Schedule Entries
-#
+- 
+  #Initial set of schedules and entries
+  #Fields:
+  #id:
+  #flags:
+  #0x01:   FLAG_BIZHRS (Business Hours - Otherwise Holidays is assumed)
+  #sort:     Manual sort order
+  #name:     Name of the Schedule
+  #timezone:   Timezone of the Schedule
+  #description:   Description of the Schedule
+  #entries:     Schedule Entries
 ---
-- id: 1
+  id: 1
   flags: 0x01
   name: Montag - Freitag 8:00 Uhr - 17:00 Uhr mit deutschen Feiertagen (fest/bundesweit)
   configuration:
-    holidays: [5]
+    holidays:
+      - 4
   entries:
-      - name: Montag
-        repeats: weekly #notrans
-        starts_on: 2019-01-07
-        starts_at: 08:00:00
-        ends_on: 2019-01-07
-        ends_at: 17:00:00
-        day: 1
-      - name: Dienstag
-        repeats: weekly #notrans
-        starts_on: 2019-01-08
-        starts_at: 08:00:00
-        ends_on: 2019-01-08
-        ends_at: 17:00:00
-        day: 2
-      - name: Mittwoch
-        repeats: weekly #notrans
-        starts_on: 2019-01-09
-        starts_at: 08:00:00
-        ends_on: 2019-01-09
-        ends_at: 17:00:00
-        day: 3
-      - name: Donnerstag
-        repeats: weekly #notrans
-        starts_on: 2019-01-10
-        starts_at: 08:00:00
-        ends_on: 2019-01-10
-        ends_at: 17:00:00
-        day: 4
-      - name: Freitag
-        repeats: weekly #notrans
-        starts_on: 2019-01-11
-        starts_at: 08:00:00
-        ends_on: 2019-01-11
-        ends_at: 17:00:00
-        day: 5
-- id: 2
+    - 
+      name: Montag
+      repeats: weekly #notrans
+      starts_on: 2019-01-07
+      starts_at: 08:00:00
+      ends_on: 2019-01-07
+      ends_at: 17:00:00
+      day: 1
+    - 
+      name: Dienstag
+      repeats: weekly #notrans
+      starts_on: 2019-01-08
+      starts_at: 08:00:00
+      ends_on: 2019-01-08
+      ends_at: 17:00:00
+      day: 2
+    - 
+      name: Mittwoch
+      repeats: weekly #notrans
+      starts_on: 2019-01-09
+      starts_at: 08:00:00
+      ends_on: 2019-01-09
+      ends_at: 17:00:00
+      day: 3
+    - 
+      name: Donnerstag
+      repeats: weekly #notrans
+      starts_on: 2019-01-10
+      starts_at: 08:00:00
+      ends_on: 2019-01-10
+      ends_at: 17:00:00
+      day: 4
+    - 
+      name: Freitag
+      repeats: weekly #notrans
+      starts_on: 2019-01-11
+      starts_at: 08:00:00
+      ends_on: 2019-01-11
+      ends_at: 17:00:00
+      day: 5
+- 
+  id: 2
   flags: 0x01
   name: 24/7
   entries:
-      - name: Täglich
-        repeats: daily #notrans
-        starts_on: 2019-01-01
-        starts_at: 00:00:00
-        ends_on: 2019-01-01
-        ends_at: 23:59:59
-- id: 3
+    - 
+      name: Täglich
+      repeats: daily #notrans
+      starts_on: 2019-01-01
+      starts_at: 00:00:00
+      ends_on: 2019-01-01
+      ends_at: 23:59:59
+- 
+  id: 3
   flags: 0x01
   name: 24/5
   entries:
-      - name: Wochentags
-        repeats: weekdays #notrans
-        starts_on: 2019-01-01
-        starts_at: 00:00:00
-        ends_on: 2019-01-01
-        ends_at: 23:59:59
-- id: 4
+    - 
+      name: Wochentage
+      repeats: weekdays #notrans
+      starts_on: 2019-01-01
+      starts_at: 00:00:00
+      ends_on: 2019-01-01
+      ends_at: 23:59:59
+- 
+  id: 4
   flags: 0
   name: U.S. Feiertage
   entries:
-      - name: New Year's Day (Neujahr)
-        repeats: yearly #notrans
-        starts_on: 2019-01-01
-        starts_at: 00:00:00
-        ends_on: 2019-01-01
-        ends_at: 23:59:59
-        day: 1
-        month: 1
-      - name: MLK Day
-        repeats: yearly #notrans
-        starts_on: 2019-01-21
-        starts_at: 00:00:00
-        ends_on: 2019-01-21
-        ends_at: 23:59:59
-        day: 1
-        week: 3
-        month: 1
-      - name: Memorial Day (Heldengedenktag)
-        repeats: yearly #notrans
-        starts_on: 2019-05-27
-        starts_at: 00:00:00
-        ends_on: 2019-05-27
-        ends_at: 23:59:59
-        day: 1
-        week: -1
-        month: 5
-      - name: Independence Day (4th of July) (Unabhängigkeitstag)
-        repeats: yearly #notrans
-        starts_on: 2019-07-04
-        starts_at: 00:00:00
-        ends_on: 2019-07-04
-        ends_at: 23:59:59
-        day: 4
-        month: 7
-      - name: Labor Day (Tag der Arbeit)
-        repeats: yearly #notrans
-        starts_on: 2019-09-02
-        starts_at: 00:00:00
-        ends_on: 2019-09-02
-        ends_at: 23:59:59
-        day: 1
-        week: 1
-        month: 9
-      - name: Indigenous Peoples' Day (Whodat Columbus)
-        repeats: yearly #notrans
-        starts_on: 2019-10-14
-        starts_at: 00:00:00
-        ends_on: 2019-10-14
-        ends_at: 23:59:59
-        day: 1
-        week: 2
-        month: 10
-      - name: Veterans Day
-        repeats: yearly #notrans
-        starts_on: 2019-11-11
-        starts_at: 00:00:00
-        ends_on: 2019-11-11
-        ends_at: 23:59:59
-        day: 11
-        month: 11
-      - name: Thanksgiving Day
-        repeats: yearly #notrans
-        starts_on: 2019-11-28
-        starts_at: 00:00:00
-        ends_on: 2019-11-28
-        ends_at: 23:59:59
-        day: 4
-        week: 4
-        month: 11
-      - name: Christmas Day (Weihnachtsfeiertag)
-        repeats: yearly #notrans
-        starts_on: 2019-11-25
-        starts_at: 00:00:00
-        ends_on: 2019-11-25
-        ends_at: 23:59:59
-        day: 25
-        month: 12
-- id: 5
+    - 
+      name: New Year's Day (Neujahr)
+      repeats: yearly #notrans
+      starts_on: 2019-01-01
+      starts_at: 00:00:00
+      ends_on: 2019-01-01
+      ends_at: 23:59:59
+      day: 1
+      month: 1
+    - 
+      name: Martin Luther King Day
+      repeats: yearly #notrans
+      starts_on: 2019-01-21
+      starts_at: 00:00:00
+      ends_on: 2019-01-21
+      ends_at: 23:59:59
+      day: 1
+      week: 3
+      month: 1
+    - 
+      name: Memorial Day (Heldengedenktag)
+      repeats: yearly #notrans
+      starts_on: 2019-05-27
+      starts_at: 00:00:00
+      ends_on: 2019-05-27
+      ends_at: 23:59:59
+      day: 1
+      week: -1
+      month: 5
+    - 
+      name: Independence Day (4th of July) (Unabhängigkeitstag)
+      repeats: yearly #notrans
+      starts_on: 2019-07-04
+      starts_at: 00:00:00
+      ends_on: 2019-07-04
+      ends_at: 23:59:59
+      day: 4
+      month: 7
+    - 
+      name: Tag der Arbeit (Labor Day)
+      repeats: yearly #notrans
+      starts_on: 2019-09-02
+      starts_at: 00:00:00
+      ends_on: 2019-09-02
+      ends_at: 23:59:59
+      day: 1
+      week: 1
+      month: 9
+    - 
+      name: Tag der Indigenen Völker (Whodat Columbus)
+      repeats: yearly #notrans
+      starts_on: 2019-10-14
+      starts_at: 00:00:00
+      ends_on: 2019-10-14
+      ends_at: 23:59:59
+      day: 1
+      week: 2
+      month: 10
+    - 
+      name: Tag der Veteranen (Veterans Day)
+      repeats: yearly #notrans
+      starts_on: 2019-11-11
+      starts_at: 00:00:00
+      ends_on: 2019-11-11
+      ends_at: 23:59:59
+      day: 11
+      month: 11
+    - 
+      name: Erntedankfest (Thanksgiving Day)
+      repeats: yearly #notrans
+      starts_on: 2019-11-28
+      starts_at: 00:00:00
+      ends_on: 2019-11-28
+      ends_at: 23:59:59
+      day: 4
+      week: 4
+      month: 11
+    - 
+      name: Weihnachtsfeiertag (Christmas Day)
+      repeats: yearly #notrans
+      starts_on: 2019-11-25
+      starts_at: 00:00:00
+      ends_on: 2019-11-25
+      ends_at: 23:59:59
+      day: 25
+      month: 12
+- 
+  id: 5
   flags: 0
   name: deutsche, bundesweite Feiertage (fest - ohne Ostern, Christi Himmelfahrt u. Pfingsten)
   entries:
-      - name: Neujahr
+      - 
+        name: Neujahr
         repeats: yearly #notrans
         starts_on: 2019-01-01
         starts_at: 00:00:00
@@ -165,7 +186,8 @@
         ends_at: 23:59:59
         day: 1
         month: 1
-      - name: Tag der Arbeit
+      - 
+        name: Tag der Arbeit
         repeats: yearly #notrans
         starts_on: 2019-05-01
         starts_at: 00:00:00
@@ -173,7 +195,8 @@
         ends_at: 23:59:59
         day: 1
         month: 5
-      - name: Tag der Deutschen Einheit
+      - 
+        name: Tag der Deutschen Einheit
         repeats: yearly #notrans
         starts_on: 2019-10-03
         starts_at: 00:00:00
@@ -181,7 +204,8 @@
         ends_at: 23:59:59
         day: 3
         month: 10
-      - name: 1. Weihnachtstag
+      - 
+        name: 1. Weihnachtstag
         repeats: yearly #notrans
         starts_on: 2019-12-25
         starts_at: 00:00:00
@@ -189,7 +213,8 @@
         ends_at: 23:59:59
         day: 25
         month: 12
-      - name: 2. Weihnachtstag
+      - 
+        name: 2. Weihnachtstag
         repeats: yearly #notrans
         starts_on: 2019-12-26
         starts_at: 00:00:00

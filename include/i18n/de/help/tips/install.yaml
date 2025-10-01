@@ -1,95 +1,76 @@
-#
-# Help popup items for the installer
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#Help popup items for the installer
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 helpdesk_name:
-    title: Name des Helpdesk
-    content: >
-        <p>Der Name Ihres Helpdesks z.B. [Firmenname] Support</p>
-
+  title: Name des Helpdesk
+  content: |
+    <p>Der Name Ihres Helpdesks z.B. [Firmenname] Support</p>
 system_email:
-    title: Standard-E-Mail-Adresse des Systems
-    content: >
-        <p>Standard-E-Mail-Adresse z.B. support@ihrefirma.de - Sie können später
-         weitere hinzufügen!</p>
-
+  title: Standard-E-Mail-Adresse des Systems
+  content: |
+    <p>Standard-E-Mail-Adresse z.B. support@ihrefirma.de - Sie können später weitere hinzufügen!</p>
 default_lang:
-    title: Standardsystemsprache
-    content: >
-        <p>Initialdaten für diese Sprache werden in der Datenbank gespeichert.
-        Zum Beispiel werden E-Mail-Vorlagen und Standardsystemseiten für diese
-        Sprache installiert.</p>
-    links:
-      - title: osTicket Sprachpakete
-        href: https://osticket.com/download/#ostLang
-
+  title: Standardsystemsprache
+  content: |
+    <p>Initialdaten für diese Sprache werden in der Datenbank gespeichert.
+    Zum Beispiel werden E-Mail-Vorlagen und Standardsystemseiten für diese
+    Sprache installiert.</p>
+  links:
+    - 
+      title: osTicket Sprachpakete
+      href: https://osticket.com/download/#ostLang
 first_name:
-    title: Vorname
-    content: >
-        <p>Vorname des Administrators</p>
-
+  title: Vorname
+  content: |
+    <p>Vorname des Administrators</p>
 last_name:
-    title: Nachname
-    content: >
-        <p>Nachname des Administrators</p>
-
+  title: Nachname
+  content: |
+    <p>Nachname des Administrators</p>
 email:
-    title: E-Mail-Adresse
-    content: >
-        <p>Persönliche E-Mail-Adresse des Administrators. Die E-Mail-Adresse
-        muss sich von der Standard-E-Mail-Adresse des Systems unterscheiden.</p>
-
+  title: E-Mail-Adresse
+  content: |
+    <p>Persönliche E-Mail-Adresse des Administrators. Die E-Mail-Adresse muss sich von der Standard-E-Mail-Adresse des Systems unterscheiden.</p>
 username:
-    title: Benutzername
-    content: >
-        <p>Benutzername des Administrators. Mindestens drei (3) Zeichen erforderlich.</p>
-
+  title: Benutzername
+  content: |
+    <p>Benutzername des Administrators. Mindestens drei (3) Zeichen erforderlich.</p>
 password:
-    title: Passwort
-    content: >
-        <p>Passwort des Administrators. Mindestens sechs (6) Zeichen erforderlich.</p>
-
+  title: Passwort
+  content: |
+    <p>Passwort des Administrators. Mindestens sechs (6) Zeichen erforderlich.</p>
 password2:
-    title: Passwort bestätigen
-    content: >
-        <p>Geben Sie das Passwort des Administrators erneut ein. Die Eingaben müssen übereinstimmen.</p>
-
+  title: Passwort bestätigen
+  content: |
+    <p>Geben Sie das Passwort des Administrators erneut ein. Die Eingaben müssen übereinstimmen.</p>
 db_prefix:
-    title: MySQL-Tabellenpräfix
-    content: >
-        <p>osTicket benötigt ein Tabellenpräfix, um mögliche Konflikte in einer
-        geteilten Datenbank zu vermeiden.</p>
-
+  title: MySQL-Tabellenpräfix
+  content: |
+    <p>osTicket benötigt ein Tabellenpräfix, um mögliche Konflikte in einer geteilten Datenbank zu vermeiden.</p>
 db_host:
-    title: MySQL-Hostname
-    content: >
-        <p>Die meisten Systeme verwenden bei einer lokalen Datenbank 'localhost'
-        als Hostnamen. Erkundigen Sie sich bei Ihrem Provider, falls 'localhost'
-        als Hostname fehlschlägt.
-        </p>
-        <p>
-        osTicket verwendet den Standardport aus der php.ini. Ein abweichender
-        Port kann in folgender Schreibweise angegeben werden: <code>hostname:port</code>.
-        </p>
-
+  title: MySQL-Hostname
+  content: |
+    <p>Die meisten Systeme verwenden bei einer lokalen Datenbank 'localhost'
+    als Hostnamen. Erkundigen Sie sich bei Ihrem Provider, falls 'localhost'
+    als Hostname fehlschlägt.
+    </p>
+    <p>
+    osTicket verwendet den Standardport aus der php.ini. Ein abweichender
+    Port kann in folgender Schreibweise angegeben werden: <code>hostname:port</code>.
+    </p>
 db_schema:
-    title: MySQL-Datenbank
-    content: >
-        <p>Name der Datenbank, die für diese osTicket-Installation verwendet werden soll.</p>
-
+  title: MySQL-Datenbank
+  content: |
+    <p>Name der Datenbank, die für diese osTicket-Installation verwendet werden soll.</p>
 db_user:
-    title: MySQL-Benutzername
-    content: >
-        <p>Der MySQL-Benutzer muss alle Rechte an der Datenbank haben.</p>
-
+  title: MySQL-Benutzername
+  content: |
+    <p>Der MySQL-Benutzer muss Vollzugriff auf die Datenbank haben.</p>
 db_password:
-    title: MySQL-Passwort
-    content: >
-        <p>MySQL-Passwort des angegebenen Benutzers.</p>
+  title: MySQL-Passwort
+  content: |
+    <p>MySQL-Passwort des angegebenen Benutzers.</p>
