@@ -228,6 +228,24 @@ class Format {
         if($tidy)
             $html = Format::html(Format::htmldecode($html), array('balance' => 1));
 
+// Anpassung Anfang: convert links correct to [text](url)
+        // Die Datei html2text.php wird nicht geladen, da sie alt ist.
+        // Da nicht sicher ist ob sie funktioniert, binden wir sie nicht ein.
+        // Convert <a href="url">text</a> -> [text](url)
+        $html = preg_replace_callback(
+            '/<a\s+[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)<\/a>/is',
+            function($m) {
+                $url  = trim($m[1]);
+                $text = trim(strip_tags($m[2])); // Falls im Link Text noch HTML ist
+                return sprintf('%s(%s)'
+                               ,($text ? sprintf('[%s]',$text) : '')
+                               ,$url
+                       );
+                '[' . $text . '](' . $url . ')';
+            },
+            $html
+        );
+// Anpassung Anfang: convert links correct to [text](url)
         # See if advanced html2text is available (requires xml extension)
         if (function_exists('convert_html_to_text')
                 && extension_loaded('dom')
