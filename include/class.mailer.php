@@ -368,16 +368,23 @@ class Mailer {
 
         $messageId = $this->getMessageId($recipients, $options);
         $subject = preg_replace("/(\r\n|\r|\n)/s",'', trim($subject));
+// Anpassung Anfang: encode subject, if nessesary (only free version)
+        if(defined('DE_VERSION_TYPE') && strcasecmp(DE_VERSION_TYPE, 'plus')!=0 )
+            self::encode_header_value_simple($subject);
+// Anpassung Ende: encode subject, if nessesary (only free version)
         $from = $this->getFromAddress($options);
 
          // Create new ostTicket/Mail/Message object
         $message = new Message();
-// Anpassung Anfang: set encoding to utf-8 to support special chars in mail header
-        $message->setEncoding('utf-8');
-// Anpassung Ende: set encoding to utf-8 to support special chars in mail header
         // Set our custom Message-Id
         $message->setMessageId($messageId);
         // Set From Address
+// Anpassung Anfang: encode mail name, if nessesary (only free version)
+        if(defined('DE_VERSION_TYPE') && strcasecmp(DE_VERSION_TYPE, 'plus')!=0 ) {
+            $message->setEncoding('ASCII');
+            $message->setFrom($from->getEmail(), self::encode_header_value_simple($from->getName()));
+        } else
+// Anpassung Ende: encode mail name, if nessesary (only free version)
         $message->setFrom($from->getEmail(), $from->getName());
         // Set Subject
         $message->setSubject($subject);
@@ -477,6 +484,10 @@ class Mailer {
                     case $recipient instanceof \EmailRecipient:
                         $email = (string) $recipient->getEmail()->getEmail();
                         $name =  (string) $recipient->getName();
+// Anpassung Anfang: encode mail name, if nessesary (only free version)
+                        if(defined('DE_VERSION_TYPE') && strcasecmp(DE_VERSION_TYPE, 'plus')!=0 )
+                            self::encode_header_value_simple($name);
+// Anpassung Ende: encode mail name, if nessesary (only free version)
                         switch ($recipient->getType()) {
                             case 'to':
                                 $message->addTo($email, $name);
@@ -491,14 +502,35 @@ class Mailer {
                         break;
                     case $recipient instanceof \TicketOwner:
                     case $recipient instanceof \Staff:
+// Anpassung Anfang: encode mail name, if nessesary (only free version)
+                        if(defined('DE_VERSION_TYPE') && strcasecmp(DE_VERSION_TYPE, 'plus')!=0 ) {
+                            $message->addTo((string) $recipient->getEmail(),
+                                    (string) self::encode_header_value_simple($recipient->getName()));
+                            break;
+                        }
+// Anpassung Ende: encode mail name, if nessesary (only free version)
                         $message->addTo((string) $recipient->getEmail(),
                                 (string) $recipient->getName());
                         break;
                     case $recipient instanceof \Collaborator:
+// Anpassung Anfang: encode mail name, if nessesary (only free version)
+                        if(defined('DE_VERSION_TYPE') && strcasecmp(DE_VERSION_TYPE, 'plus')!=0 ) {
+                            $message->addCc((string) $recipient->getEmail(),
+                                    (string) self::encode_header_value_simple($recipient->getName()));
+                            break;
+                        }
+// Anpassung Ende: encode mail name, if nessesary (only free version)
                         $message->addCc((string) $recipient->getEmail(),
                                  (string) $recipient->getName());
                         break;
                     case $recipient instanceof \EmailAddress:
+// Anpassung Anfang: encode mail name, if nessesary (only free version)
+                        if(defined('DE_VERSION_TYPE') && strcasecmp(DE_VERSION_TYPE, 'plus')!=0 ) {
+                            $message->addTo((string) $recipient->getEmail(),
+                                    (string) self::encode_header_value_simple($recipient->getName()));
+                            break;
+                        }
+// Anpassung Ende: encode mail name, if nessesary (only free version)
                         $message->addTo((string) $recipient->getEmail(),
                                 (string) $recipient->getName());
                         break;
@@ -705,4 +737,30 @@ class Mailer {
         $mailer->setFromAddress($from, $options['from_name'] ?: null);
         return $mailer->send($to, $subject, $message, $options);
     }
+// Anpassung Anfang: simple header encoding for free
+    static function encode_header_value_simple($value) {
+
+        // Prüfen: Enthält der String NON-ASCII?
+        if (strlen($value) === mb_strlen($value, 'UTF-8')) {
+            return $value;
+        }
+
+        // NON-ASCII → iconv Q-Encoding anwenden
+        $prefs = [
+            'scheme' => 'Q',
+            'input-charset'  => 'UTF-8',
+            'output-charset' => 'UTF-8',
+            'line-length' => 76,
+            'line-break-chars' => "\r\n"
+        ];
+
+        $dummy = 'X'; // Dummy-Headername
+
+        // iconv_mime_encode erzeugt "Header: encoded"
+        $encoded = iconv_mime_encode($dummy, $value, $prefs);
+
+        // X: entfernen → nur der encoded VALUE bleibt übrig
+        return preg_replace('/^'.$dummy.':\s*/i', '', $encoded);
+    }
+// Anpassung Ende: simple header encoding for free
 }
