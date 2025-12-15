@@ -4327,9 +4327,9 @@ Thank you for choosing osTicket!' => 'Herzlichen Glückwunsch! Die osTicket-Grun
 // PlusAnpassung Anfang: display section break and information fields too
   'Ticket View Settings' => 'Einstellungen für die Ticketansicht',
   'Display section break fields' => 'Zwischentitelfelder anzeigen',
-  'Display section break fields on agent ticket view' => 'Zwischentitelfelder in der Ticketansicht für Agenten anzeigen',
+  'Display section break fields in the ticket view for %s' => 'Zwischentitelfelder in der Ticketansicht für %s anzeigen',
   'Display information fields' => 'Informationsfelder anzeigen',
-  'Display information fields on agent ticket view' => 'Informationsfelder in der Ticketansicht für Agenten anzeigen',
+  'Display information fields in the ticket view for %s' => 'Informationsfelder in der Ticketansicht für %s anzeigen',
 // PlusAnpassung Ende: display section break and information fields too
 // PlusAnpassung Anfang: hide selected thread entries
   'Hide Entries on ticket view' => 'Einträge in der Ticketansicht verstecken',
@@ -4356,6 +4356,11 @@ Thank you for choosing osTicket!' => 'Herzlichen Glückwunsch! Die osTicket-Grun
   'No valid MTA' => 'Kein gültiger MTA',
   'No mail template found' => 'Keine E-Mail-Vorlage gefunden',
 // PlusAnpassung Ende: spam protection - send ticket confirmation mail to unknown email senders
+// PlusAnpassung Anfang: dynamic form fields - set view flags to viewOnly and add createFlag to allow/deny create information
+  'Making fields <em>visible</em> allows agents and endusers to view information in this field.' => 'Wenn Felder <em>sichtbar</em> gemacht werden, ist es für Kunden und Agenten möglich, Inhalte dieses Feldes zu sehen.',
+  'Creatable' => 'Erstellbar',
+  'Making fields <em>Creatable</em> allows agents and endusers to create information in this field.' => 'Wenn Felder <em>erstellbar</em> gemacht werden, ist es für Kunden und Agenten möglich, Inhalte in dieses Feld einzutragen.',
+// PlusAnpassung Ende: dynamic form fields - set view flags to viewOnly and add createFlag to allow/deny create information
 
   0 => 
   array (

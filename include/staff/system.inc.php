@@ -13,10 +13,13 @@ $extensions = array(
             'name' => 'iconv',
             'desc' => __('Useful for email processing')
             ),
+/* Anpassung Anfang: remove imap extension test - deprecated (only fallback for iconv)
         'imap' => array(
             'name' => 'imap',
             'desc' => __('Useful for email processing')
             ),
+*/
+// Anpassung Ende: remove imap extension test - deprecated (only fallback for iconv)
         'ctype' => array(
             'name' => 'ctype',
             'desc' => __('Required for email fetching')
