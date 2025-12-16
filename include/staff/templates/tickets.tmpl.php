@@ -6,9 +6,7 @@ unset($args['p'], $args['_pjax']);
 
 $tickets = Ticket::objects();
 // Anpassung Anfang: Fälligkeitsampel
-$tickets->values('sla');
-$tickets->values('duedate');
-$tickets->values('est_duedate');
+$tickets->values('sla','duedate','est_duedate','status__state','isoverdue');
 // Anpassung Ende: Fälligkeitsampel
 
 if ($user) {

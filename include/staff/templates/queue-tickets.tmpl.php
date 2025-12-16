@@ -20,12 +20,6 @@ if ($queue->isAQueue() || $queue->isASubQueue())
 
 // Make sure the cdata materialized view is available
 TicketForm::ensureDynamicDataView();
-// Anpassung Anfang: Fälligkeitsampel
-$tickets->values('sla');
-$tickets->values('duedate');
-$tickets->values('est_duedate');
-$tickets->values('status__state');
-// Anpassung Ende: Fälligkeitsampel
 
 // Identify columns of output
 $columns = $queue->getColumns();
@@ -78,6 +72,7 @@ foreach ($columns as $C) {
     }
 }
 //Anpassung Anfang: Fälligkeitsampel
+$tickets->values('sla','duedate','est_duedate','status__state','isoverdue');
 if (isset($sort['col']) && $sort['col'] == 9 && $sorted == false) {
     $tickets->order_by('est_duedate', (($sort['dir'])?'DESC':'ASC'));
     $sorted = true;
