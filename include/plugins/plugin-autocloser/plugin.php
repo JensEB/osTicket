@@ -4,7 +4,7 @@ list($__, $_N) = Plugin::translate('closer');
 
 return array(
  'id' => 'clonemeagain:autocloser', # notrans
- 'version' => '3.1.1',
+ 'version' => '3.3.1',
  'name' => /* trans */ $__('Ticket Closer'),
  'author' => 'clonemeagain@gmail.com',
  'description' => /* trans */ $__('Changes ticket statuses based on age.'),
@@ -23,6 +23,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.3.1] - 2025-12-16
+### FixedS
+- log correct note, if ticket isn't closeable with its cause
+- send admin-note and admin-reply only, if status ist set
+- use status name in notes instead of status state
+- make some logical changes in ticket processing
+### Added
+- translate texts for class.CloserPlugin.php
+- config: add hint for answered flag and overdue flag
+- extend debug messages
+
+## [3.3.0] - 2025-12-02
+### Added
+- Ability to select calculate date (from lastupdate, lastmessage or lastresponse)
+
+## [3.2.1] - 2025-12-02
+### Fixed
+- get ticket_ids for processing: use correct variable for purge-age
+
+## [3.2.0] - 2025-11-14
+### Fixed
+- use osTickets native function to change ticket status
+- configuration pre-check for robot-account - only needed, if an admin-reply is set
+
+### Added
+- add language support an translation into german
+- allow more than one from-status
+- add department filter (only tickets with or without selected depts)
+- add help topic filter (only tickets with or without selected topics)
+
+### Removed
+- configuration pre-check for admin-reply - no need to check it...
 
 ## [3.1.1] - 2023-01-15
 ### Added
