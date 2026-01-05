@@ -15,8 +15,24 @@
 **********************************************************************/
 require('admin.inc.php');
 
-if (PluginManager::auditPlugin())
-    require_once('phar://' . INCLUDE_DIR . '/plugins/audit.phar/class.audit.php');
+// Anpassung Anfang: Pruefen ob das Plugin eine Phar datei oder ein Ordner ist
+// Pfade definieren
+$plugin_path = INCLUDE_DIR . 'plugins/audit';
+$phar_path = INCLUDE_DIR . 'plugins/audit.phar';
+
+// Pruefen, ob der entpackte Ordner oder die Phar-Datei existiert
+if (is_dir($plugin_path)) {
+    $base_path = $plugin_path . '/';
+} else {
+    $base_path = 'phar://' . $phar_path . '/';
+}
+if (PluginManager::auditPlugin()) {
+    require_once($base_path . 'class.audit.php');
+}
+
+$page = $base_path . 'templates/auditlogs.tmpl.php';
+
+// Anpassung Ende: Pruefen ob das Plugin eine Phar datei oder ein Ordner ist
 
 $page = 'phar://' . INCLUDE_DIR . '/plugins/audit.phar/templates/auditlogs.tmpl.php';
 $nav->setTabActive('dashboard');
