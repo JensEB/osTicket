@@ -256,8 +256,25 @@ class AdminNav extends StaffNav{
             switch(strtolower($k)){
                 case 'dashboard':
                     $subnav[]=array('desc'=>__('System Logs'),'href'=>'logs.php','iconclass'=>'logs');
-                    if (PluginManager::auditPlugin())
-                        $subnav[]=array('desc'=>__('Audit Logs'),'href'=>'audits.php','iconclass'=>'lists');
+                    // Anpassung Anfang: Prueft, ob das Audit-Plugin aktiv ist oder nicht. 
+                    // Originalcheck hat nur die Phar-Datei beruecksichtigt.  
+                    $isAuditActive = false;
+                    $plugin = Plugin::objects()->filter(array(
+                        'install_path__contains' => 'audit'
+                    ))->first();
+
+                    if ($plugin && $plugin->isActive()) {
+                        $isAuditActive = true;
+                    }
+
+                    if ($isAuditActive) {
+                        $subnav[] = array(
+                            'desc' => __('Audit Logs'),
+                            'href' => 'audits.php',
+                            'iconclass' => 'lists'
+                        );
+                    }
+                    // Anpassung Ende: Prueft, ob das Audit-Plugin aktiv ist oder nicht.
                     $subnav[]=array('desc'=>__('Information'),'href'=>'system.php','iconclass'=>'preferences');
                     break;
                 case 'settings':
