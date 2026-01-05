@@ -38,15 +38,31 @@ $page = false;
 if (isset($settingOptions[$target]))
     $page = $settingOptions[$target];
 
-if($page && $_POST && !$errors) {
-    if($cfg && $cfg->updateSettings($_POST,$errors)) {
-        $msg=sprintf(__('Successfully updated %s.'), Format::htmlchars($page[0]));
-    } elseif(!$errors['err']) {
-        $errors['err'] = sprintf('%s %s',
+if ($page && $_POST && !$errors) {
+// Anpassung DE Anfang: Einstellungen werden nicht beim ersten Mal gespeichert, sondern erst beim zweiten Mal. 
+    if ($cfg && $cfg->updateSettings($_POST, $errors)) {
+        $msg = sprintf(__('Successfully updated %s.'), Format::htmlchars($page[0]));
+
+        // Zwinge osTicket, die Konfiguration sofort neu aus der Datenbank zu laden
+        $cfg->load();
+
+        // Session synchronisieren
+        session_write_close();
+        session_start();
+
+    } elseif (!$errors['err']) {
+        $errors['err'] = sprintf(
+            '%s %s',
             __('Unable to update settings.'),
-            __('Correct any errors below and try again.'));
+            __('Correct any errors below and try again.')
+        );
     }
 }
+
+// WICHTIG: Hier wird das Anzeige-Array generiert. 
+// Durch $cfg->load() oben sind hier nun die frischen Daten drin.
+
+// Anpassung DE Ende: Einstellungen werden nicht beim ersten Mal gespeichert, sondern erst beim zweiten Mal. 
 
 $config=($errors && $_POST)?Format::input($_POST):Format::htmlchars($cfg->getConfigInfo());
 $ost->addExtraHeader('<meta name="tip-namespace" content="'.$page[1].'" />',
