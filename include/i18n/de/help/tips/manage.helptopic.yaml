@@ -1,150 +1,115 @@
-#
-# This is popup help messages for the Admin Panel -> Manage -> Help Topic
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Manage -> Help Topic
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 help_topic_information:
-    title: Hilfethema-Informationen
-    content: >
-        <span class="doc-desc-title">Hilfethemen</span> steuern, welche
-        Informationen von den Kunden erfasst werden und wie die Tickets
-        weitergeleitet oder zugewiesen werden.
-
+  title: Hilfethema-Informationen
+  content: >
+    <span class="doc-desc-title">Hilfethemen</span> steuern, welche Informationen von den Kunden erfasst werden und wie die Tickets weitergeleitet oder zugewiesen werden.
 topic:
-    title: Name des Hilfethemas
-    content: >
-        Eindeutiger Name für das Hilfethema.
-
+  title: Name des Hilfethemas
+  content: >
+    Eindeutiger Name für das Hilfethema.
 htstatus:
-    title: Status
-    content: >
-        Wenn deaktiviert oder archiviert, ist dieses <span
-        class="doc-desc-title">Hilfethema</span> nicht verfügbar.
-
+  title: Status
+  content: >
+    Wenn deaktiviert oder archiviert, ist dieses <span class="doc-desc-title">Hilfethema</span> nicht verfügbar.
 status:
-    title: Ticket Status
-    content: >
-        Wählen Sie einen Ticket Status, der neuen Tickets mit diesem <span
-        class="doc-desc-title">Hilfethema</span> zugewiesen wird.
-        <br><br>
-        Ticketfilter können diese Einstellung überschreiben.
-
+  title: Ticket Status
+  content: >
+    Wählen Sie einen Ticket Status, der neuen Tickets mit diesem <span class="doc-desc-title">Hilfethema</span> zugewiesen wird.
+    <br><br>
+    Ticketfilter können diese Einstellung überschreiben.
 type:
-    title: Typ
-    content: >
-        Wenn ein <span class="doc-desc-title">Hilfethema</span> als intern
-        eingestuft wird, ist es nur für Agenten zugänglich, wenn sie ein
-        neues Ticket über das Agentenportal eröffnen.
-
+  title: Typ
+  content: >
+    Wenn ein <span class="doc-desc-title">Hilfethema</span> als privat eingestuft wird, ist es nur für Agenten zugänglich, wenn ein Agent ein neues Ticket über das Agentenportal eröffnet.
 parent_topic:
-    title: Übergeordnetes Hilfethema
-    content: >
-        Wählen Sie das übergeordnete Hilfethema, zu welchem dieses <span
-        class="doc-desc-title">Hilfethema</span> gehören soll. Das
-        übergeordnete Hilfethema wird als erstes in der Auswahlliste angezeigt,
-        dieses <span class="doc-desc-title">Hilfethema</span> wird darunter angezeigt.
-
+  title: Übergeordnetes Hilfethema
+  content: >
+    Wählen Sie das übergeordnete Hilfethema, zu welchem dieses <span class="doc-desc-title">Hilfethema</span> gehören soll. Das übergeordnete Hilfethema wird als erstes in der Auswahlliste angezeigt, dieses <span class="doc-desc-title">Hilfethema</span> wird darunter angezeigt.
 custom_form:
-    title: Benutzerdefiniertes Formular
-    content: >
-        Benutzerdefinierte Formulare ermöglichen es Ihnen, gezieltere
-        Informationen zu sammeln, die für dieses <span
-        class="doc-desc-title">Hilfethema</span> relevant sind.
-    links:
-      - title: Benutzerdefinierte Formulare verwalten
-        href: /scp/forms.php
-
+  title: Benutzerdefiniertes Formular
+  content: >
+    Benutzerdefinierte Formulare ermöglichen es Ihnen, gezieltere Informationen zu sammeln, die für dieses <span class="doc-desc-title">Hilfethema</span> relevant sind.
+  links:
+    - 
+      title: Benutzerdefinierte Formulare verwalten
+      href: /scp/forms.php
 priority:
-    title: Priorität
-    content: >
-        Wählen Sie die Priorität, die neuen Tickets zugewiesen werden soll,
-        wenn Sie mit diesem <span class="doc-desc-title">Hilfethema</span> eröffnet werden. 
-        <br><br>
-        Ticketfilter können die Priorität eines neuen Tickets überschreiben.
-
+  title: Priorität
+  content: >
+    Wählen Sie die Priorität, die neuen Tickets zugewiesen werden soll, wenn Sie mit diesem <span class="doc-desc-title">Hilfethema</span> eröffnet werden.
+    <br><br>
+    Ticketfilter können die Priorität eines neuen Tickets überschreiben.
 department:
-    title: Abteilung
-    content: >
-        Wählen Sie die Abteilung aus, der neue Tickets mit diesem Hilfethema zugeordnet werden sollen.
-    links:
-      - title: Abteilungen verwalten
-        href: /scp/departments.php
-
+  title: Abteilung
+  content: >
+    Wählen Sie die Abteilung aus, der neue Tickets mit diesem Hilfethema zugeordnet werden sollen.
+  links:
+    - 
+      title: Abteilungen verwalten
+      href: /scp/departments.php
 sla_plan:
-    title: SLA-Plan
-    content: >
-        Wählen Sie einen SLA-Plan der diesem <span class="doc-desc-title">Hilfethema</span> zugeordnet werden soll.
-        <br><br>
-        Diese Auswahl wird den SLA-Plan der ausgewählten Abteilung überschrieben.
-    links:
-      - title: SLA-Pläne verwalten
-        href: /scp/slas.php
-
+  title: SLA-Plan
+  content: >
+    Wählen Sie einen SLA-Plan der diesem <span class="doc-desc-title">Hilfethema</span> zugeordnet werden soll.
+    <br><br>
+    Diese Auswahl wird den SLA-Plan der ausgewählten Abteilung überschrieben.
+  links:
+    - 
+      title: SLA-Pläne verwalten
+      href: /scp/slas.php
 thank_you_page:
-    title: Danke-Seite
-    content: >
-        Wählen Sie die Dankeseite, zu der ein Kunde weitergeleitet wird,
-        nachdem er ein Ticket zu diesem <span class="doc-desc-title">Hilfethema</span> eröffnet hat.
-    links:
-      - title: Danke-Seiten verwalten
-        href: /scp/pages.php
-
+  title: Danke-Seite
+  content: >
+    Wählen Sie die Dankeseite, zu der ein Kunde weitergeleitet wird, nachdem er ein Ticket zu diesem <span class="doc-desc-title">Hilfethema</span> eröffnet hat.
+  links:
+    - 
+      title: Danke-Seiten verwalten
+      href: /scp/pages.php
 auto_assign_to:
-    title: Neue Tickets automatisch zuweisen
-    content: >
-        Wählen Sie optional einen Agenten oder ein Team, dem das Ticket automatisch zugewiesen werden soll,
-        wenn es mit diesem <span class="doc-desc-title">Hilfethema</span> eröffnet wird.
-        <br><br>
-        Ticketfilter können diese Zuweisung überschreiben.
-    links:
-      - title: Agenten und Teams verwalten
-        href: /scp/staff.php
-
+  title: Neue Tickets automatisch zuweisen
+  content: >
+    Wählen Sie optional einen Agenten oder ein Team, dem das Ticket automatisch zugewiesen werden soll, wenn es mit diesem <span class="doc-desc-title">Hilfethema</span> eröffnet wird.
+    <br><br>
+    Ticketfilter können diese Zuweisung überschreiben.
+  links:
+    - 
+      title: Agenten und Teams verwalten
+      href: /scp/staff.php
 ticket_auto_response:
-    title: Ticketrückmeldung
-    content: >
-        Wenn der Haken gesetzt ist, werden Rückmeldungen für dieses <span
-        class="doc-desc-title">Hilfethema</span> deaktiviert. 
-        <br><br>
-        Das überschreibt die Einstellung für Rückmeldungen der <span
-        class="doc-desc-title">Abteilung</span> sowie die globalen <span
-        class="doc-desc-title">Einstellungen für Rückmeldungen</span>.
-    links:
-      - title: Einstellungen für Rückmeldungen
-        href: /scp/settings.php?t=autoresp
-
+  title: Ticketrückmeldung
+  content: >
+    Wenn der Haken gesetzt ist, werden Rückmeldungen für dieses <span class="doc-desc-title">Hilfethema</span> deaktiviert.
+    <br><br>
+    Das überschreibt die Einstellung für Rückmeldungen der <span class="doc-desc-title">Abteilung</span> sowie die globalen <span class="doc-desc-title">Einstellungen für Rückmeldungen</span>.
+  links:
+    - 
+      title: Einstellungen für Rückmeldungen
+      href: /scp/settings.php?t=autoresp
 custom_numbers:
-    title: Benutzerdefinierte Ticketnummern
-    content: >
-        Wählen Sie hier "Benutzerdefiniert", um das Standard-Ticketnummernformat
-        des Systems für Tickets mit diesem Hilfethema zu überschreiben. 
-        Näheres zu den Einstellungen finden Sie in der Hilfe des Adminportals unter Einstellungen-&gt;Tickets.
-
+  title: Benutzerdefinierte Ticketnummern
+  content: >
+    Wählen Sie hier "Benutzerdefiniert", um das Standard-Ticketnummernformat des Systems für Tickets mit diesem Hilfethema zu überschreiben. Näheres zu den Einstellungen finden Sie in der Hilfe des Adminportals unter Einstellungen-&gt;Tickets.
 # PlusAnpassung Anfang: helptopic restrictions
 notSelectable:
-    title: Hilfethema nicht auswählbar
-    content: >
-        Hilfreich bei verschachtelten Hilfethemen, wenn es nicht möglich sein soll,
-        übergeordnete Hilfethemen auszuwählen. Übergeordnete Hilfethemen können
-        auch global gesperrt werden.
-    links:
-      - title: Globale Ticketeinstellungen
-        href: /scp/settings.php?t=tickets
-
+  title: Hilfethema nicht auswählbar
+  content: >
+    Hilfreich bei verschachtelten Hilfethemen, wenn es nicht möglich sein soll, übergeordnete Hilfethemen auszuwählen. Übergeordnete Hilfethemen können auch global gesperrt werden.
+  links:
+    - 
+    title: Globale Ticketeinstellungen
+    href: /scp/settings.php?t=tickets
 restrictToOrgs:
-    title: Auf Organisationen einschränken
-    content: >
-        Sind Organisationen ausgewählt, wird das Hilfethema nur für Kunden, die zu
-        diesen Organisationen gehören, sichtbar sein.<br>Sind keine Organisationen
-        ausgewählt, können alle Kunden dieses Hilfethema sehen.
+  title: Auf Organisationen einschränken
+  content: >
+    Sind Organisationen ausgewählt, wird das Hilfethema nur für Kunden, die zu diesen Organisationen gehören, sichtbar sein.<br>Sind keine Organisationen ausgewählt, können alle Kunden dieses Hilfethema sehen.
 # PlusAnpassung Ende: helptopic restrictions

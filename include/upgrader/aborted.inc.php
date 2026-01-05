@@ -6,7 +6,7 @@ if(!defined('OSTSCPINC') || !$thisstaff || !$thisstaff->isAdmin()) die('Access D
     <h1 style="color:#FF7700;"><?php echo __('Upgrade Aborted!');?></h1>
     <div id="intro">
         <p><strong><?php echo __('Upgrade aborted due to errors. Any errors at this stage are fatal.');?></strong></p>
-        <p><?php echo sprintf(__('Please note the error(s), if any, when %1$s seeking help %2$s.'),'<a target="_blank" href="https://osticket.com.de/support/">','</a>');?><p>
+        <p><?php echo sprintf(__('Please note the error(s), if any, when %1$s seeking help %2$s.'),'<a target="_blank" href="https://support.osticket.com.de">','</a>');?><p>
         <?php
         if($upgrader && ($errors=$upgrader->getErrors())) {
             if($errors['err'])
@@ -25,11 +25,11 @@ if(!defined('OSTSCPINC') || !$thisstaff || !$thisstaff->isAdmin()) die('Access D
         <br>
         <p><?php echo sprintf(__('Please refer to the %1$s Upgrade Guide %2$s for more information.'), '<a target="_blank" href="https://docs.osticket.com/en/latest/Getting%20Started/Upgrade%20and%20Migration.html">', '</a>');?></p>
     </div>
-    <p><strong><?php echo __('Need Help?');?></strong> <?php echo sprintf(__('We provide %1$s professional upgrade services %2$s and commercial support.'), '<a target="_blank" href="https://osticket.com.de/support/"><u>','</u></a>'); echo sprintf(__('%1$s Contact us %2$s today for <u>expedited</u> help.'), '<a target="_blank" href="https://osticket.com.de/support/">','</a>');?></p>
+    <p><strong><?php echo __('Need Help?');?></strong> <?php echo sprintf(__('We provide %1$s professional upgrade services %2$s and commercial support.'), '<a target="_blank" href="https://support.osticket.com.de"><u>','</u></a>'); echo sprintf(__('%1$s Contact us %2$s today for <u>expedited</u> help.'), '<a target="_blank" href="https://support.osticket.com.de">','</a>');?></p>
   </div>
   <div class="sidebar">
     <h3><?php echo __('What to do?');?></h3>
-    <p><?php echo sprintf(__('Restore your previous version from backup and try again or %1$s seek help %2$s.'), '<a target="_blank" href="https://osticket.com.de/support/">','</a>');?></p>
+    <p><?php echo sprintf(__('Restore your previous version from backup and try again or %1$s seek help %2$s.'), '<a target="_blank" href="https://support.osticket.com.de">','</a>');?></p>
   </div>
   <div class="clear"></div>
 </div>

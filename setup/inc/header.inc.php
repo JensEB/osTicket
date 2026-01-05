@@ -33,7 +33,7 @@ if (osTicket::is_ie())
                    foreach($wizard['menu'] as $k=>$v)
                     echo sprintf('<a target="_blank" href="%s">%s</a> &mdash; ',$v,$k);
                    ?>
-                    <a target="_blank" href="https://osticket.com.de/support/"><?php echo __('Contact Us');?></a>
+                    <a target="_blank" href="https://support.osticket.com.de"><?php echo __('Contact Us');?></a>
                 </li>
             </ul>
             <div class="flags">

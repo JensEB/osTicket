@@ -1,27 +1,21 @@
-#
-# Email template: ticket.overlimit.yaml
-#
-# Sent to users when they have exceeded the maximum open ticket limit. The
-# limit is configurable in the Admin Panel, and is defined by the number of
-# tickets open by a particular email address.
-#
+#Email template: ticket.overlimit.yaml
+#Sent to users when they have exceeded the maximum open ticket limit. The
+#limit is configurable in the Admin Panel, and is defined by the number of
+#tickets open by a particular email address.
 ---
-notes: >
-    Wird an Kunden versendet, wenn die maximale Anzahl offener Tickets pro Kunde überschritten wurde. 
-    Das Limit ist im Adminportal konfigurierbar und wird durch die Anzahl der
-    Tickets, die von einer bestimmte E-Mail-Adresse eröffnet wurden, definiert.
-
-subject: >
-    Sie haben die maximal zulässige Anzahl offener Tickets erreicht!
-body: >
-    <h3><strong>Hallo %{ticket.name},</strong></h3>
-    Sie haben die maximale Anzahl an offenen Tickets erreicht. Um weitere
-    Tickets eröffnen zu können, muss zuerst eines Ihrer offenen Tickets geschlossen werden.
-    Um ein offenes Ticket zu aktualisieren oder zu kommentieren <a
-    href="%{url}/tickets.php?e=%{ticket.email}">melden Sie sich bei unserem Helpdesk an</a>. 
-    Dort erhalten Sie eine komplette Übersicht zu Ihren Supportanfragen.
-    <br>
-    <br>
-    Vielen Dank<br/>
-    Ihr Supportteam von %{company.name},<br>
-    %{signature}
+notes: |
+  Wird an Kunden versendet, wenn die maximale Anzahl offener Tickets pro Kunde überschritten wurde. Das Limit ist im Adminportal konfigurierbar und wird durch die Anzahl der Tickets, die von einer bestimmte E-Mail-Adresse eröffnet wurden, definiert.
+subject: |
+  Sie haben die maximal zulässige Anzahl offener Tickets erreicht!
+body: |
+  <h3><strong>Hallo %{ticket.name},</strong></h3>
+  Sie haben die maximale Anzahl an offenen Tickets erreicht. Um weitere
+  Tickets eröffnen zu können, muss zuerst eines Ihrer offenen Tickets geschlossen werden.
+  Um ein offenes Ticket zu aktualisieren oder zu kommentieren <a
+  href="%{url}/tickets.php?e=%{ticket.email}">melden Sie sich bei unserem Helpdesk an</a>. 
+  Dort erhalten Sie eine komplette Übersicht zu Ihren Supportanfragen.
+  <br>
+  <br>
+  Vielen Dank<br/>
+  Ihr Supportteam von %{company.name},<br>
+  %{signature}

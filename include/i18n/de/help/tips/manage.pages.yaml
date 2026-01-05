@@ -1,35 +1,23 @@
-#
-# This is popup help messages for the Admin Panel -> Manage -> Pages
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Manage -> Pages
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 site_pages:
-    title: Seiten
-    content: >
-        Seiten können als Mini-Content-Management-System (CMS) dienen. Sie
-        können verschiedene Startseiten, Offlineseiten und Dankeseiten
-        festlegen und diese in den Betreibereinstellungen und den Hilfethemen konfigurieren.
-    links:
-      - title: Betreiber-Einstellungen
-        href: /scp/settings.php?t=pages
-
+  title: Seiten
+  content: >
+    Seiten können als Mini-Content-Management-System (CMS) dienen. Sie können verschiedene Startseiten, Offlineseiten und Dankeseiten festlegen und diese in den Betreibereinstellungen und den Hilfethemen konfigurieren.
+  links:
+    - 
+      title: Betreiber-Einstellungen
+      href: /scp/settings.php?t=pages
 type:
-    title: Typ
-    content: >
-        <span class="doc-desc-opt">Offlineseiten</span> werden im Kundenportal
-        angezeigt, wenn Ihr Helpdesk deaktiviert ist. <span
-        class="doc-desc-opt">Startseiten</span> werden als erste Seite im
-        Kundenportal angezeigt. <span class="doc-desc-opt">Dankeseiten</span>
-        werden angezeigt, nachdem ein Kunde ein Ticket übermittelt hat. <span
-        class="doc-desc-opt">Andere</span>-Seiten können als einfaches
-        Content-Management-System (CMS) verwendet werden.
+  title: Typ
+  content: >
+    <span class="doc-desc-opt">Offlineseiten</span> werden im Kundenportal angezeigt, wenn Ihr Helpdesk deaktiviert ist. <span class="doc-desc-opt">Startseiten</span> werden als erste Seite im Kundenportal angezeigt. <span class="doc-desc-opt">Dankeseiten</span> werden angezeigt, nachdem ein Kunde ein Ticket übermittelt hat. <span class="doc-desc-opt">Andere</span>-Seiten können als einfaches Content-Management-System (CMS) verwendet werden.

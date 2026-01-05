@@ -1,45 +1,40 @@
-#
-# Email template: task.alert.yaml
-#
-# Sent to an agent when a new task is created in the system.
-#
-#
+#Email template: task.alert.yaml
+#Sent to an agent when a new task is created in the system.
 ---
 notes: |
-    Benachrichtigung, die an Agenten versendet wird, wenn eine neue
-    Aufgabe im System erstellt wird.
+  Benachrichtigung, die an Agenten versendet wird, wenn eine neue Aufgabe im System erstellt wird.
 
 subject: |
-    Benachrichtigung bei neuer Aufgabe
+  Benachrichtigung bei neuer Aufgabe
 body: |
-    <h2>Hallo %{recipient.name},</h2>
-    Eine neue Aufgabe <a href="%{task.staff_link}">#%{task.number}</a>
-    wurde erstellt.
-    <br>
-    <br>
-    <table>
-    <tbody>
-    <tr>
-        <td>
-            <strong>Abteilung</strong>:
-        </td>
-        <td>
-            %{task.dept.name}
-        </td>
-    </tr>
-    </tbody>
-    </table>
-    <br>
-    %{task.description}
-    <br>
-    <br>
-    <hr>
-    <div>Um die Aufgabe anzusehen oder zu bearbeiten, melden Sie sich bitte am
-    <a href="%{task.staff_link}"><span style="color: rgb(84, 141, 212);"
-    >Helpdesk</span></a> an.</div>
-    <em style="color: rgb(127,127,127); font-size: small; ">Ihr freundliches
-    Supportteam von %{company.name}</em><br>
-    <a href="https://osticket.com.de/">
-    <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc"
-    alt="Powered by osTicket" width="126" height="19" style="width: 126px;">
-    </a>
+  <h2>Hallo %{recipient.name},</h2>
+  Eine neue Aufgabe <a href="%{task.staff_link}">#%{task.number}</a>
+  wurde erstellt.
+  <br>
+  <br>
+  <table>
+  <tbody>
+  <tr>
+      <td>
+          <strong>Abteilung</strong>:
+      </td>
+      <td>
+          %{task.dept.name}
+      </td>
+  </tr>
+  </tbody>
+  </table>
+  <br>
+  %{task.description}
+  <br>
+  <br>
+  <hr>
+  <div>Um die Aufgabe anzusehen oder zu bearbeiten, melden Sie sich bitte am
+  <a href="%{task.staff_link}"><span style="color: rgb(84, 141, 212);"
+  >Helpdesk</span></a> an.</div>
+  <em style="color: rgb(127,127,127); font-size: small; ">Ihr freundliches
+  Supportteam von %{company.name}</em><br>
+  <a href="https://osticket.com.de">
+  <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc"
+  alt="Powered by osTicket" width="126" height="19" style="width: 126px;">
+  </a>

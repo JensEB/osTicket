@@ -1,10 +1,7 @@
-#
-# Upgrade completed ticket
-#
-# This ticket is added to the system after the completion of an upgrade. It
-# might include information specific to the release, perhaps with some new
-# feature highlights, etc.
-#
+#Upgrade completed ticket
+#This ticket is added to the system after the completion of an upgrade. It
+#might include information specific to the release, perhaps with some new
+#feature highlights, etc.
 ---
 source: Web # notrans
 name: osTicket.com.de Support

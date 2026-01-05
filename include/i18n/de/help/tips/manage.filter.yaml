@@ -1,145 +1,105 @@
-#
-# This is popup help messages for the Admin Panel -> Manage -> Filter
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Manage -> Filter
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
-
 execution_order:
-    title: Ausführungsreihenfolge
-    content: >
-        Geben Sie eine Zahl ein, die die Priorität des Filters steuert. Je
-        niedriger die Zahl ist, desto höher wird die Priorität des Filters in
-        der Ausführungsreihenfolge gegenüber einem anderen Filter sein, der möglicherweise in der Ausführungsreihenfolge höher steht. 
-        <br><br>
-        Wenn Sie wollen, dass dieser Filter als letztes auf einen Treffer angewendet wird, aktivieren Sie <span
-        class="doc-desc-title">Bei Übereinstimmumg weitere Ticketfilter <strong>stoppen</strong>!</span>.
-
+  title: Ausführungsreihenfolge
+  content: >
+    Geben Sie eine Zahl ein, die die Priorität des Filters steuert. Je niedriger die Zahl ist, desto höher wird die Priorität des Filters in der Ausführungsreihenfolge gegenüber einem anderen Filter sein, der möglicherweise in der Ausführungsreihenfolge höher steht. 
+    <br><br>
+    Wenn Sie wollen, dass dieser Filter als letztes auf einen Treffer angewendet wird, aktivieren Sie <span class="doc-desc-title">Bei Übereinstimmumg weitere Ticketfilter <strong>stoppen</strong>!</span>.
 target_channel:
-    title: Ticketherkunft
-    content: >
-        Wählen Sie die <span class="doc-desc-title">Ticketherkunft</span>, die mit diesem <span
-        class="doc-desc-title">Ticketfilter</span> überwacht werden soll. Die <span
-        class="doc-desc-title">Ticketherkunft</span> ist der Weg, über den das Ticket in das System gekommen ist.
-        <br><br>
-        Wenn Sie z.B. <span class="doc-desc-opt">Webformular</span> auswählen,
-        wird der <span class="doc-desc-title">Ticketfilter</span> auf die
-        Tickets angewendet, die über das Webformular des Kundenportal
-        eröffnet werden.
-
+  title: Ticketherkunft
+  content: >
+    Wählen Sie die <span class="doc-desc-title">Ticketherkunft</span>, die mit diesem <span class="doc-desc-title">Ticketfilter</span> überwacht werden soll. Die <span class="doc-desc-title">Ticketherkunft</span> ist der Weg, über den das Ticket in das System gekommen ist.
+    <br><br>
+    Wenn Sie z.B. <span class="doc-desc-opt">Webformular</span> auswählen, wird der <span class="doc-desc-title">Ticketfilter</span> auf die Tickets angewendet, die über das Webformular des Kundenportal eröffnet werden.
 rules_matching_criteria:
-    title: Filterregeln
-    content: >
-        Legen Sie fest, welche Bedingungen erfüllt sein müssen, damit dieser
-        <span class="doc-desc-title">Ticketfilter</span> angewendet werden
-        soll. Wenn nur eine der folgenden Bedingungen des <span class="doc-desc-title">
-        Ticketfilters</span> zutreffen muss, wählen Sie <span
-        class="doc-desc-opt">Nur eine Regel muss zutreffen</span>. Wenn Sie
-        möchten, dass <em><strong>alle Bedingungen</strong></em> des <span
-        class="doc-desc-title">Ticketfilters</span> zutreffen müssen, dann wählen
-        Sie <span class="doc-desc-opt">Alle Regeln müssen zutreffen</span>.
-
+  title: Filterregeln
+  content: >
+    Legen Sie fest, welche Bedingungen erfüllt sein müssen, damit dieser
+    <span class="doc-desc-title">Ticketfilter</span> angewendet werden
+    soll. Wenn nur eine der folgenden Bedingungen des <span class="doc-desc-title">
+    Ticketfilters</span> zutreffen muss, wählen Sie <span
+    class="doc-desc-opt">Nur eine Regel muss zutreffen</span>. Wenn Sie
+    möchten, dass <em><strong>alle Bedingungen</strong></em> des <span
+    class="doc-desc-title">Ticketfilters</span> zutreffen müssen, dann wählen
+    Sie <span class="doc-desc-opt">Alle Regeln müssen zutreffen</span>.
 reject_ticket:
-    title: Ticket ablehnen
-    content: >
-        Ist diese Funktion aktiviert, wird die Weiterverarbeitung bei einer
-        Übereinstimmumg gestoppt und alle weiteren Aktionsmöglichkeiten werden ignoriert.
-
+  title: Ticket ablehnen
+  content: >
+    Ist diese Funktion aktiviert, wird die Weiterverarbeitung bei einer Übereinstimmumg gestoppt und alle weiteren Aktionsmöglichkeiten werden ignoriert.
 reply_to_email:
-    title: Antwort-E-Mail-Adresse
-    content: >
-        Aktivieren Sie diese Funktion, wenn Ihr Helpdesk den <span
-        class="doc-desc-title">Antwort-An</span>-Header vom E-Mail-Programm des
-        Benutzer berücksichtigen soll. Dieses Feld ist nur relevant wenn bei
-        der <span class="doc-desc-title">Ticketherkunft</span> oben <span
-        class="doc-desc-opt">E-Mails</span> ausgewählt wurde.'
-
+  title: Antwort-E-Mail-Adresse
+  content: >
+    Aktivieren Sie diese Funktion, wenn Ihr Helpdesk den <span class="doc-desc-title">Antwort-An</span>-Header vom E-Mail-Programm des Benutzer berücksichtigen soll. Dieses Feld ist nur relevant wenn bei der <span class="doc-desc-title">Ticketherkunft</span> oben <span class="doc-desc-opt">E-Mails</span> ausgewählt wurde.
 ticket_auto_response:
-    title: Rückmeldungen für Tickets deaktivieren
-    content: >
-        <em>Hinweis: Hiermit werden alle Einstellungen der <span class="doc-desc-title">Abteilung</span>
-        bzw. für <span class="doc-desc-title">Rückmeldungen</span> überschrieben.</em>
-
+  title: Rückmeldungen für Tickets deaktivieren
+  content: >
+    <em>Hinweis: Hiermit werden alle Einstellungen der <span class="doc-desc-title">Abteilung</span> bzw. für <span class="doc-desc-title">Rückmeldungen</span> überschrieben.</em>
 canned_response:
-    title: Antwortvorlagen für Rückmeldungen
-    content: >
-        Wählen Sie eine <span class="doc-desc-title">Antwortvorlage</span>, die
-        an den Kunden versendet werden soll, wenn der <span
-        class="doc-desc-title">Ticketfilter</span> zutrifft. Die Vorlage, die
-        für <span class="doc-desc-title">Vorlage für Rückmeldungen bei neuem
-        Ticket</span> verwendet wird, hängt davon ab, welcher <span
-        class="doc-desc-title">Vorlagensatz</span> als Standard definiert ist
-        und welcher <span class="doc-desc-title">Abteilung</span> das Ticket zugeordnet wird.
-    links:
-      - title: Antwortvorlagen verwalten
-        href: /scp/canned.php
-      - title: Vorlagensätze verwalten
-        href: /scp/templates.php
-      - title: Vorlage für Rückmeldungen bei neuem Ticket
-        href: /scp/templates.php?id=2&a=manage
-
+  title: Antwortvorlagen für Rückmeldungen
+  content: >
+    Wählen Sie eine <span class="doc-desc-title">Antwortvorlage</span>, die an den Kunden versendet werden soll, wenn der <span class="doc-desc-title">Ticketfilter</span> zutrifft. Die Vorlage, die für <span class="doc-desc-title">Vorlage für Rückmeldungen bei neuem Ticket</span> verwendet wird, hängt davon ab, welcher <span class="doc-desc-title">Vorlagensatz</span> als Standard definiert ist und welcher <span class="doc-desc-title">Abteilung</span> das Ticket zugeordnet wird.
+  links:
+    - 
+      title: Antwortvorlagen verwalten
+      href: /scp/canned.php
+    - 
+      title: Vorlagensätze verwalten
+      href: /scp/templates.php
+    - 
+      title: Vorlage für Rückmeldungen bei neuem Ticket
+      href: /scp/templates.php?id=2&a=manage
 department:
-    title: Abteilung
-    content: >
-        Wählen Sie, zu welcher <span class="doc-desc-title">Abteilung</span>
-        das Ticket bei einer Übereinstimmung des <span
-        class="doc-desc-title">Ticketfilters</span> zugewiesen werden soll.
-    links:
-      - title: Abteilungen verwalten
-        href: /scp/departments.php
-
+  title: Abteilung
+  content: >
+    Wählen Sie, zu welcher <span class="doc-desc-title">Abteilung</span> das Ticket bei einer Übereinstimmung des <span class="doc-desc-title">Ticketfilters</span> zugewiesen werden soll.
+  links:
+    - 
+      title: Abteilungen verwalten
+      href: /scp/departments.php
 priority:
-    title: Priorität
-    content: >
-        Wählen Sie eine <span class="doc-desc-title">Priorität</span> aus, die
-        dem Ticket zugewiesen wird, wenn der <span class="doc-desc-title">
-        Ticketfilter</span> zutrifft.<br />
-        <br />
-        <em>Hinweis: Diese Einstellung überschreibt die Einstellung der <span
-        class="doc-desc-title">Abteilung</span> oder des <span class="doc-desc-title">Hilfethemas</span>.</em>
-
+  title: Priorität
+  content: >
+    Wählen Sie eine <span class="doc-desc-title">Priorität</span> aus, die dem Ticket zugewiesen wird, wenn der <span class="doc-desc-title">Ticketfilter</span> zutrifft.
+    <br /><br />
+    <em>Hinweis: Diese Einstellung überschreibt die Einstellung der <span class="doc-desc-title">Abteilung</span> oder des <span class="doc-desc-title">Hilfethemas</span>.</em>
 sla_plan:
-    title: SLA-Plan
-    content: >
-        Wählen Sie einen <span class="doc-desc-title">SLA-Plan</span> aus, der
-        dem Ticket zugewiesen wird, wenn der <span
-        class="doc-desc-title">Ticketfilter</span> zutrifft.
-    links:
-      - title: SLA-Pläne verwalten
-        href: /scp/slas.php
-
+  title: SLA-Plan
+  content: >
+    Wählen Sie einen <span class="doc-desc-title">SLA-Plan</span> aus, der dem Ticket zugewiesen wird, wenn der <span class="doc-desc-title">Ticketfilter</span> zutrifft.
+  links:
+    - 
+      title: SLA-Pläne verwalten
+      href: /scp/slas.php
 auto_assign:
-    title: automatische Zuweisung
-    content: >
-        Wählen Sie einen Agenten oder ein aus Team aus, dem das Ticket
-        zugewiesen wird, wenn der <span class="doc-desc-title">Ticketfilter</span> zutrifft.
-    links:
-      - title: Agenten verwalten
-        href: /scp/staff.php
-      - title: Teams verwalten
-        href: /scp/teams.php
-
+  title: automatische Zuweisung
+  content: >
+    Wählen Sie einen Agenten oder ein aus Team aus, dem das Ticket zugewiesen wird, wenn der <span class="doc-desc-title">Ticketfilter</span> zutrifft.
+  links:
+    - 
+      title: Agenten verwalten
+      href: /scp/staff.php
+    - 
+      title: Teams verwalten
+      href: /scp/teams.php
 help_topic:
-    title: Hilfethema
-    content: >
-        Wählen Sie ein <span class="doc-desc-title">Hilfethema</span> aus, das
-        dem Ticket zugewiesen wird, wenn der <span
-        class="doc-desc-title">Ticketfilter</span> zutrifft.
-    links:
-      - title: Hilfethemen verwalten
-        href: /scp/helptopics.php
-
+  title: Hilfethema
+  content: >
+    Wählen Sie ein <span class="doc-desc-title">Hilfethema</span> aus, das dem Ticket zugewiesen wird, wenn der <span class="doc-desc-title">Ticketfilter</span> zutrifft.
+  links:
+    - 
+      title: Hilfethemen verwalten
+      href: /scp/helptopics.php
 admin_notes:
-    title: Administrative Notizen
-    content: >
-        Diese Notizen sind nur für Agenten mit einem ‘<span
-        class="doc-desc-title">Administrator-Konto</span>’ sichtbar.
+  title: Administrative Notizen
+  content: >
+    Diese Notizen sind nur für Agenten mit einem ‘<span class="doc-desc-title">Administratorkonto</span>’ sichtbar.

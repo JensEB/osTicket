@@ -1,54 +1,49 @@
-#
-# Email template: note.alert.yaml
-#
-# Sent to staff members when a new internal note is appended to a ticket.
-# Internal notes can only be added by staff members.
-#
+#Email template: note.alert.yaml
+#Sent to staff members when a new internal note is appended to a ticket.
+#Internal notes can only be added by staff members.
 ---
-notes: >
-    Wird an Agenten versendet, wenn eine neue interne Notiz zu einem Ticket
-    hinzugefügt wird. Interne Notizen können nur von Agenten hinzugefügt werden.
-
-subject: >
-    Benachrichtigung über eine neue interne Aktivität
-body: >
-    <h3><strong>Hallo %{recipient.name},</strong></h3>
-    es wurde eine neue interne Notiz zum Ticket <a
-    href="%{ticket.staff_link}">#%{ticket.number}</a> hinzugefügt.
-    <br>
-    <br>
-    <table>
-    <tbody>
-    <tr>
-        <td>
-            <strong>Von</strong>:
-        </td>
-        <td>
-            %{note.poster}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <strong>Titel</strong>:
-        </td>
-        <td>
-            %{note.title}
-        </td>
-    </tr>
-    </tbody>
-    </table>
-    <br>
-    %{note.message}
-    <br>
-    <br>
-    <hr>
-    <div>Um das Ticket anzusehen oder zu bearbeiten, melden Sie sich bitte am
-     <a href="%{ticket.staff_link}"><span style="color: rgb(84, 141, 212);"
-    >Helpdesk</span></a> an.</div>
-    <em style="color: rgb(127,127,127); font-size: small; ">Ihr freundliches
-    Supportteam</em><br>
-    %{company.name}<br>
-    <a href="http://osticket.com.de/">
-    <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc"
-    alt="Powered by osTicket" width="126" height="19" style="width: 126px;">
-    </a>
+notes: |
+  Wird an Agenten versendet, wenn eine neue interne Notiz zu einem Ticket hinzugefügt wird. Interne Notizen können nur von Agenten hinzugefügt werden.
+subject: |
+  Benachrichtigung über eine neue interne Aktivität
+body: |
+  <h3><strong>Hallo %{recipient.name},</strong></h3>
+  es wurde eine neue interne Notiz zum Ticket <a
+  href="%{ticket.staff_link}">#%{ticket.number}</a> hinzugefügt.
+  <br>
+  <br>
+  <table>
+  <tbody>
+  <tr>
+      <td>
+          <strong>Von</strong>:
+      </td>
+      <td>
+          %{note.poster}
+      </td>
+  </tr>
+  <tr>
+      <td>
+          <strong>Titel</strong>:
+      </td>
+      <td>
+          %{note.title}
+      </td>
+  </tr>
+  </tbody>
+  </table>
+  <br>
+  %{note.message}
+  <br>
+  <br>
+  <hr>
+  <div>Um das Ticket anzusehen oder zu bearbeiten, melden Sie sich bitte am
+   <a href="%{ticket.staff_link}"><span style="color: rgb(84, 141, 212);"
+  >Helpdesk</span></a> an.</div>
+  <em style="color: rgb(127,127,127); font-size: small; ">Ihr freundliches
+  Supportteam</em><br>
+  %{company.name}<br>
+  <a href="https://osticket.com.de">
+  <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc"
+  alt="Powered by osTicket" width="126" height="19" style="width: 126px;">
+  </a>

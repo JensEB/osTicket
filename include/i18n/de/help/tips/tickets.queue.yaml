@@ -1,106 +1,88 @@
-#
-# This is popup help messages for the Staff Panel -> Tickets -> Open
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Staff Panel -> Tickets -> Open
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 search_field:
-    title: Suchfeld
-    content: >
+  title: Suchfeld
+  content: >
 
 advanced:
-    title: Erweiterte Suche
-    content: >
-        Grenzen Sie Ihre Suchparameter ein. Wenn Sie Ihre erweiterten
-        Suchkriterien ausgewählt und die Suche ausgeführt haben, können Sie die Ergebnisse
-        am Ende der Ticketübersichtsseite <span class="doc-desc-title">exportieren</span>.
-
+  title: Erweiterte Suche
+  content: >
+    Grenzen Sie Ihre Suchparameter ein. Wenn Sie Ihre erweiterten Suchkriterien ausgewählt und die Suche ausgeführt haben, können Sie die Ergebnisse am Ende der Ticketübersichtsseite <span class="doc-desc-title">exportieren</span>.
 open_tickets_table:
-    title: Tabelle der offenen Tickets
-    content: >
-        Alle momentan offenen Tickets, die Ihre Aufmerksamkeit erfordern.
-
+  title: Offene Tickets
+  content: >
+    Alle offenen Tickets, die Ihre Aufmerksamkeit erfordern.
 ticket:
-    title: Ticket
-    content: >
+  title: Ticket
+  content: >
 
 date:
-    title: Datum
-    content: >
+  title: Datum
+  content: >
 
 subject:
-    title: Betreff
-    content: >
+  title: Betreff
+  content: >
 
 from:
-    title: Kunde
-    content: >
+  title: Von
+  content: >
 
 priority:
-    title: Priorität
-    content: >
+  title: Priorität
+  content: >
 
 assigned_to:
-    title: Zugewiesen an
-    content: >
+  title: Zugewiesen an
+  content: >
 
 export:
-    title: Exportieren
-    content: >
-        Exportieren Sie die aktuelle Ansicht als CSV-Datei. CSV-Dateien können
-        mit jeder Tabellenkalkulationssoftware (z.B. Microsoft Excel, Apple
-        Pages, OpenOffice, usw.) geöffnet werden.
+  title: Exportieren
+  content: >
+    Exportieren Sie die aktuelle Ansicht als CSV-Datei. CSV-Dateien können mit jeder Tabellenkalkulationssoftware (z.B. Microsoft Excel, Apple Pages, OpenOffice, usw.) geöffnet werden.
 
 advanced_search_dialog:
-    title: Erweiterte Suche
-    content: >
+  title: Erweiterte Suche
+  content: >
 
 adv_keyword:
-    title: Stichwortsuche
-    content: >
-        Findet Tickets die das Stichwort im Betreff, den Mitteilungen des Tickes
-        sowie innerhalb der benutzerdefinierten Textfelder, die mit diesem
-        Ticket verknüpft sind.
-
+  title: Stichwortsuche
+  content: >
+    Findet Tickets die das Stichwort im Betreff, den Mitteilungen des Tickes sowie innerhalb der benutzerdefinierten Textfelder, die mit diesem Ticket verknüpft sind.
 adv_date_range:
-    title: Suche nach Zeitraum
-    content: >
-        Findet Tickets, die im angegebenen Zeitraum erstellt wurden.
-
+  title: Suche nach Zeitraum
+  content: >
+    Findet Tickets, die im angegebenen Zeitraum erstellt wurden.
 merge_types:
-    title: Vorgehensweise beim Zusammenführen
-    content: >
-        <b>Verlauf zusammenführen:</b>
-          Verläufe aller Tickets werden chronologisch sortiert angezeigt.</br>
-        <b>Separate Verläufe:</b>
-          Verläufe der Tickets werden jeweils einzeln angezeigt. (Nach Ticket gruppiert)
-
+  title: Vorgehensweise beim Zusammenführen
+  content: >
+    <b>Verlauf zusammenführen:</b>
+      Verläufe aller Tickets werden chronologisch sortiert angezeigt.</br>
+    <b>Separate Verläufe:</b>
+      Verläufe der Tickets werden jeweils einzeln angezeigt. (Nach Ticket gruppiert)
 child_status:
-    title: Status des untergeordneten Tickets
-    content: >
-        Alle untergeordneten Tickets werden geschlossen, da alle Verlaufseinträge in das übergeordnete Ticket verschoben werden.
-
+  title: Status des untergeordneten Tickets
+  content: >
+    Alle untergeordneten Tickets werden geschlossen, da alle Verlaufseinträge in das übergeordnete Ticket verschoben werden.
 parent_status:
-    title: Status des übergeordneten Tickets
-    content: >
-        Wenn Sie einen übergeordneten Status festlegen, wird das übergeordnete Ticket in den von Ihnen ausgewählten Status geändert.
-        Das oberste Ticket in der Liste ist das übergeordnete Ticket.
-
+  title: Status des übergeordneten Tickets
+  content: >
+    Wenn Sie einen übergeordneten Status festlegen, wird das übergeordnete Ticket in den von Ihnen ausgewählten Status geändert. Das oberste Ticket in der Liste ist das übergeordnete Ticket.
 reply_types:
-    title: Antwortmöglichkeiten
-    content: >
-        <b>Allen Antworten:</b>
-          Diese Antwort wird an den Kunden und die von Ihnen ausgewählten beteiligten Personen gesendet.</br>
-        <b>Dem Kunden antworten:</b>
-          Diese Antwort wird nur dem Kunden gesendet, nicht an beteiligte Personen.</br>
-        <b>Antwort nicht per E-Mail versenden:</b>
-          Es werden keine E-Mail-Benachrichtigungen versendet, die Antwort des Agenten ist jedoch für <b>JEDEN<b> sichtbar, der das Ticket einsehen kann.
+  title: Antwortmöglichkeiten
+  content: >
+    <b>Allen Antworten:</b>
+      Diese Antwort wird an den Kunden und die von Ihnen ausgewählten beteiligten Personen gesendet.</br>
+    <b>Dem Kunden antworten:</b>
+      Diese Antwort wird nur dem Kunden gesendet, nicht an beteiligte Personen.</br>
+    <b>Antwort nicht per E-Mail versenden:</b>
+      Es werden keine E-Mail-Benachrichtigungen versendet, die Antwort des Agenten ist jedoch für <b>JEDEN<b> sichtbar, der das Ticket einsehen kann.

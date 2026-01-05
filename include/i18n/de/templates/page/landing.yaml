@@ -1,24 +1,21 @@
-#
-# Page template: landing.yaml
-#
-# The landing page is served on the front page of the customer portal above
-# the two links for creating new tickets and viewing ticket status.
-#
+#Page template: landing.yaml
+#The landing page is served on the front page of the customer portal above
+#the two links for creating new tickets and viewing ticket status.
 ---
 notes: >
-    Die Startseite wird auf der ersten Seite des Kundenportals angezeigt. Diese
-    Vorlage definiert den Inhalt oberhalb der beiden Links <strong>Neues Ticket
-    eröffnen</strong> und <strong>Ticketstatus überprüfen</strong>.
+  Die Startseite wird auf der ersten Seite des Kundenportals angezeigt. Diese
+  Vorlage definiert den Inhalt oberhalb der beiden Links <strong>Neues Ticket
+  eröffnen</strong> und <strong>Ticketstatus überprüfen</strong>.
 
 name: Startseite
 body: >
-    <h1>Willkommen im Supportbereich</h1>
-    <p>
-    Um unsere Supportanfragen besser organisieren zu können, verwenden wir
-    dieses Supportticketsystem. Jeder Anfrage wird eine eindeutige
-    Ticketnummer zugewiesen, an Hand der Sie den Status Ihrer Anfrage jederzeit
-    online nachverfolgen können. Zu Ihrem Überblick werden alle Anfragen mit den
-    dazugehörigen Antworten in unserem Helpdesk gespeichert. So können Sie
-    jederzeit die Antworten auf Ihre Anfragen online einsehen. Um ein Ticket zu
-    eröffnen, ist eine gültige E-Mail-Adresse erforderlich.
-    </p>
+  <h1>Willkommen im Supportbereich</h1>
+  <p>
+  Um unsere Supportanfragen besser organisieren zu können, verwenden wir
+  dieses Supportticketsystem. Jeder Anfrage wird eine eindeutige
+  Ticketnummer zugewiesen, an Hand der Sie den Status Ihrer Anfrage jederzeit
+  online nachverfolgen können. Zu Ihrem Überblick werden alle Anfragen mit den
+  dazugehörigen Antworten in unserem Helpdesk gespeichert. So können Sie
+  jederzeit die Antworten auf Ihre Anfragen online einsehen. Um ein Ticket zu
+  eröffnen, ist eine gültige E-Mail-Adresse erforderlich.
+  </p>

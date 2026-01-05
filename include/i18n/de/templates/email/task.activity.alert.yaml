@@ -1,36 +1,29 @@
-#
-# Email template: task.activity.alert.yaml
-#
-# Sent to agents when a new note/message is posted to a task.
-# This can occur if a collaborator or an agent responds to an email from the
-# system or visits the web portal and posts a new message there.
-#
-#
+#Email template: task.activity.alert.yaml
+#Sent to agents when a new note/message is posted to a task.
+#This can occur if a collaborator or an agent responds to an email from the
+#system or visits the web portal and posts a new message there.
 ---
 notes: |
-    Benachrichtigung, die an Agenten versendet wird, wenn eine neue 
-    Mitteilung/Notiz an eine Aufgabe angehängt wird. Dies kann vorkommen, wenn
-    ein Beteiligter oder ein Agent an eine E-Mail vom System antwortet,
-    eine neue Mitteilung oder über das Webportal verfasst.
+  Benachrichtigung, die an Agenten versendet wird, wenn eine neue  Mitteilung/Notiz an eine Aufgabe angehängt wird. Dies kann vorkommen, wenn eine Beteiligte Person oder ein Agent auf eine E-Mail des Systems antwortet, oder eine neue Mitteilung über das Webportal verfasst.
 
 subject: |
-    Aktivität bei Aufgabe [#%{task.number}] - %{activity.title}
+  Aktivität bei Aufgabe [#%{task.number}] - %{activity.title}
 body: |
-    <h3><strong>Hallo %{recipient.name},</strong></h3>
-    Die Aufgabe <a href="%{task.staff_link}">#%{task.number}</a> wurde
-    aktualisiert: %{activity.description}
-    <br>
-    <br>
-    %{message}
-    <br>
-    <br>
-    <hr>
-    <div>Um die Aufgabe anzusehen oder zu bearbeiten, melden Sie sich bitte am
-    <a href="%{task.staff_link}"><span style="color: rgb(84, 141, 212);"
-    >Helpdesk</span></a> an.</div>
-    <em style="color: rgb(127,127,127); font-size: small; ">Ihr freundliches
-    Supportteam von %{company.name}</em><br>
-    <a href="http://osticket.com.de/">
-      <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc"
-      alt="Powered by osTicket" width="126" height="19" style="width: 126px;">
-      </a>
+  <h3><strong>Hallo %{recipient.name},</strong></h3>
+  Die Aufgabe <a href="%{task.staff_link}">#%{task.number}</a> wurde
+  aktualisiert: %{activity.description}
+  <br>
+  <br>
+  %{message}
+  <br>
+  <br>
+  <hr>
+  <div>Um die Aufgabe anzusehen oder zu bearbeiten, melden Sie sich bitte am
+  <a href="%{task.staff_link}"><span style="color: rgb(84, 141, 212);"
+  >Helpdesk</span></a> an.</div>
+  <em style="color: rgb(127,127,127); font-size: small; ">Ihr freundliches
+  Supportteam von %{company.name}</em><br>
+  <a href="https://osticket.com.de">
+    <img src="cid:b56944cb4722cc5cda9d1e23a3ea7fbc"
+    alt="Powered by osTicket" width="126" height="19" style="width: 126px;">
+    </a>

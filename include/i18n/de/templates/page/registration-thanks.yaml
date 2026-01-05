@@ -1,24 +1,21 @@
-#
-# registration-thanks.yaml
-#
-# Page shown to the user after successfully registring and confirming their
-# account. This page should inform the user that the process is complete and
-# that the user can now submit a ticket or access existing tickets
-#
+#registration-thanks.yaml
+#Page shown to the user after successfully registring and confirming their
+#account. This page should inform the user that the process is complete and
+#that the user can now submit a ticket or access existing tickets
 ---
 notes: >
-    Diese Vorlage definiert den Inhalt, der angezeigt wird, nachdem sich ein
-    Kunde erfolgreich registriert hat, indem er sein Konto bestätigt. Diese
-    Seite soll den Kunden darüber informieren, dass seine Registrierung abgeschlossen ist
-    und er jetzt Tickets übermitteln kann und Zugang zu existierenden Tickets hat.
+  Diese Vorlage definiert den Inhalt, der angezeigt wird, nachdem sich ein
+  Kunde erfolgreich registriert hat, indem er sein Konto bestätigt. Diese
+  Seite soll den Kunden darüber informieren, dass seine Registrierung abgeschlossen ist
+  und er jetzt Tickets übermitteln kann und Zugang zu existierenden Tickets hat.
 name: "Ihr Konto wurde bestätigt!"
 body: >
-    <div>
-    <strong>Vielen Dank für die Registrierung Ihres Kundenkontos</strong><br />
-    <br />
-    Sie haben Ihre E-Mail-Adresse bestätigt und Ihr Konto erfolgreich aktiviert.
-    Sie können nun neue Tickets eröffnen oder vorhandene Tickets verwalten.<br />
-    <br />
-    <em>Ihr freundliches Supportteam</em><br/>
-    %{company.name}
-    </div>
+  <div>
+  <strong>Vielen Dank für die Registrierung Ihres Kundenkontos</strong><br />
+  <br />
+  Sie haben Ihre E-Mail-Adresse bestätigt und Ihr Konto erfolgreich aktiviert.
+  Sie können nun neue Tickets eröffnen oder vorhandene Tickets verwalten.<br />
+  <br />
+  <em>Ihr freundliches Supportteam</em><br/>
+  %{company.name}
+  </div>

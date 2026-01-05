@@ -1,32 +1,23 @@
-#
-# This is popup help messages for the Staff Panel -> Knowledgebase -> Canned Responses -> Add New Response
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Staff Panel -> Knowledgebase -> Canned Responses -> Add New Response
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 canned_response:
-    title: Antwortvorlage
-    content: >
-        Erstellen Sie eine <span class="doc-desc-title">Antwortvorlage</span>,
-        die in eine Ticket-Antwort eingefügt werden kann. Sie kann auch als
-        <span class="doc-desc-title">Ticket-Rückmeldung</span> von einem <span
-        class="doc-desc-title">Ticketfilter</span> verwendet werden.
-    links:
-      - title: Ticketfilter erstellen
-        href: /scp/filters.php
-
+  title: Antwortvorlage
+  content: >
+    Erstellen Sie eine <span class="doc-desc-title">Antwortvorlage</span>, die in eine Ticket-Antwort eingefügt werden kann. Sie kann auch als <span class="doc-desc-title">Ticket-Rückmeldung</span> von einem <span class="doc-desc-title">Ticketfilter</span> verwendet werden.
+  links:
+    - 
+      title: Ticketfilter erstellen
+      href: /scp/filters.php
 canned_attachments:
-    title: Vorbereitete Dateianhänge
-    content: >
-        Hängen Sie eine Datei an, die automatisch in der Ticketantwort
-        enthalten sein soll, welche die neue <span class="doc-desc-title">
-        Antwortvorlage</span> benötigt.
+  title: Vorbereitete Dateianhänge
+  content: >
+    Hängen Sie eine Datei an, die automatisch zur Ticketantwort hinzugefügt werden soll, wenn die neue <span class="doc-desc-title">Antwortvorlage</span> verwendet wird.

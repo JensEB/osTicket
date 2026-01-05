@@ -1,95 +1,71 @@
-#
-# This is popup help messages for the Admin Panel -> Settings -> System page
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Settings -> System page
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 form_title:
-    title: Kopfzeile des Formulars
-    content: >
-        Dieser Titeltext wird in einer grauen Zelle über den Formularfeldern angezeigt
-
+  title: Kopfzeile des Formulars
+  content: >
+    Dieser Titeltext wird in einer grauen Zelle über den Formularfeldern angezeigt
 form_instructions:
-    title: Formularanweisungen
-    content: >
-        Sie können zusätzliche Anweisungen hinzufügen, die dem Kunden helfen den
-        Kontext des Formularfeldes zu verstehen und möglicherweise auf benötigte Daten aufmerksam machen.
-
+  title: Formularanweisungen
+  content: >
+    Sie können zusätzliche Anweisungen hinzufügen, die dem Kunden helfen den Kontext des Formularfeldes zu verstehen und möglicherweise auf benötigte Daten aufmerksam machen.
 field_sort:
-    title: Anzeigeposition des Feldes
-    content: >
-        Klicken Sie auf das Icon mit dem Hoch-Runter-Pfeil und ziehen sie die
-        Feldzeile an die gewünschte Position, um die Felder innerhalb des
-        Formulars zu sortieren. Die neue Sortierung wird erst wirksam, wenn das Formular gespeichert wurde.
-
+  title: Anzeigeposition des Feldes
+  content: >
+    Klicken Sie auf das Icon mit dem Hoch-Runter-Pfeil und ziehen sie die Feldzeile an die gewünschte Position, um die Felder innerhalb des Formulars zu sortieren. Die neue Sortierung wird erst wirksam, wenn das Formular gespeichert wurde.
 field_label:
-    title: Feldbezeichnung
-    content: >
-        Diese Bezeichnung wird vor dem Eingabefeld angezeigt. Normalerweise wird
-        ein kurzes Antwortfeld wie folgt angezeigt:  <br><strong>
-        Bezeichnung:</strong>&nbsp;<input type="text">
-
+  title: Feldbezeichnung
+  content: >
+    Diese Bezeichnung wird vor dem Eingabefeld angezeigt. Normalerweise wird ein kurzes Antwortfeld wie folgt angezeigt:<br>
+    <strong>Bezeichnung:</strong>&nbsp;<input type="text">
 field_type:
-    title: Typ des Feldinhalts
-    content: >
-        Diese Einstellung wird verwendet um festzulegen, welche Art von
-        Benutzereingabe erwartet wird. Sie können wählen aus kurzer und langer
-        Antwort, Telefonnummer, Datum und Uhrzeit, Kontrollkästchen, Dropdownliste oder einer benutzerdefinierten Liste.
-    links:
-      - title: Benutzerdefinierte Listen
-        href: /scp/lists.php
-
+  title: Typ des Feldinhalts
+  content: >
+    Diese Einstellung wird verwendet um festzulegen, welche Art von Benutzereingabe erwartet wird. Sie können wählen aus kurzer und langer Antwort, Telefonnummer, Datum und Uhrzeit, Kontrollkästchen, Dropdownliste oder einer benutzerdefinierten Liste.
+  links:
+    - 
+      title: Benutzerdefinierte Listen
+      href: /scp/lists.php
 field_visibility:
-    title: Feldsichtbarkeit
-    content: >
-        Wählen Sie eine Sichtbarkeit und Erfordernis für dieses Feld. 
-        <table border="1" cellpadding="2px" cellspacing="0" style="margin-top:7px"
-            ><tbody style="vertical-align:top;">
-            <tr><th>Einstellung</th>
-                <th>Ergebnis</th></tr>
-            <tr><td>Optional</td>
-                <td>Agenten und Kunden können das Feld sehen, aber keiner ist verpflichtet es auszufüllen.</td></tr>
-            <tr><td>Pflichtfeld</td>
-                <td>Agenten und Kunden können das Feld sehen, und beide sind verpflichtet es auszufüllen</td></tr>
-            <tr><td>Pflichtfeld für Kunden</td>
-                <td>Agenten und Kunden können das Feld sehen, jedoch sind nur Kunden dazu verpflichtet es auszufüllen</td></tr>
-            <tr><td>Pflichtfeld für Agenten</td>
-                <td>Agenten und Kunden können das Feld sehen, jedoch sind nur Agenten dazu verpflichtet es auszufüllen</td></tr>
-            <tr><td>Intern, Optional</td>
-                <td>Nur Agenten können das Feld sehen, das Ausfüllen ist nicht erforderlich.</td></tr>
-            <tr><td>Intern, Pflichtfeld</td>
-                <td>Nur Agenten können das Feld sehen, und das Ausfüllen ist erforderlich.</td></tr>
-            <tr><td>Nur für Kunden</td>
-                <td>Nur Kunden können das Feld sehen, und das Ausfüllen ist erforderlich.</td></tr>
-        </tbody></table>
-
+  title: Feldsichtbarkeit
+  content: >
+    Wählen Sie eine Sichtbarkeit und Erfordernis für dieses Feld. 
+    <table border="1" cellpadding="2px" cellspacing="0" style="margin-top:7px"
+        ><tbody style="vertical-align:top;">
+        <tr><th>Einstellung</th>
+            <th>Ergebnis</th></tr>
+        <tr><td>Optional</td>
+            <td>Agenten und Kunden können das Feld sehen, aber keiner ist verpflichtet es auszufüllen.</td></tr>
+        <tr><td>Pflichtfeld</td>
+            <td>Agenten und Kunden können das Feld sehen, und beide sind verpflichtet es auszufüllen</td></tr>
+        <tr><td>Pflichtfeld für Kunden</td>
+            <td>Agenten und Kunden können das Feld sehen, jedoch sind nur Kunden dazu verpflichtet es auszufüllen</td></tr>
+        <tr><td>Pflichtfeld für Agenten</td>
+            <td>Agenten und Kunden können das Feld sehen, jedoch sind nur Agenten dazu verpflichtet es auszufüllen</td></tr>
+        <tr><td>Intern, Optional</td>
+            <td>Nur Agenten können das Feld sehen, das Ausfüllen ist nicht erforderlich.</td></tr>
+        <tr><td>Intern, Pflichtfeld</td>
+            <td>Nur Agenten können das Feld sehen, und das Ausfüllen ist erforderlich.</td></tr>
+        <tr><td>Nur für Kunden</td>
+            <td>Nur Kunden können das Feld sehen, und das Ausfüllen ist erforderlich.</td></tr>
+    </tbody></table>
 field_variable:
-    title: Feldbezeichner
-    content: >
-        Die Felddaten können in E-Mail- und Seitenvorlagen über den Namen, der
-        in dieser Spalte angegeben ist, angesprochen werden. Zum Beispiel kann
-        auf die Felder der Ticketdetails über <code>%{ticket.platzhalter}</code> 
-        zugegriffen werden, wobei <strong>platzhalter</strong>, der in dieser Spalte verwendete Name ist.<br>
-        <br>
-        <em>Die Informationen des Betreibers sind über
-        <code>%{</code><code>company.platzhalter}</code> zugänglich und Kundeninformationen
-        sind über <code>%{ticket.user.platzhalter}</code>erreichbar</em>
-
+  title: Feldbezeichner
+  content: >
+    Die Felddaten können in E-Mail- und Seitenvorlagen über den Namen, der in dieser Spalte angegeben ist, angesprochen werden. Zum Beispiel kann auf die Felder der Ticketdetails über <code>%{ticket.platzhalter}</code> zugegriffen werden, wobei <strong>platzhalter</strong>, der in dieser Spalte verwendete Name ist.
+    <br><br>
+    <em>Die Informationen des Betreibers sind über <code>%{</code><code>company.platzhalter}</code> zugänglich und Kundeninformationen sind über <code>%{ticket.user.platzhalter}</code>erreichbar</em>
 field_delete:
-    title: Dieses Feld entfernen
-    content: >
-        Markieren Sie die Checkbox und speichern sie anschließend das Formular, um das Feld aus dem Formular zu löschen.<br>
-        <br>
-        <em>Das Löschen eines Feldes, entfernt jedoch nicht die bisher
-        eingegebenen Daten aus den bereits ausgefüllten Formularen. Wenn z.B.
-        ein vorher übermitteltes Ticket Daten in diesem Feld enthält, wird das
-        Löschen dieses Feldes, nicht die Daten aus dem Ticket entfernen.</em>
+  title: Dieses Feld entfernen
+  content: >
+    Markieren Sie die Checkbox und speichern sie anschließend das Formular, um das Feld aus dem Formular zu löschen.
+    <br><br>
+    <em>Das Löschen eines Feldes, entfernt jedoch nicht die bisher eingegebenen Daten aus den bereits ausgefüllten Formularen. Wenn z.B. ein vorher übermitteltes Ticket Daten in diesem Feld enthält, wird das Löschen dieses Feldes, nicht die Daten aus dem Ticket entfernen.</em>

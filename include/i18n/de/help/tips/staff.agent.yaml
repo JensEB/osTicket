@@ -1,167 +1,141 @@
-#
-# This is popup help messages for the Admin Panel -> Staff -> Add Staff Form
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Staff -> Add Staff Form
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 username:
-    title: Benutzername
-    content: >
-        Bitte wählen Sie einen eindeutigen <span class="doc-desc-title">
-        Benutzernamen</span> für den Agenten, der nur einmal in Ihrem <span
-        class="doc-desc-title">Helpdesk</span> vorhanden sein darf.
-
+  title: Benutzername
+  content: >
+    Bitte wählen Sie einen eindeutigen <span class="doc-desc-title">
+    Benutzernamen</span> für den Agenten, der nur einmal in Ihrem <span
+    class="doc-desc-title">Helpdesk</span> vorhanden sein darf.
 reset2fa:
-    title: Zwei-Faktor-Authentifizierung zurücksetzen
-    content: >
-        Für den Fall, dass es einem Agenten nicht mehr möglich ist, sich mit seiner
-        aktuellen 2FA-Konfiguration am Helpdesk anzumelden, kann ein Administrator die
-        2FA-Konfiguration des Agenten zurücksetzen, damit er diese bei der nächsten
-        erfolgreichen Anmeldung neu konfigurieren kann.
-
+  title: Zwei-Faktor-Authentifizierung zurücksetzen
+  content: >
+    Für den Fall, dass es einem Agenten nicht mehr möglich ist, sich mit seiner
+    aktuellen 2FA-Konfiguration am Helpdesk anzumelden, kann ein Administrator die
+    2FA-Konfiguration des Agenten zurücksetzen, damit er diese bei der nächsten
+    erfolgreichen Anmeldung neu konfigurieren kann.
 email_address:
-    title: E-Mail-Adresse
-    content: >
-        Geben Sie die E-Mail-Adresse des Agenten ein, an die <span
-        class="doc-desc-title">Benachrichtigungen</span> des <span
-        class="doc-desc-title">Helpdesks</span> versendet werden sollen.
-        <br><br>
-        Agenten können sich entweder mit Ihrem Benutzernamen oder Ihrer E-Mail-Adresse am Agentenportal anmelden.
-
+  title: E-Mail-Adresse
+  content: >
+    Geben Sie die E-Mail-Adresse des Agenten ein, an die <span
+    class="doc-desc-title">Benachrichtigungen</span> des <span
+    class="doc-desc-title">Helpdesks</span> versendet werden sollen.
+    <br><br>
+    Agenten können sich entweder mit Ihrem Benutzernamen oder Ihrer E-Mail-Adresse am Agentenportal anmelden.
 welcome_email:
-    title: Willkommens-E-Mail
-    content: >
-        Senden Sie dem neuen Agenten einen Kontozugangslink, über den er
-        sein eigenes Passwort festlegen kann. Wenn der Haken nicht gesetzt ist, müssen Sie das Passwort selbst
-        festlegen und anschließend dem neuen Agenten die Anmeldedaten mitteilen.
-
+  title: Willkommens-E-Mail
+  content: >
+    Senden Sie dem neuen Agenten einen Kontozugangslink, über den er
+    sein eigenes Passwort festlegen kann. Wenn der Haken nicht gesetzt ist, müssen Sie das Passwort selbst
+    festlegen und anschließend dem neuen Agenten die Anmeldedaten mitteilen.
 account_password:
-    title: Kontopasswort
-    content: >
-        Als <span class="doc-desc-title"> Administrator</span> können Sie das
-        Passwort eines Agenten ändern.
-
+  title: Kontopasswort
+  content: >
+    Als <span class="doc-desc-title"> Administrator</span> können Sie das Passwort eines Agenten ändern.
 forced_password_change:
-    title: Passwortänderung erzwingen
-    content: >
-        Aktivieren Sie diese Option, wenn Sie möchten, dass der neue
-        Agent bei der nächsten Anmeldung sein Passwort ändern muss.
-
+  title: Passwortänderung erzwingen
+  content: >
+    Aktivieren Sie diese Option, wenn Sie möchten, dass der neue Agent bei der nächsten Anmeldung sein Passwort ändern muss.
 agents_signature:
-    title: Signatur des Agenten
-    content: >
-        Erstellen Sie eine Signatur für den Agenten, die beim Beantworten eines Ticket
-        auswählen kann. Diese Signatur wird jedoch nur an ausgehende E-Mails angehängt.
-
+  title: Signatur des Agenten
+  content: >
+    Erstellen Sie eine Signatur für den Agenten, die beim Beantworten eines Ticket auswählen kann. Diese Signatur wird jedoch nur an ausgehende E-Mails angehängt.
 account_status:
-    title: Kontostatus
-    content: >
-        Wenn der Status des Agenten auf <span
-        class="doc-desc-opt">gesperrt</span> gesetzt ist, kann sich der
-        Agent nicht am Helpdesk anmelden.
-
+  title: Kontostatus
+  content: >
+    Wenn der Status des Agenten auf <span class="doc-desc-opt">gesperrt</span> gesetzt ist, kann sich der Agent nicht am Helpdesk anmelden.
 assigned_group:
-    title: Zugewiesene Gruppe
-    content: >
-        Durch die <span class="doc-desc-title">Gruppenzugehörigkeit</span>
-        legen Sie die Berechtigungen des Agenten fest, die er innerhalb
-        des <span class="doc-desc-title">Helpdesks</span> erhält.
-    links:
-      - title: Gruppen verwalten
-        href: /scp/groups.php
-
+  title: Zugewiesene Gruppe
+  content: >
+    Durch die <span class="doc-desc-title">Gruppenzugehörigkeit</span>
+    legen Sie die Berechtigungen des Agenten fest, die er innerhalb
+    des <span class="doc-desc-title">Helpdesks</span> erhält.
+  links:
+    - 
+      title: Gruppen verwalten
+      href: /scp/groups.php
 primary_department:
-    title: Hauptabteilung
-    content: >
-        Wählen Sie die <span class="doc-desc-title">Hauptabteilung</span>, der
-        dieser Agent angehören soll und eine entsrechende <span class="doc-desc-title">Rolle</span>.
-
-    links:
-      - title: Abteilungen verwalten
-        href: /scp/departments.php
-
+  title: Hauptabteilung
+  content: >
+    Wählen Sie die <span class="doc-desc-title">Hauptabteilung</span>, der dieser Agent angehören soll und eine entsrechende <span class="doc-desc-title">Rolle</span>.
+  links:
+      - 
+      title: Abteilungen verwalten
+      href: /scp/departments.php
 primary_role:
-    title: Primäre Rolle
-    content: >
-        Wählen Sie die Primäre <span class="doc-desc-title">Rolle</span>, die der Agent erhalten soll.
-
+  title: Primäre Rolle
+  content: >
+    Wählen Sie die Primäre <span class="doc-desc-title">Rolle</span>, die der Agent erhalten soll.
 primary_role_on_assign:
-    title: Primäre Rolle für Zuweisungen verwenden
-    content: >
-        Aktivieren Sie das als Sicherung für die <span class="doc-desc-title">Primäre
-        Rolle</span>, wenn diesem Agenten Tickets und Aufgaben außerhalb
-        seiner <span class="doc-desc-title">Hauptabteilung</span> und den
-        Abteilungen mit <span class="doc-desc-title">erweitertem Zugang</span> zugewiesen werden.
-        Andernfalls wird der Agent nur Lese-Zugang haben.
-
+  title: Primäre Rolle für Zuweisungen verwenden
+  content: >
+    Aktivieren Sie das als Sicherung für die <span class="doc-desc-title">Primäre
+    Rolle</span>, wenn diesem Agenten Tickets und Aufgaben außerhalb
+    seiner <span class="doc-desc-title">Hauptabteilung</span> und den
+    Abteilungen mit <span class="doc-desc-title">erweitertem Zugang</span> zugewiesen werden.
+    Andernfalls wird der Agent nur Lese-Zugang haben.
 # PlusAnpassung Anfang: Add Pull Request #6458 - Added Staff features in admin panel
 max_page_size:
-    title: Maximale Seitengröße
-    content: >
-        Wählen Sie die Anzahl der Elemente, die pro Ticketübersichtsseite im
-        Agentenportal angezeigt werden soll. Jeder Agent kann diese Anzahl für
-        sein eigenes Konto unter <span class="doc-desc-title">Profil</span> ebenfalls anpassen.
+  title: Maximale Seitengröße
+  content: >
+    Wählen Sie die Anzahl der Elemente, die pro Ticketübersichtsseite im
+    Agentenportal angezeigt werden soll. Jeder Agent kann diese Anzahl für
+    sein eigenes Konto unter <span class="doc-desc-title">Profil</span> ebenfalls anpassen.
 auto_refresh_rate:
-    title: Aktualisierungsrate
-    content: >
-        Wählen Sie die Standardaktualisierungsrate der Ticketübersichtsseite in Minuten für
-        diesen Agenten aus.<br/>Jeder Agent kann die Standardaktualisierungsrate für
-        sein eigenes Konto unter <span class="doc-desc-title">Profil</span> ebenfalls anpassen.
+  title: Aktualisierungsrate
+  content: >
+    Wählen Sie die Standardaktualisierungsrate der Ticketübersichtsseite in Minuten für
+    diesen Agenten aus.<br/>Jeder Agent kann die Standardaktualisierungsrate für
+    sein eigenes Konto unter <span class="doc-desc-title">Profil</span> ebenfalls anpassen.
 default_signature:
-    title: Standardsignatur
-    content: >
-        Wählen Sie die Signatur, die bei Antworten dieses Agenten vorausgewählt sein soll.<br/>
-        Jeder Agent kann die Standardsignatur für sein eigenes Konto unter
-        <span class="doc-desc-title">Profil</span> ebenfalls anpassen.
+  title: Standardsignatur
+  content: >
+    Wählen Sie die Signatur, die bei Antworten dieses Agenten vorausgewählt sein soll.<br/>
+    Jeder Agent kann die Standardsignatur für sein eigenes Konto unter
+    <span class="doc-desc-title">Profil</span> ebenfalls anpassen.
 # PlusAnpassung Ende: Add Pull Request #6458 - Added Staff features in admin panel
 daylight_saving:
-    title: Sommerzeit berücksichtigen
-    content: >
-        Aktivieren Sie diese Funktion, wenn die Sommerzeit automatisch bei der
-        Zeitzone des Agenten berücksichtigt werden soll.
-
+  title: Sommerzeit berücksichtigen
+  content: >
+    Aktivieren Sie diese Funktion, wenn die Sommerzeit automatisch bei der Zeitzone des Agenten berücksichtigt werden soll.
 limited_access:
-    title: Eingeschränkter Zugang
-    content: >
-        Wenn diese Option aktiviert ist, wird der Agent nur zu Tickets Zugang haben,
-        die ihm entweder direkt oder einem Team, dem er angehört, zugewiesen sind.
-
+  title: Eingeschränkter Zugang
+  content: >
+    Wenn diese Option aktiviert ist, wird der Agent nur zu Tickets Zugang haben, die ihm entweder direkt oder einem Team, dem er angehört, zugewiesen sind.
 directory_listing:
-    title: Im Agentenverzeichnis anzeigen
-    content: >
-        Aktivieren Sie diese Option, wenn dieser Agent im <span
-        class="doc-desc-title">Agentenverzeichnis</span> aufgelistet werden soll.
-    links:
-      - title: Agentenverzeichnis anzeigen
-        href: /scp/directory.php
-
+  title: Im Agentenverzeichnis anzeigen
+  content: >
+    Aktivieren Sie diese Option, wenn dieser Agent im <span
+    class="doc-desc-title">Agentenverzeichnis</span> aufgelistet werden soll.
+  links:
+    - 
+      title: Agentenverzeichnis anzeigen
+      href: /scp/directory.php
 vacation_mode:
-    title: Urlaubsmodus
-    content: >
-        Wenn Sie den Status des Agenten auf <span
-        class="doc-desc-opt">Urlaubsmodus</span> ändern, erhält der Agent
-        weder <span class="doc-desc-title">Benachrichtigungen</span>, noch kann
-        er für Ticketzuweisungen ausgewählt werden.
-
+  title: Urlaubsmodus
+  content: >
+    Wenn Sie den Status des Agenten auf <span
+    class="doc-desc-opt">Urlaubsmodus</span> ändern, erhält der Agent
+    weder <span class="doc-desc-title">Benachrichtigungen</span>, noch kann
+    er für Ticketzuweisungen ausgewählt werden.
 # PlusAnpassung Anfang: backup assignment for vacation
 backupAssignment:
-    title: Urlaubsvertretung
-    content: >
-        Wenn der Urlaubsmodus für diesen Agenten aktiviert und eine Urlaubsvertretung
-        hinterlegt ist, werden folgende Aktionen umgeleitet:
-        <ul><li>Alle Tickets, die diesem Agenten zugewiesen werden, werden automatisch
-        der Urlaubsvertretung zugewiesen</li>
-        <li>Alle Benachrichtigungen zu Tickets, die diesem Agenten zugewiesen sind,
-        werden zur Urlaubsvertretung umgeleitet.<br>
-        Das betrifft alle E-Mails bei neuen Mitteilungen und internen Aktivitäten.
-        </li></ul>
+  title: Urlaubsvertretung
+  content: >
+    Wenn der Urlaubsmodus für diesen Agenten aktiviert und eine Urlaubsvertretung
+    hinterlegt ist, werden folgende Aktionen umgeleitet:
+    <ul><li>Alle Tickets, die diesem Agenten zugewiesen werden, werden automatisch
+    der Urlaubsvertretung zugewiesen</li>
+    <li>Alle Benachrichtigungen zu Tickets, die diesem Agenten zugewiesen sind,
+    werden zur Urlaubsvertretung umgeleitet.<br>
+    Das betrifft alle E-Mails bei neuen Mitteilungen und internen Aktivitäten.
+    </li></ul>
 # PlusAnpassung Ende: backup assignment for vacation

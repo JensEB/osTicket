@@ -1,48 +1,43 @@
-#
-# This is popup help messages for the Admin Panel -> Settings -> Knowledgebase
-#
-# Fields:
-# title - Shown in bold at the top of the popover window
-# content - The body of the help popover
-# links - List of links shows below the content
-#   title - Link title
-#   href - href of link (links starting with / are translated to the
-#       helpdesk installation path)
-#
-# The key names such as 'helpdesk_name' should not be translated as they
-# must match the HTML #ids put into the page template.
-#
+#This is popup help messages for the Admin Panel -> Settings -> Knowledgebase
+#Fields:
+#title - Shown in bold at the top of the popover window
+#content - The body of the help popover
+#links - List of links shows below the content
+#title - Link title
+#href - href of link (links starting with / are translated to the
+#helpdesk installation path)
+#The key names such as 'helpdesk_name' should not be translated as they
+#must match the HTML #ids put into the page template.
 ---
 knowledge_base_settings:
-    title: WissensDB-Einstellungen
-    content: >
+  title: WissensDB-Einstellungen
+  content: >
 
 knowledge_base_status:
-    title: WissensDB-Status
-    content: >
-        Aktivieren Sie diese Option, um Kunden den Zugang zu Ihren öffentlichen
-        FAQ-Artikeln zu ermöglichen.
-        <br><br>
-        FAQ-Kategorien und FAQ-Artikel können so eingestellt werden, dass sie nur intern (für Agenten) sichtbar sind.
-    links:
-      - title: WissensDB verwalten
-        href: /scp/kb.php
-
+  title: WissensDB-Status
+  content: >
+    Aktivieren Sie diese Option, um Kunden den Zugang zu Ihren öffentlichen FAQ-Artikeln zu ermöglichen.
+    <br><br>
+    FAQ-Kategorien und FAQ-Artikel können so eingestellt werden, dass sie nur intern (für Agenten) sichtbar sind.
+  links:
+    - 
+      title: WissensDB verwalten
+      href: /scp/kb.php
 restrict_kb:
-    title: Den Zugriff auf die WissensDB einschränken
-    content: >
-        Aktivieren Sie diese Einstellung, um den Zugriff auf Ihre WissensDB 
-        für unregistrierte Kunden im Kundenportal zu unterbinden.
-    links:
-      - title: Einstellungen zur Zugangskontrolle
-        href: /scp/settings.php?t=users
-
+  title: Den Zugriff auf die WissensDB einschränken
+  content: >
+    Aktivieren Sie diese Einstellung, um den Zugriff auf Ihre WissensDB  für unregistrierte Kunden im Kundenportal zu unterbinden.
+  links:
+    - 
+      title: Einstellungen zur Zugangskontrolle
+      href: /scp/settings.php?t=users
 canned_responses:
-    title: Antwortvorlagen
-    content: >
-        Aktivieren Sie diese Einstellung, um Agenten die Verwendung von
-        <span class="doc-desc-title">Antwortvorlagen</span> zu ermöglichen, wenn
-        Sie auf Tickets antworten.
-    links:
-      - title: Antwortvorlagen verwalten
-        href: /scp/canned.php
+  title: Antwortvorlagen
+  content: >
+    Aktivieren Sie diese Einstellung, um Agenten die Verwendung von
+    <span class="doc-desc-title">Antwortvorlagen</span> zu ermöglichen, wenn
+    Sie auf Tickets antworten.
+  links:
+    - 
+      title: Antwortvorlagen verwalten
+      href: /scp/canned.php

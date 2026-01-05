@@ -1,12 +1,10 @@
-#
-# banner-staff.yaml
-#
-# This is the initial message and banner shown on the staff login page
+#banner-staff.yaml
+#This is the initial message and banner shown on the staff login page
 ---
 notes: >
-    Dies ist der einleitende Text, der auf der Anmeldeseite für Agenten
-    angezeigt wird. Das erste Eingabefeld bezieht sich auf den rot formatierten Text,
-    der oben erscheint. Der nächste Textbereich ist für den Inhalt des Banners,
-    welcher den Haftungsausschluss beinhalten sollte.
+  Dies ist der einleitende Text, der auf der Anmeldeseite für Agenten
+  angezeigt wird. Das erste Eingabefeld bezieht sich auf den rot formatierten Text,
+  der oben erscheint. Der nächste Textbereich ist für den Inhalt des Banners,
+  welcher den Haftungsausschluss beinhalten sollte.
 name: "Anmeldung erforderlich"
 body: ""

@@ -134,7 +134,7 @@ $info=($_POST && $errors)?Format::htmlchars($_POST):array('prefix'=>'ost_','dbho
             </form>
     </div>
     <div>
-        <p><strong><?php echo __('Need Help?');?></strong> <?php echo __('We provide <u>professional installation services</u> and commercial support.');?> <a target="_blank" href="https://osticket.com.de/support"><?php echo __('Learn More!');?></a></p>
+        <p><strong><?php echo __('Need Help?');?></strong> <?php echo __('We provide <u>professional installation services</u> and commercial support.');?> <a target="_blank" href="https://support.osticket.com.de"><?php echo __('Learn More!');?></a></p>
     </div>
     <div id="overlay"></div>
     <div id="loading">
