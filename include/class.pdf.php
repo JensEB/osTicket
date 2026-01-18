@@ -26,29 +26,32 @@ class mPDFWithLocalImages extends Mpdf {
         $self = $this;
         $images = $cids = array();
         // Try and get information for all the files in one query
-        if (preg_match_all('/"cid:([\w._-]{32})"/', $html, $cids)) {
+        if (preg_match_all('/\bsrc\s*=\s*(["\'])\s*cid:\s*([\w._-]{32})\s*\1/i', $html, $cids)) {
             foreach (AttachmentFile::objects()
-                ->filter(array('key__in' => $cids[1]))
+                ->filter(array('key__in' => $cids[2]))
                 as $file
             ) {
                 $images[strtolower($file->getKey())] = $file;
             }
         }
-        $args[0] = preg_replace_callback('/"cid:([\w.-]{32})"/',
+        $args[0] = preg_replace_callback('/\bsrc\s*=\s*(["\'])\s*cid:\s*([\w._-]{32})\s*\1/i',
             function($match) use ($self, $images, &$filenumber) {
-                if (!($file = @$images[strtolower($match[1])]))
-                    return $match[0];
+                if (!($file = @$images[strtolower($match[2])]))
+                    return $match[0]; // leave unchanged if not resolvable
                 $key = "__attached_file_".$filenumber++;
                 $self->imageVars[$key] = $file->getData();
-                return 'var:'.$key;
+                // Preserve attribute formatting: src="var:..."
+                return 'src='.$match[1].'var:'.$key.$match[1];
             },
             $html
         );
         // unregister phar stream to mitigate vulnerability in mpdf library
        @stream_wrapper_unregister('phar');
+       @stream_wrapper_unregister('php');
        call_user_func_array(array('parent', 'WriteHtml'), $args);
        // restore phar stream
        @stream_wrapper_restore('phar');
+       @stream_wrapper_restore('php');
     }
 
     function output($name = '', $dest = '') {

@@ -102,8 +102,8 @@ class Net_DNS2
     /*
      * the method to use for storing cache data; either "serialize" or "json"
      *
-     * json is faster, but can't remember the class names (everything comes back 
-     * as a "stdClass Object"; all the data is the same though. serialize is 
+     * json is faster, but can't remember the class names (everything comes back
+     * as a "stdClass Object"; all the data is the same though. serialize is
      * slower, but will have all the class info.
      *
      * defaults to 'serialize'
@@ -126,8 +126,8 @@ class Net_DNS2
      * actually exist.
      *
      * strict_query_mode means that if the hostname that was looked up isn't
-     * actually in the answer section of the response, Net_DNS2 will return an 
-     * empty answer section, instead of an answer section that could contain 
+     * actually in the answer section of the response, Net_DNS2 will return an
+     * empty answer section, instead of an answer section that could contain
      * CNAME records.
      *
      */
@@ -137,7 +137,7 @@ class Net_DNS2
      * if we should set the recursion desired bit to 1 or 0.
      *
      * by default this is set to true, we want the DNS server to perform a recursive
-     * request. If set to false, the RD bit will be set to 0, and the server will 
+     * request. If set to false, the RD bit will be set to 0, and the server will
      * not perform recursion on the request.
      */
     public $recurse = true;
@@ -151,8 +151,8 @@ class Net_DNS2
     public $dnssec = false;
 
     /*
-     * set the DNSSEC AD (Authentic Data) bit on/off; the AD bit on the request 
-     * side was previously undefined, and resolvers we instructed to always clear 
+     * set the DNSSEC AD (Authentic Data) bit on/off; the AD bit on the request
+     * side was previously undefined, and resolvers we instructed to always clear
      * the AD bit when sending a request.
      *
      * RFC6840 section 5.7 defines setting the AD bit in the query as a signal to
@@ -226,7 +226,7 @@ class Net_DNS2
      * @access public
      *
      */
-    public function __construct(array $options = null)
+    public function __construct(?array $options = null)
     {
         //
         // load any options that were provided
@@ -268,7 +268,7 @@ class Net_DNS2
             $this->cache = new Net_DNS2_Cache_File;
             $this->use_cache = true;
 
-            break;  
+            break;
         case 'none':
             $this->use_cache = false;
             break;
@@ -306,7 +306,7 @@ class Net_DNS2
     /**
      * sets the name servers to be used
      *
-     * @param mixed $nameservers either an array of name servers, or a file name 
+     * @param mixed $nameservers either an array of name servers, or a file name
      *                           to parse, assuming it's in the resolv.conf format
      *
      * @return boolean
@@ -339,7 +339,7 @@ class Net_DNS2
             // check to see if the file is readable
             //
             if (is_readable($nameservers) === true) {
-    
+
                 $data = file_get_contents($nameservers);
                 if ($data === false) {
                     throw new Net_DNS2_Exception(
@@ -351,14 +351,14 @@ class Net_DNS2
                 $lines = explode("\n", $data);
 
                 foreach ($lines as $line) {
-                    
+
                     $line = trim($line);
 
                     //
                     // ignore empty lines, and lines that are commented out
                     //
-                    if ( (strlen($line) == 0) 
-                        || ($line[0] == '#') 
+                    if ( (strlen($line) == 0)
+                        || ($line[0] == '#')
                         || ($line[0] == ';')
                     ) {
                         continue;
@@ -382,7 +382,7 @@ class Net_DNS2
                         //
                         // nameserver can be a IPv4 or IPv6 address
                         //
-                        if ( (self::isIPv4($value) == true) 
+                        if ( (self::isIPv4($value) == true)
                             || (self::isIPv6($value) == true)
                         ) {
 
@@ -417,8 +417,8 @@ class Net_DNS2
                 // if we don't have a domain, but we have a search list, then
                 // take the first entry on the search list as the domain
                 //
-                if ( (strlen($this->domain) == 0) 
-                    && (count($this->search_list) > 0) 
+                if ( (strlen($this->domain) == 0)
+                    && (count($this->search_list) > 0)
                 ) {
                     $this->domain = $this->search_list[0];
                 }
@@ -555,7 +555,7 @@ class Net_DNS2
                 );
             }
         }
-    
+
         return true;
     }
 
@@ -565,7 +565,7 @@ class Net_DNS2
      * @param string $keyname   the key name to use for the TSIG RR
      * @param string $signature the key to sign the request.
      * @param string $algorithm the algorithm to use
-     * 
+     *
      * @return boolean
      * @access public
      * @since  function available since release 1.1.0
@@ -575,7 +575,7 @@ class Net_DNS2
         $keyname, $signature = '', $algorithm = Net_DNS2_RR_TSIG::HMAC_MD5
     ) {
         //
-        // if the TSIG was pre-created and passed in, then we can just used 
+        // if the TSIG was pre-created and passed in, then we can just used
         // it as provided.
         //
         if ($keyname instanceof Net_DNS2_RR_TSIG) {
@@ -585,8 +585,8 @@ class Net_DNS2
         } else {
 
             //
-            // otherwise create the TSIG RR, but don't add it just yet; TSIG needs 
-            // to be added as the last additional entry- so we'll add it just 
+            // otherwise create the TSIG RR, but don't add it just yet; TSIG needs
+            // to be added as the last additional entry- so we'll add it just
             // before we send.
             //
             $this->auth_signature = Net_DNS2_RR::fromString(
@@ -599,7 +599,7 @@ class Net_DNS2
             //
             $this->auth_signature->algorithm = $algorithm;
         }
-          
+
         return true;
     }
 
@@ -607,7 +607,7 @@ class Net_DNS2
      * adds a SIG RR object for authentication
      *
      * @param string $filename the name of a file to load the signature from.
-     * 
+     *
      * @return boolean
      * @throws Net_DNS2_Exception
      * @access public
@@ -620,7 +620,7 @@ class Net_DNS2
         // check for OpenSSL
         //
         if (extension_loaded('openssl') === false) {
-            
+
             throw new Net_DNS2_Exception(
                 'the OpenSSL extension is required to use SIG(0).',
                 Net_DNS2_Lookups::E_OPENSSL_UNAVAIL
@@ -635,7 +635,7 @@ class Net_DNS2
             $this->auth_signature = $filename;
 
         } else {
-        
+
             //
             // otherwise, it's filename which needs to be parsed and processed.
             //
@@ -718,13 +718,13 @@ class Net_DNS2
             return false;
         }
 
-        return true;   
+        return true;
     }
 
     /**
      * PHP doesn't support unsigned integers, but many of the RR's return
      * unsigned values (like SOA), so there is the possibility that the
-     * value will overrun on 32bit systems, and you'll end up with a 
+     * value will overrun on 32bit systems, and you'll end up with a
      * negative value.
      *
      * 64bit systems are not affected, as their PHP_IN_MAX value should
@@ -786,7 +786,7 @@ class Net_DNS2
 
         return true;
     }
-    
+
     /**
      * returns true/false if the given address is a valid IPv6 address
      *
@@ -870,7 +870,7 @@ class Net_DNS2
         }
 
         reset($this->nameservers);
-        
+
         //
         // randomize the name server list if it's asked for
         //

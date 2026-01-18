@@ -2576,26 +2576,26 @@ class DatetimeField extends FormField {
                 "{$name}__lte" =>  $right->format('Y-m-d H:i:s'),
             ));
         case 'ndaysago':
-            $int = $intervals[$value['int'] ?: 'd'] ?: 'DAY';
+            $int = $intervals[(string) $value['int'] ?: 'd'] ?: 'DAY';
             $interval = new SqlInterval($int, $value['until']);
             return new Q(array(
                 "{$name}__range" => array($now->minus($interval), $now),
             ));
         case 'ndays':
-            $int = $intervals[$value['int'] ?: 'd'] ?: 'DAY';
+            $int = $intervals[(string) $value['int'] ?: 'd'] ?: 'DAY';
             $interval = new SqlInterval($int, $value['until']);
             return new Q(array(
                 "{$name}__range" => array($now, $now->plus($interval)),
             ));
         // Distant past and future ranges
         case 'distpast':
-            $int = $intervals[$value['int'] ?: 'd'] ?: 'DAY';
+            $int = $intervals[(string) $value['int'] ?: 'd'] ?: 'DAY';
             $interval = new SqlInterval($int, $value['until']);
             return new Q(array(
                 "{$name}__lte" => $now->minus($interval),
             ));
         case 'distfut':
-            $int = $intervals[$value['int'] ?: 'd'] ?: 'DAY';
+            $int = $intervals[(string) $value['int'] ?: 'd'] ?: 'DAY';
             $interval = new SqlInterval($int, $value['until']);
             return new Q(array(
                 "{$name}__gte" => $now->plus($interval),
@@ -4145,7 +4145,8 @@ class FileUploadField extends FormField {
         // Check invalid image hacks
         if ($file['tmp_name']
                 && stripos($file['type'], 'image/') === 0
-                && !exif_imagetype($file['tmp_name']))
+                && !(exif_imagetype($file['tmp_name'])
+                    || mime_content_type($file['tmp_name']) === 'image/svg+xml'))
             return false;
 
         return true;
@@ -5395,6 +5396,8 @@ class FileUploadWidget extends Widget {
     );
 
     function render($options=array()) {
+        global $ost;
+
         $config = $this->field->getConfiguration();
         $name = $this->field->getFormName();
         $id = substr(md5(spl_object_hash($this)), 10);
@@ -5480,6 +5483,7 @@ class FileUploadWidget extends Widget {
           url: 'ajax.php/form/upload/<?php echo $field_id; ?>',
           link: $('#<?php echo $id; ?>').find('a.manual'),
           paramname: 'upload[]',
+          data: {"__CSRFToken__": "<?php echo $ost->getCSRF()->getToken(); ?>"},
           fallback_id: 'file-<?php echo $id; ?>',
           allowedfileextensions: <?php echo JsonDataEncoder::encode(
             $config['__extensions'] ?: array()); ?>,

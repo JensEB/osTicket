@@ -366,13 +366,11 @@ define('CLI_DIR', INCLUDE_DIR.'cli/');
 /*############## Do NOT monkey with anything else beyond this point UNLESS you really know what you are doing ##############*/
 
 #Current version && schema signature (Changes from version to version)
-define('GIT_VERSION', '53339df'); // Set by installer
+define('GIT_VERSION', '2570d69'); // Set by installer
 define('MAJOR_VERSION', '1.18');
-define('THIS_VERSION', 'v1.18.2'); // Set by installer
+define('THIS_VERSION', 'v1.18.3'); // Set by installer
 // Anpassung Anfang: set de-Version
-// set number
-define('DE_VERSION', '6');
-// set type
+define('DE_VERSION', '0');
 define('DE_VERSION_TYPE', 'FREE');
 // Anpassung Ende:  set de-Version
 //Path separator

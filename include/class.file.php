@@ -370,6 +370,7 @@ class AttachmentFile extends VerySimpleModel
                 case IMAGETYPE_GIF:
                 case IMAGETYPE_JPEG:
                 case IMAGETYPE_PNG:
+                case IMAGETYPE_WEBP:
                     break;
                 default:
                     $error = __('Invalid image file type');
@@ -391,6 +392,7 @@ class AttachmentFile extends VerySimpleModel
                 case IMAGETYPE_GIF:
                 case IMAGETYPE_JPEG:
                 case IMAGETYPE_PNG:
+                case IMAGETYPE_WEBP:
                     break;
                 default:
                     $error = __('Invalid image file type');

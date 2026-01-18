@@ -2637,6 +2637,12 @@ class SqlCompiler {
 
     function getJoins($queryset) {
         $sql = '';
+        // Move CDATA to top of joins
+        if (array_key_exists("cdata", $this->joins)) {
+            $temp = ['cdata' => $this->joins['cdata']];
+            unset($this->joins['cdata']);
+            $this->joins = $temp + $this->joins;
+        }
         foreach ($this->joins as $path => $j) {
             if (!isset($j['sql']))
                 continue;

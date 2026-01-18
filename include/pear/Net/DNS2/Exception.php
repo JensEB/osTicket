@@ -43,8 +43,8 @@ class Net_DNS2_Exception extends Exception
         $message = '', 
         $code = 0, 
         $previous = null, 
-        Net_DNS2_Packet_Request $request = null,
-        Net_DNS2_Packet_Response $response = null
+        ?Net_DNS2_Packet_Request $request = null,
+        ?Net_DNS2_Packet_Response $response = null
     ) {
         //
         // store the request/response objects (if passed)
@@ -55,17 +55,7 @@ class Net_DNS2_Exception extends Exception
         //
         // call the parent constructor
         //
-        // the "previous" argument was added in PHP 5.3.0
-        //
-        //      https://code.google.com/p/netdns2/issues/detail?id=25
-        //
-        if (version_compare(PHP_VERSION, '5.3.0', '>=') == true) {
-
-            parent::__construct($message, $code, $previous);
-        } else {
-
-            parent::__construct($message, $code);
-        }
+        parent::__construct($message, $code, $previous);
     }
 
     /**

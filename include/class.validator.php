@@ -234,9 +234,9 @@ class Validator {
         return $error == '';
     }
 
-    static  function is_userid($userid, &$error='') {
+    static  function is_userid($userid, &$error='', $verify=false) {
         if (!self::is_username($userid)
-                    && !self::is_email($userid))
+                    && !self::is_email($userid, false, $verify))
             $error = __('Invalid User Id ');
         return $error == '';
     }

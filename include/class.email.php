@@ -17,6 +17,7 @@ include_once(INCLUDE_DIR.'class.dept.php');
 include_once(INCLUDE_DIR.'class.mail.php');
 include_once(INCLUDE_DIR.'class.mailer.php');
 include_once(INCLUDE_DIR.'class.oauth2.php');
+include_once(INCLUDE_DIR.'class.mime.php');
 include_once(INCLUDE_DIR.'class.mailfetch.php');
 include_once(INCLUDE_DIR.'class.mailparse.php');
 include_once(INCLUDE_DIR.'api.tickets.php');
@@ -1111,7 +1112,7 @@ class MailBoxAccount extends EmailAccount {
         return $this->getMailBox($creds);
     }
 
-    public function getMailBox(osTicket\Mail\AuthCredentials $cred=null) {
+    public function getMailBox(?osTicket\Mail\AuthCredentials $cred=null) {
         if (!isset($this->mailbox) || $cred) {
             $this->cred = $cred ?: $this->getFreshCredentials();
             $setting = $this->getAccountSetting();
@@ -1316,7 +1317,7 @@ class SmtpAccount extends EmailAccount {
         return $this->smtp;
     }
 
-    public function getSmtp(osTicket\Mail\AuthCredentials $cred=null) {
+    public function getSmtp(?osTicket\Mail\AuthCredentials $cred=null) {
         if (!isset($this->smtp) || $cred) {
             $this->cred = $cred ?: $this->getFreshCredentials();
             if ($this->cred) {

@@ -68,7 +68,7 @@ if($thisclient && $thisclient->getId() && $thisclient->isValid()){
 
 /******* CSRF Protectin *************/
 // Enforce CSRF protection for POSTS
-if ($_POST  && !$ost->checkCSRFToken()) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$ost->checkCSRFToken()) {
     Http::redirect('index.php');
     //just incase redirect fails
     die('Action denied (400)!');
