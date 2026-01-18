@@ -59,10 +59,6 @@ elseif ($_POST) {
         $user_form->getField('email')->value = $thisclient->getEmail();
         $_POST['email'] = $thisclient->getEmail();
     }
-    if(!$_POST['captcha'])
-        $errors['captcha']=__('Enter text shown on the image');
-    elseif(strcmp($_SESSION['captcha'], md5(strtoupper($_POST['captcha']))))
-        $errors['captcha']=sprintf('%s - %s', __('Invalid'), __('Please try again!'));
 // Anpassung Anfang: Honeypot
     $hpName  = AntiSpam_Honeypot::getHpInputName();
     if($_POST[$hpName]) {
