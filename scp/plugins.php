@@ -31,9 +31,21 @@ if ($_POST) {
         break;
     case 'update-instance':
          if ($instance && $instance->update($_POST, $errors))
+/* Anpassung Anfang: reload config to prevent displaying old settings
              $msg = sprintf('%s %s',
                       __('Instance'),
                       __('Updated Successfully'));
+*/
+         {
+             $msg = sprintf('%s %s',
+                      __('Instance'),
+                      __('Updated Successfully'));
+             $redirect = sprintf('plugins.php?id=%d&xid=%d', $instance->getPluginId(), $instance->getId());
+             unset($_SESSION[':msgs']);
+             Messages::success($msg);
+             Http::redirect($redirect);
+         }
+// Anpassung Ende: reload config to prevent displaying old settings
          elseif (!$errors['err'])
              $errors['err'] = sprintf(__('Unable to update %s.'),
                      __('Plugin Instance'));

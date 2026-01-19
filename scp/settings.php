@@ -40,6 +40,9 @@ if (isset($settingOptions[$target]))
 
 if($page && $_POST && !$errors) {
     if($cfg && $cfg->updateSettings($_POST,$errors)) {
+// Anpassung Anfang: reload config to prevent displaying old settings
+        $cfg->load();
+// Anpassung Anfang: reload config to prevent displaying old settings
         $msg=sprintf(__('Successfully updated %s.'), Format::htmlchars($page[0]));
     } elseif(!$errors['err']) {
         $errors['err'] = sprintf('%s %s',

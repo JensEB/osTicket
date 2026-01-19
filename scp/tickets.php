@@ -493,12 +493,14 @@ if($_POST && !$errors):
 endif;
 
 if ($redirect) {
-    if ($msg)
-        Messages::success($msg);
 // Anpassung Anfang: store error message too
+    // reset messages for pjax calls
+    unset($_SESSION[':msgs']);
     if ($errors['err'])
         Messages::error($errors['err']);
 // Anpassung Ende: store error message too
+    if ($msg)
+        Messages::success($msg);
     Http::redirect($redirect);
 }
 
