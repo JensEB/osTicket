@@ -15,7 +15,14 @@
 **********************************************************************/
 require('admin.inc.php');
 
+/* Anpassung Anfang: support audit plugin as phar and folder
 if (PluginManager::auditPlugin())
+*/
+if (($plgId=PluginManager::auditPlugin()) && ($plg=PluginManager::lookup($plgId)))
+    if(!$plg->isPhar())
+        require_once(INCLUDE_DIR . '/plugins/audit/class.audit.php');
+    else
+// Anpassung Ende: support audit plugin as phar and folder
     require_once('phar://' . INCLUDE_DIR . '/plugins/audit.phar/class.audit.php');
 
 $page = 'phar://' . INCLUDE_DIR . '/plugins/audit.phar/templates/auditlogs.tmpl.php';

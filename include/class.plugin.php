@@ -228,13 +228,23 @@ class PluginManager {
     }
 
     static function getPluginByName($name, $active=false) {
+/* Anpassung Anfang: support audit plugin as phar and folder
         $sql = sprintf('SELECT * FROM %s WHERE name="%s"', PLUGIN_TABLE, $name);
+*/
+        $sql = sprintf('SELECT * FROM %s WHERE install_path="plugins/%s.phar" OR install_path="plugins/%s"',
+                       PLUGIN_TABLE, $name, $name);
+// Anpassung Ende: support audit plugin as phar and folder
         if ($active)
             $sql = sprintf('%s AND isactive = true', $sql);
         if (!($res = db_query($sql)))
             return false;
         $ht = db_fetch_array($res);
+/* Anpassung Anfang: support audit plugin as phar and folder
         return $ht['name'];
+*/
+        // return ID to check, if plugin is phar or not
+        return $ht['id'];
+// Anpassung Ende: support audit plugin as phar and folder
     }
 
     static function auditPlugin() {
@@ -242,7 +252,11 @@ class PluginManager {
         if (!$ost || $ost->isUpgradePending())
             return false;
 
+/* Anpassung Anfang: support audit plugin as phar and folder
         return self::getPluginByName('Help Desk Audit', true);
+*/
+        return self::getPluginByName('audit', true);
+// Anpassung Ende: support audit plugin as phar and folder
     }
 
     static function allActive() {
