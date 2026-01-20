@@ -316,7 +316,10 @@ class CloserPlugin extends Plugin {
         #### only answered ###
         $whereFilter .= ($config->get('close-only-answered')) ? ' AND t.isanswered=1' : '';
         #### only overdue ###
-        $whereFilter .= ($config->get('close-only-overdue')) ? ' AND t.isoverdue=1' : '';
+        $whereFilter .= ($config->get('close-only-overdue'))
+                        // is overdue OR duedate is set and in the past OR duedate not set and est_duedate set and in the past
+                      ? ' AND (t.isoverdue=1 OR (duedate IS NOT NULL AND duedate < NOW()) OR (duedate IS NULL AND est_duedate < NOW()))'
+                      : '';
 
         ### help topic filter ###
         $help_topics_selector = $config->get('help-topic-selector'); // p=process, i=ignore

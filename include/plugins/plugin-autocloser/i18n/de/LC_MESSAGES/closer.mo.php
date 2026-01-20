@@ -62,7 +62,7 @@ return [
     'Only change tickets with an Agent Response' => 'Nur beantwortete Tickets ändern',
     'Checks the answered flag' => 'Prüft das Beantwortet-Flag',
     'Only change tickets past expiry date' => 'Nur überfällige Tickets ändern',
-    'Checks the overdue flag' => 'Prüft das Beantwortet-Flag',
+    'Checks, if the overdue flag is set or the due date is in the past' => 'Prüft, ob das Überfällig-Flag gesetzt ist, oder ob das Fälligkeitsdatum in der Vergangenheit liegt',
     'Default ignores expiry' => 'Standardmäßig wird die Fälligkeit ignoriert',
     'Calculate from date' => 'Datum für Berechnung',
     'From which date should the calculation begin?' => 'Ab welchem ​​Datum soll die Berechnung beginnen?',

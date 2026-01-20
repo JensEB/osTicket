@@ -4,7 +4,7 @@ list($__, $_N) = Plugin::translate('closer');
 
 return array(
  'id' => 'clonemeagain:autocloser', # notrans
- 'version' => '3.3.1',
+ 'version' => '3.3.2',
  'name' => /* trans */ $__('Ticket Closer'),
  'author' => 'clonemeagain@gmail.com',
  'description' => /* trans */ $__('Changes ticket statuses based on age.'),
@@ -24,8 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.3.2] - 2026-01-20
+### Fixed
+ - setting "select only overdue tickets" checks now following criterias:
+   is overdue OR duedate is set and in the past OR duedate not set and est_duedate set and in the past
+
 ## [3.3.1] - 2025-12-16
-### FixedS
+### Fixed
 - log correct note, if ticket isn't closeable with its cause
 - send admin-note and admin-reply only, if status ist set
 - use status name in notes instead of status state

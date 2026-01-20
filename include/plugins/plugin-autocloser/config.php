@@ -164,7 +164,8 @@ class CloserPluginConfig extends PluginConfig {
                     [
                 'default' => FALSE,
                 'label' => $__('Only change tickets past expiry date'),
-                'hint' => $__('Default ignores expiry').' ('.$__('Checks the overdue flag').')'
+                'hint' => $__('Default ignores expiry')
+                          .' ('.$__('Checks, if the overdue flag is set or the due date is in the past').')'
                     ]),
             'help-topic-selector' => new ChoiceField(
                     [

@@ -35,7 +35,7 @@ class CliUpgrader extends Module {
 
         $upgrader = new Upgrader(TABLE_PREFIX, UPGRADE_DIR.'streams/');
         if (!$upgrader->isUpgradable()) {
-            $this->fail(__('The upgrader does NOT support upgrading from the current vesion!'));
+            $this->fail(__('The upgrader does NOT support upgrading from the current version!'));
         }
         elseif (!$upgrader->check_prereq()) {
             $this->fail(__('Minimum requirements not met! Refer to Release Notes for more information'));
