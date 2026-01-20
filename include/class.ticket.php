@@ -1818,6 +1818,15 @@ implements RestrictedAccess, Threadable, Searchable {
     }
 
     function onResponse($response, $options=array()) {
+// Anpassung Anfang: overdue_only_unanswered
+        global $cfg;
+
+        if($cfg->get('overdue_only_unanswered')) {
+            # die Funktion clearOverude() nicht verwenden -> löscht sonst evtl. auch duedate und est_duedate
+            #$this->clearOverdue();
+            $this->isoverdue = 0;
+        }
+// Anpassung Ende: overdue_only_unanswered
         $this->isanswered = 1;
         $this->save();
 
@@ -1917,11 +1926,6 @@ implements RestrictedAccess, Threadable, Searchable {
             $this->updateEstDueDate();
         }
 // Anpassung Ende: sla_from_last_message
-// Anpassung Anfang: overdue_only_unanswered
-        if($cfg->get('overdue_only_unanswered')) {
-            $this->clearOverdue();
-        }
-// Anpassung Ende: overdue_only_unanswered
         $this->save();
 
 
