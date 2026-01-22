@@ -345,6 +345,10 @@ class CustomQueue extends VerySimpleModel {
         $fields = &$cache[$base];
         if ($fields)
             return $fields;
+// Anpassung Anfang: CustomQueue::getSearchableFields() - return empty array, if $base not valid
+        if(!class_implements($base))
+            return [];
+// Anpassung Ende: CustomQueue::getSearchableFields() - return empty array, if $base not valid
 
         if (!in_array('Searchable', class_implements($base)))
             return array();
