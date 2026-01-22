@@ -428,7 +428,12 @@ class DatabaseSessionRecord extends VerySimpleModel
         }
         catch (DoesNotExist $e) {
             // We're auto-creating model (unsaved) when one doesn't exist?
+/* Anpassung Anfang: do not check session id with ctype_alnum() - it may break valide sessions
             $record = ($autocreate && ctype_alnum($id)) ? self::create($id) : null;
+*/
+            // see https://www.php.net/manual/en/session.configuration.php#ini.session.sid-bits-per-character
+            $record = ($autocreate && preg_match('/^[A-Za-z0-9,-]+$/', $id)) ? self::create($id) : null;
+// Anpassung Ende: do not check session id with ctype_alnum() - it may break valide sessions
         }
         catch (OrmException | Exception $ex) {
             // This could happen if more than one record exits in the
