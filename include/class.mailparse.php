@@ -149,6 +149,7 @@ class Mail_Parse {
     }
 
     function splitBodyHeader() {
+/* Anpassung Anfang: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
         $match = array();
         if (!$this->header
                 && preg_match("/^(.*?)\r?\n\r?\n./s",
@@ -156,6 +157,20 @@ class Mail_Parse {
                     $match)) {
             $this->header=$match[1];
         }
+*/
+        $match = [];
+        if ($this->header) {
+            return;
+        }
+        if (preg_match("/^(.*?)\r?\n\r?\n/s", $this->mime_message, $match)) {
+            $header = $match[1];
+        } else { // corrupt - better all as nothing
+            $header = $this->mime_message;
+        }
+
+        // remove BOOM chars - see osticket forum at: https://forum.osticket.com/d/107250-mail-fetcher-error/10
+        $this->header = preg_replace('/^\xEF\xBB\xBF/', '', $header);
+// Anpassung Ende: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
     }
 
     /**
@@ -186,6 +201,11 @@ class Mail_Parse {
         $array = array();
         foreach ($headers as $hdr) {
             list($name, $val) = explode(": ", $hdr, 2);
+// Anpassung Anfang: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
+            // decode header value like subject, from, to, cc, bcc ...
+            if($val && is_string($val))
+                $val = Format::mimedecode($val);
+// Anpassung Ende: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
             # Create list of values if header is specified more than once
             $name = strtolower($name);
             if (isset($array[$name]) && $as_array) {
@@ -343,7 +363,11 @@ class Mail_Parse {
             // Handle rfc1892 style bounces
             if (strtolower($ctype) === 'text/rfc822-headers') {
                 $body = $p->body . "\n\nIgnored";
+/* Anpassung Anfang: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
                 $T = new Mail_mimeDecode($body, ['attachOnParseError' => false]);
+*/
+                $T = new Mail_mimeDecode($body); // Mail_mimeDecode has only one parameter
+// Anpassung Ende: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
                 if ($struct = $T->decode())
                     return $struct->headers;
             }
@@ -359,6 +383,7 @@ class Mail_Parse {
         if (!$this->struct)
             return new TextThreadEntryBody('');
 
+/* Anpassung Anfang: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
         if ($cfg && $cfg->isRichTextEnabled()) {
             if ($html=$this->getPart($this->struct,'text/html'))
                 $body = new HtmlThreadEntryBody($html);
@@ -368,6 +393,18 @@ class Mail_Parse {
         elseif ($text=$this->getPart($this->struct,'text/plain'))
             $body = new TextThreadEntryBody($text);
         elseif ($html=$this->getPart($this->struct,'text/html'))
+*/
+        // "0" is a valid body
+        if ($cfg && $cfg->isRichTextEnabled()) {
+            if (($html=trim($this->getPart($this->struct,'text/html'))) !== '')
+                $body = new HtmlThreadEntryBody($html);
+            elseif (($text=trim($this->getPart($this->struct,'text/plain'))) !== '')
+                $body = new TextThreadEntryBody($text);
+        }
+        elseif (($text=trim($this->getPart($this->struct,'text/plain'))) !== '')
+            $body = new TextThreadEntryBody($text);
+        elseif (($html=trim($this->getPart($this->struct,'text/html'))) !== '')
+// Anpassung Ende: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
             $body = new TextThreadEntryBody(
                     Format::html2text(Format::safe_html($html),
                         100, false));
@@ -405,9 +442,15 @@ class Mail_Parse {
                     && (strcasecmp($struct->disposition, 'inline') !== 0))
                 return '';
             if ($ctype && strcasecmp($ctype,$ctypepart)==0) {
+/* Anpassung Anfang: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
                 $content = $struct->body;
                 //Encode to desired encoding - ONLY if charset is known??
                 if (isset($struct->ctype_parameters['charset']))
+*/
+                $content = (string) $struct->body;
+                //Encode to desired encoding - ONLY if charset is known??
+                if ($content !== '' && isset($struct->ctype_parameters['charset']))
+// Anpassung Ende: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
                     $content = Charset::transcode($content,
                         $struct->ctype_parameters['charset'], $this->charset);
 
@@ -417,7 +460,11 @@ class Mail_Parse {
 
         if ($this->tnef && !strcasecmp($ctypepart, 'text/html')
                 && ($content = $this->tnef->getBody('text/html', $this->charset)))
+/* Anpassung Anfang: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
             return $content;
+*/
+            return (string) $content;
+// Anpassung Ende: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
 
         $data='';
         if ($struct && @$struct->parts && $recurse
@@ -667,8 +714,13 @@ class Mail_Parse {
         }
 
         //maybe we got BCC'ed??
+/* Anpassung Anfang: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
         if(isset($recipients['bcc'])) {
             foreach ($recipients['bcc'] as $addr) {
+*/
+        if (($bcc = $this->getBccAddressList())) {
+            foreach ($bcc as $addr) {
+// Anpassung Ende: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
                 if (($emailId=Email::getIdByEmail($addr->mailbox.'@'.$addr->host))) {
                     $info['system_emails'][] = $emailId;
                     if (!$info['emailId'])
@@ -677,10 +729,20 @@ class Mail_Parse {
             }
         }
 
+/* Anpassung Anfang: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
         // reply to ?
         if (($replyto = $this->getReplyTo())
                 && ($replyto = $replyto[0])) {
             $info['reply-to'] = $replyto->mailbox.'@'.$replyto->host;
+*/
+        // reply to ? - set it only, if it's a valid mail
+        if (($replyto = $this->getReplyTo())
+                && ($replyto = $replyto[0])
+                && ($replytoAddress = $replyto->mailbox.'@'.$replyto->host)
+                && Validator::is_email($replytoAddress)
+           ) {
+            $info['reply-to'] = $replytoAddress;
+// Anpassung Ende: Add pull request #6927 - [FIX] mails will be fetched with empty bodies
             if ($replyto->personal)
                 $info['reply-to-name'] = trim($replyto->personal, " \t\n\r\0\x0B\x22");
         }
