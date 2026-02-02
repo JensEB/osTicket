@@ -370,7 +370,7 @@ class Mailer {
         $subject = preg_replace("/(\r\n|\r|\n)/s",'', trim($subject));
 // Anpassung Anfang: encode subject, if nessesary (only free version)
         if(defined('DE_VERSION_TYPE') && strcasecmp(DE_VERSION_TYPE, 'plus')!=0 )
-            self::encode_header_value_simple($subject);
+            self::encode_header_value_simple($subject, true); // allow folding
 // Anpassung Ende: encode subject, if nessesary (only free version)
         $from = $this->getFromAddress($options);
 
@@ -750,11 +750,25 @@ class Mailer {
         return $mailer->send($to, $subject, $message, $options);
     }
 // Anpassung Anfang: encode mail name, if nessesary
-    static function encode_header_value_simple($value) {
-        return \Laminas\Mime\Mime::isPrintable($value) 
-              ? $value
-              : \Laminas\Mime\Mime::encodeQuotedPrintableHeader($value, 'UTF-8');
+    static function encode_header_value_simple(string $value, bool $allowFold = false): string {
+        // remove linebreaks + collapse whitespace
+        $sanitized = trim(preg_replace('/\s+/', ' ', str_replace(["\r\n", "\r", "\n"], ' ', $value)));
 
+        if (\Laminas\Mime\Mime::isPrintable($sanitized))
+            return $sanitized;
+
+        $charset = 'UTF-8';
+        $eol     = "\r\n";
+        $lineLength = $allowFold ? 72 : (strlen($sanitized) * 4 + strlen($charset) + 16);
+
+        $qEncoded = \Laminas\Mime\Mime::encodeQuotedPrintableHeader($sanitized, $charset, $lineLength, $eol);
+
+        // if encoded value <= 64, we have save no line breaks
+        $out = (strlen($qEncoded) <= 64)
+             ? $qEncoded
+             : \Laminas\Mime\Mime::encodeBase64Header($sanitized, $charset, $lineLength, $eol);
+
+        return $allowFold ? $out : str_replace(["\r", "\n"], '', $out);
     }
 // Anpassung Ende: encode mail name, if nessesary
 }
