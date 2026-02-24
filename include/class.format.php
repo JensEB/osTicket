@@ -215,7 +215,20 @@ class Format {
             $config['balance'] = 0;
         }
 
+/* Anpassung Anfang: fix empty mail bodies from htmLawed
+        // see: https://forum.osticket.com/d/107309-ticket-replies-showing-empty-on-1177/64
         return htmLawed($html, $config, $spec);
+*/
+    $current = setlocale(LC_CTYPE, '0');
+    $new = setlocale(LC_CTYPE, 'C') ?: setlocale(LC_CTYPE, 'English_United States.1252') ?: null;
+
+    try {
+        return htmLawed($html, $config, $spec);
+    } finally {
+        if ($current !== false && $current !== null)
+            @setlocale(LC_CTYPE, $current);
+    }
+// Anpassung Anfang: fix empty mail bodies from htmLawed
     }
 
     static function html2text($html, $width=74, $tidy=true) {
