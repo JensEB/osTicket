@@ -368,10 +368,11 @@ class Mailer {
 
         $messageId = $this->getMessageId($recipients, $options);
         $subject = preg_replace("/(\r\n|\r|\n)/s",'', trim($subject));
-// Anpassung Anfang: encode subject, if nessesary (only free version)
+// Anpassung Anfang: encode header values for address header and subject, if nessesary
+        // encode subject, if nessesary (only free version)
         if(defined('DE_VERSION_TYPE') && strcasecmp(DE_VERSION_TYPE, 'plus')!=0 )
             self::encode_header_value_simple($subject, true); // allow folding
-// Anpassung Ende: encode subject, if nessesary (only free version)
+// Anpassung Ende: encode header values for address header and subject, if nessesary
         $from = $this->getFromAddress($options);
 
          // Create new ostTicket/Mail/Message object
@@ -379,12 +380,12 @@ class Mailer {
         // Set our custom Message-Id
         $message->setMessageId($messageId);
         // Set From Address
-/* Anpassung Anfang: encode mail name, if nessesary
+/* Anpassung Anfang: encode header values for address header and subject, if nessesary
         $message->setFrom($from->getEmail(), $from->getName());
 */
         $message->setEncoding('ASCII');
-        $message->setFrom($from->getEmail(), self::encode_header_value_simple($from->getName()));
-// Anpassung Ende: encode mail name, if nessesary
+        $message->setFrom($from->getEmail(), self::encode_address_header_name_simple($from->getName()));
+// Anpassung Ende: encode header values for address header and subject, if nessesary
         // Set Subject
         $message->setSubject($subject);
 
@@ -482,11 +483,11 @@ class Mailer {
                 switch (true) {
                     case $recipient instanceof \EmailRecipient:
                         $email = (string) $recipient->getEmail()->getEmail();
-/* Anpassung Anfang: encode mail name, if nessesary
+/* Anpassung Anfang: encode header values for address header and subject, if nessesary
                         $name =  (string) $recipient->getName();
 */
-                        $name = self::encode_header_value_simple((string) $recipient->getName());
-// Anpassung Ende: encode mail name, if nessesary
+                        $name = self::encode_address_header_name_simple((string) $recipient->getName());
+// Anpassung Ende: encode header values for address header and subject, if nessesary
                         switch ($recipient->getType()) {
                             case 'to':
                                 $message->addTo($email, $name);
@@ -501,40 +502,39 @@ class Mailer {
                         break;
                     case $recipient instanceof \TicketOwner:
                     case $recipient instanceof \Staff:
-/* Anpassung Anfang: encode mail name, if nessesary
+/* Anpassung Anfang: encode header values for address header and subject, if nessesary
                         $message->addTo((string) $recipient->getEmail(),
                                 (string) $recipient->getName());
 */
                         $message->addTo((string) $recipient->getEmail(),
-                                self::encode_header_value_simple((string) $recipient->getName()));
-// Anpassung Ende: encode mail name, if nessesary
+                                self::encode_address_header_name_simple((string) $recipient->getName()));
+// Anpassung Ende: encode header values for address header and subject, if nessesary
                         break;
                     case $recipient instanceof \Collaborator:
-/* Anpassung Anfang: encode mail name, if nessesary
+/* Anpassung Anfang: encode header values for address header and subject, if nessesary
                         $message->addCc((string) $recipient->getEmail(),
                                  (string) $recipient->getName());
 */
                         $message->addCc((string) $recipient->getEmail(),
-                                self::encode_header_value_simple((string) $recipient->getName()));
-// Anpassung Ende: encode mail name, if nessesary
+                                self::encode_address_header_name_simple((string) $recipient->getName()));
+// Anpassung Ende: encode header values for address header and subject, if nessesary
                         break;
                     case $recipient instanceof \EmailAddress:
-/* Anpassung Anfang: encode mail name, if nessesary
+/* Anpassung Anfang: encode header values for address header and subject, if nessesary
                         $message->addTo((string) $recipient->getEmail(),
                                 (string) $recipient->getName());
 */
                         $message->addTo((string) $recipient->getEmail(),
-                                self::encode_header_value_simple((string) $recipient->getName()));
-// Anpassung Ende: encode mail name, if nessesary
+                                self::encode_address_header_name_simple((string) $recipient->getName()));
+// Anpassung Ende: encode header values for address header and subject, if nessesary
                         break;
                     default:
+// Anpassung Anfang: encode header values for address header and subject, if nessesary
+                        $recipient = self::parse_address_header_simple($recipient);
+// Anpassung Ende: encode header values for address header and subject, if nessesary
                         // Assuming email address.
                         if (is_string($recipient))
-/* Anpassung Anfang: encode mail name, if nessesary
                             $message->addTo($recipient);
-*/
-                            $message->addTo(self::encode_header_value_simple($recipient));
-// Anpassung Ende: encode mail name, if nessesary
                 }
             } catch(\Exception $ex) {
                 $this->logWarning(sprintf("%s1\$s: %2\$s\n\n%3\$s\n",
@@ -655,11 +655,11 @@ class Mailer {
                             // get Account Email
                             (string) $smtpAccount->getEmail()->getEmail(),
                             // Try to keep the name if available
-/* Anpassung Anfang: encode mail name, if nessesary
+/* Anpassung Anfang: encode header values for address header and subject, if nessesary
                             $this->getFromName() ?: $smtpAccount->getName() ?: $this->getEmail());
 */
-                            self::encode_header_value_simple($this->getFromName() ?: $smtpAccount->getName() ?: $this->getEmail()));
-// Anpassung Ende: encode mail name, if nessesary
+                            self::encode_address_header_name_simple($this->getFromName() ?: $smtpAccount->getName() ?: $this->getEmail()));
+// Anpassung Ende: encode header values for address header and subject, if nessesary
                 }
                 // Attempt to send the Message.
                 if (($smtp=$smtpAccount->getSmtpConnection())
@@ -675,28 +675,28 @@ class Mailer {
                     ));
             }
             // Attempt  Failed:  Reset FROM to original email and clear Sender
-/* Anpassung Anfang: encode mail name, if nessesary
+/* Anpassung Anfang: encode header values for address header and subject, if nessesary
             $message->setOriginator($this->getFromEmail(), $this->getFromName());
 */
-            $message->setOriginator($this->getFromEmail(), self::encode_header_value_simple($this->getFromName()));
-// Anpassung Ende: encode mail name, if nessesary
+            $message->setOriginator($this->getFromEmail(), self::encode_address_header_name_simple($this->getFromName()));
+// Anpassung Ende: encode header values for address header and subject, if nessesary
         }
 
         // No SMTP or it FAILED....use Sendmail transport (PHP mail())
         // Set Sender / Originator
         if (isset($options['from_address'])) {
             // This is often set via Mailer::sendmail()
-// Anpassung Anfang: encode mail name, if nessesary
-            $options['from_address'] = self::encode_header_value_simple($options['from_address']);
-// Anpassung Ende: encode mail name, if nessesary
+// Anpassung Anfang: encode header values for address header and subject, if nessesary
+            $options['from_address'] = self::parse_address_header_simple($options['from_address']);
+// Anpassung Ende: encode header values for address header and subject, if nessesary
             $message->setSender($options['from_address']);
         } elseif (($from=$this->getFromAddress())) {
             // This should be already set but we're making doubly sure
-/* Anpassung Anfang: encode mail name, if nessesary
+/* Anpassung Anfang: encode header values for address header and subject, if nessesary
             $message->setOriginator($from->getEmail(), $from->getName());
 */
-            $message->setOriginator($from->getEmail(), self::encode_header_value_simple($from->getName()));
-// Anpassung Ende: encode mail name, if nessesary
+            $message->setOriginator($from->getEmail(), self::encode_address_header_name_simple($from->getName()));
+// Anpassung Ende: encode header values for address header and subject, if nessesary
         }
 
         try {
@@ -749,12 +749,12 @@ class Mailer {
         $mailer->setFromAddress($from, $options['from_name'] ?: null);
         return $mailer->send($to, $subject, $message, $options);
     }
-// Anpassung Anfang: encode mail name, if nessesary
-    static function encode_header_value_simple(string $value, bool $allowFold = false): string {
+// Anpassung Anfang: encode header values for address header and subject, if nessesary
+    static function encode_header_value_simple(string $value, bool $allowFold = false, bool $forceEncoding = false): string {
         // remove linebreaks + collapse whitespace
         $sanitized = trim(preg_replace('/\s+/', ' ', str_replace(["\r\n", "\r", "\n"], ' ', $value)));
 
-        if (\Laminas\Mime\Mime::isPrintable($sanitized))
+        if (!$forceEncoding && \Laminas\Mime\Mime::isPrintable($sanitized))
             return $sanitized;
 
         $charset = 'UTF-8';
@@ -770,5 +770,41 @@ class Mailer {
 
         return $allowFold ? $out : str_replace(["\r", "\n"], '', $out);
     }
-// Anpassung Ende: encode mail name, if nessesary
+
+    static function encode_address_header_name_simple(string $name): string {
+        if(!$name)
+            return '';
+
+        // add quotes, if not atext chars included
+        // atext = ALPHA / DIGIT / !#$%&'*+-/=?^_`{|}~
+        if(!preg_match('/^[A-Za-z0-9!#$%&\'*+\-\/=?^_`{|}~ ]+$/', $name)) {
+            $name = sprintf('"%s"', trim(str_replace('"', '', $name), "\"'"));
+        }
+
+        return self::encode_header_value_simple($name);
+    }
+
+    static function parse_address_header_simple($recipient): string {
+        if(!is_string($recipient))
+            return '';
+
+        // if $recipient = email
+        if(filter_var($recipient, FILTER_VALIDATE_EMAIL))
+            return $recipient;
+
+        if(   ($email = new \EmailAddress($recipient))
+           && $email->getEmail()
+           && $email->getEmail() !== '@'
+          ) {
+            return $email->getName()
+                 ? sprintf('%s <%s>',
+                          self::encode_address_header_name_simple($email->getName()),
+                          $email->getEmail()
+                   )
+                 : $email->getEmail();
+        }
+
+        return self::encode_address_header_name_simple($recipient);
+    }
+// Anpassung Ende: encode header values for address header and subject, if nessesary
 }
