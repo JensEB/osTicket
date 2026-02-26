@@ -390,7 +390,11 @@ $(function() {
                 'imageCaption': false,
                 'imageManagerJson': 'ajax.php/draft/images/browse',
                 'imagePosition': true,
+/* Anpassung Anfang: Pull Request #6932 - Inline Image Upload CSRF
                 'imageUploadData': {
+*/
+                'imageData': {
+// Anpassung Ende: Pull Request #6932 - Inline Image Upload CSRF
                     '__CSRFToken__': $("meta[name=csrf_token]").attr("content")
                 },
                 'imageResizable': true,
