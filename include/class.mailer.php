@@ -18,6 +18,9 @@
 namespace osTicket\Mail;
 
 class Mailer {
+// Anpassung Anfang: encode header values for address header and subject, if nessesary
+    use EmailHeaderOptimizerTrait;
+// Anpassung Ende: encode header values for address header and subject, if nessesary
     private $from = null;
     var $email = null;
     var $smtpAccounts = [];
@@ -749,24 +752,57 @@ class Mailer {
         $mailer->setFromAddress($from, $options['from_name'] ?: null);
         return $mailer->send($to, $subject, $message, $options);
     }
+}
 // Anpassung Anfang: encode header values for address header and subject, if nessesary
-    static function encode_header_value_simple(string $value, bool $allowFold = false, bool $forceEncoding = false): string {
-        // remove linebreaks + collapse whitespace
-        $sanitized = trim(preg_replace('/\s+/', ' ', str_replace(["\r\n", "\r", "\n"], ' ', $value)));
+trait EmailHeaderOptimizerTrait {
 
-        if (!$forceEncoding && \Laminas\Mime\Mime::isPrintable($sanitized))
+    static function isPrintableAscii(string $value): bool {
+        #return (bool) preg_match('/^[\x20-\x7E]*$/', $value);
+        # laminas mail makes the same faster....
+        return \Laminas\Mime\Mime::isPrintable($value);
+    }
+
+    static function requireQuotesForNames($name) {
+        // multible white spaces needs quotes
+        if (strpos($name, '  ') !== false)
+            return true;
+        
+        return !preg_match('/^[A-Za-z0-9!#$%&\'*+\-\/=?^_`{|}~ ]+$/u', $name);
+    }
+
+    /**
+     * 
+     * @param string $value         - header value
+     * @param bool $allowFold       - allow line folding
+     * @param string $forceEncoding - empty = no force, Q = quoted printable, B = base64
+     * 
+     * @return string encoded value
+     */
+    static function encode_header_value_simple(string $value, bool $allowFold = false, string $forceEncoding = ''): string {
+        if(!in_array($forceEncoding, ['','B','Q'], true))
+            $forceEncoding = '';
+
+        // remove linebreaks + collapse whitespaces
+        $sanitized = trim(preg_replace('/\s+/', ' ', str_replace(["\r\n", "\r", "\n"], ' ', $value)) ?? '');
+
+        if (!$forceEncoding && self::isPrintableAscii($sanitized))
             return $sanitized;
 
         $charset = 'UTF-8';
         $eol     = "\r\n";
         $lineLength = $allowFold ? 72 : (strlen($sanitized) * 4 + strlen($charset) + 16);
 
-        $qEncoded = \Laminas\Mime\Mime::encodeQuotedPrintableHeader($sanitized, $charset, $lineLength, $eol);
+        // base64 forced -> return base64...
+        if($forceEncoding === 'B') {
+            $out = \Laminas\Mime\Mime::encodeBase64Header($sanitized, $charset, $lineLength, $eol);
+        } else {
+            $qEncoded = \Laminas\Mime\Mime::encodeQuotedPrintableHeader($sanitized, $charset, $lineLength, $eol);
 
-        // if encoded value <= 64, we have save no line breaks
-        $out = (strlen($qEncoded) <= 64)
+        // quoted printable forced or encoded value <= 64 quoted printable, otherwise base 64
+        $out = ($forceEncoding === 'Q') || (strlen($qEncoded) <= 64)
              ? $qEncoded
              : \Laminas\Mime\Mime::encodeBase64Header($sanitized, $charset, $lineLength, $eol);
+        }
 
         return $allowFold ? $out : str_replace(["\r", "\n"], '', $out);
     }
@@ -775,26 +811,48 @@ class Mailer {
         if(!$name)
             return '';
 
-        // add quotes, if not atext chars included
-        // atext = ALPHA / DIGIT / !#$%&'*+-/=?^_`{|}~
-        if(!preg_match('/^[A-Za-z0-9!#$%&\'*+\-\/=?^_`{|}~ ]+$/', $name)) {
-            $name = sprintf('"%s"', trim(str_replace('"', '', $name), "\"'"));
+        // trim and collapse white spaces
+        $n = preg_replace('/ +/', ' ', trim($name));
+
+        if(!self::requireQuotesForNames($n)) {
+            return self::encode_header_value_simple($n);
         }
 
-        return self::encode_header_value_simple($name);
+        /* name needs quotes
+         * RFC 2047 – Header-Encoding -> alle nicht ASCII-Zeichen codieren
+         * RFC 5322 – Header-Syntax   -> RFC-5322 "specials" brauchen quotes, sind aber reguläre ASCII-Zeichen
+         * RFC-5322 "specials" = ( ) < > [ ] : ; @ \ , . "
+         * Problematik:
+         * RFC-5322 "specials" müssen laut RFC-5322 gequotet werden
+         * RFC-2047 braucht keine quotes, codiertes Wort darf nicht in quotes stehen und keine quotes beinhalten
+         * RFC-2047 codiert z.B. [] nicht, RFC-5322 braucht dann quotes, RFC-2047 darf aber keine quotes haben
+         * Lösung:
+         * Namen base64-codieren
+         * oder
+         * RFC-5322 "specials" zusätzlich codieren
+         * 
+         * -> wir codieren dann einfach base64...
+         */
+
+        // we need quotes -> force base64 encoding
+        // so we need no quotes and don't have trouble with RFC 5322 atom/specials like []
+        return self::encode_header_value_simple($n, false, 'B');
     }
 
     static function parse_address_header_simple($recipient): string {
         if(!is_string($recipient))
             return '';
 
-        // if $recipient = email
+        // if $recipient == email
         if(filter_var($recipient, FILTER_VALIDATE_EMAIL))
             return $recipient;
 
+        // if $recipient format == name <email>
+        // -> check given name
         if(   ($email = new \EmailAddress($recipient))
            && $email->getEmail()
            && $email->getEmail() !== '@'
+           && filter_var($email->getEmail(), FILTER_VALIDATE_EMAIL)
           ) {
             return $email->getName()
                  ? sprintf('%s <%s>',
@@ -804,7 +862,8 @@ class Mailer {
                  : $email->getEmail();
         }
 
+        // if no email or not in format name <email>, tread it like name only
         return self::encode_address_header_name_simple($recipient);
     }
-// Anpassung Ende: encode header values for address header and subject, if nessesary
 }
+// Anpassung Ende: encode header values for address header and subject, if nessesary
