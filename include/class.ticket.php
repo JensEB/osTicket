@@ -1997,6 +1997,7 @@ implements RestrictedAccess, Threadable, Searchable {
         global $cfg, $thisstaff;
 // Anpassung Anfang: update lastupdate on Response and internal note
         $this->lastupdate = SqlFunction::NOW();
+        $this->save();
 // Anpassung Ende: update lastupdate on Response and internal note
 
         //TODO: do some shit
