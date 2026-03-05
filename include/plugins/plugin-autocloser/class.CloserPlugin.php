@@ -196,6 +196,10 @@ class CloserPlugin extends Plugin {
                 if ($admin_reply) {
                     $this->post_reply($ticket, $new_status, $admin_reply, $robot);
                 }
+
+                // force updating lastupdate
+                $ticket->lastupdate = SqlFunction::NOW();
+                $ticket->save();
             }
 
             $this->print2log();
