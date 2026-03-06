@@ -2465,8 +2465,12 @@ implements RestrictedAccess, Threadable, Searchable {
     function markAnswered() {
 // Anpassung Anfang: overdue_only_unanswered
         global $cfg;
-        if($cfg->get('overdue_only_unanswered') && $this->setAnsweredState(1))
-            $this->clearOverdue();
+        if($cfg->get('overdue_only_unanswered') && $this->setAnsweredState(1)) {
+            # die Funktion clearOverude() nicht verwenden -> löscht sonst auch duedate und est_duedate, wenn in der Vergangenheit
+            #$this->clearOverdue();
+            $this->isoverdue = 0;
+            $this->save();
+        }
 // Anpassung Ende: overdue_only_unanswered
         return ($this->isAnswered() || $this->setAnsweredState(1));
     }
