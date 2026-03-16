@@ -72,8 +72,8 @@ if ($info['error']) {
     <td><?php echo $a->display(); ?></td>
  -->
     <td><?php
-    if($a->getField()->get('name') == 'phone' && $a->getValue()) {
-        echo '<a href="tel:'.$a->display().'">'.$a->display().'</a>';
+    if($a->getField()->get('type') === 'phone' && $a->getValue()) {
+        echo sprintf('<a href="tel:%s">%s</a>', $a->display(), $a->display());
     } else {
         echo $a->display();
     }

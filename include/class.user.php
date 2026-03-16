@@ -318,6 +318,32 @@ implements TemplateVariable, Searchable {
             if ($a = $e->getAnswer('phone'))
                 return $a;
     }
+//Anpassung Anfang: Phone field on ticket view header - add support for click2dial
+    function getAllPhoneNumbers() {
+        $phoneNumbers = [];
+
+        foreach ($this->getDynamicData() as $entry) {
+            foreach ($entry->getFields() as $field) {
+                // Nur Felder vom Typ 'phone' berücksichtigen
+                if ($field->get('type') !== 'phone')
+                    continue;
+
+                // Feldname ermitteln (Fallback auf field_ID falls kein Name gesetzt)
+                $fname = $field->get('name') ?: ('field_' . $field->get('id'));
+                $answer = $entry->getAnswer($fname);
+
+                if ($answer && ($value = (string) $answer)) {
+                    $phoneNumbers[] = array(
+                        'label' => $field->getLabel(),
+                        'value' => $value,
+                    );
+                }
+            }
+        }
+
+        return $phoneNumbers;
+    }
+//Anpassung Anfang: Phone field on ticket view header - add support for click2dial
 
     function getName() {
         if (!$this->name)

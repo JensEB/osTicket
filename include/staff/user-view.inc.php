@@ -103,6 +103,21 @@ if ($thisstaff->hasPerm(User::PERM_EDIT)) { ?>
                         <span id="user-<?php echo $user->getId(); ?>-email"><?php echo $user->getEmail(); ?></span>
                     </td>
                 </tr>
+<!-- Anpassung Anfang: Phone field on ticket view header - add support for click2dial -->
+                <?php
+                $phoneNumbers = $user->getAllPhoneNumbers();
+                if($phoneNumbers) {
+                    foreach ($phoneNumbers as $phone) {
+                        $pn = Format::htmlchars($phone['value']);
+                        echo sprintf('<tr><th>%s:</th><td><a href="tel:%s">%s</a></td><tr>',
+                                     Format::htmlchars($phone['label']), $pn, $pn
+                                    );
+                    }
+                } else {
+                    echo sprintf('<tr><th>%s:</th><td>-</td><tr>', __('Phone'));
+                }
+                ?>
+<!-- Anpassung Ende: Phone field on ticket view header - add support for click2dial -->
                 <tr>
                     <th><?php echo __('Organization'); ?>:</th>
                     <td>

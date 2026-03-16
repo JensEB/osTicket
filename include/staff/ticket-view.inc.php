@@ -490,14 +490,19 @@ if($ticket->isOverdue())
                     </tr>
 <?php   } # end if (user->org) ?>
 <!-- Anpassung Anfang: Phone field on ticket view header - add support for click2dial -->
-                <tr>
-                    <th><?php echo __('Phone'); ?>:</th>
-                    <td><?php
-                        $tel = $ticket->getPhoneNumber()?Format::htmlchars($ticket->getPhoneNumber()):'';
-                        echo $tel?'<a href="tel:'.$tel.'">'.$tel.'</a>':'-';
-                        ?>
-                    </td>
-                </tr>
+                <?php
+                $phoneNumbers = $ticket->getOwner()->getAllPhoneNumbers();
+                if($phoneNumbers) {
+                    foreach ($phoneNumbers as $phone) {
+                        $pn = Format::htmlchars($phone['value']);
+                        echo sprintf('<tr><th>%s:</th><td><a href="tel:%s">%s</a></td><tr>',
+                                     Format::htmlchars($phone['label']), $pn, $pn
+                                    );
+                    }
+                } else {
+                    echo sprintf('<tr><th>%s:</th><td>-</td><tr>', __('Phone'));
+                }
+                ?>
 <!-- Anpassung Ende: Phone field on ticket view header - add support for click2dial -->
                 <tr>
                   <th><?php echo __('Source'); ?>:</th>
