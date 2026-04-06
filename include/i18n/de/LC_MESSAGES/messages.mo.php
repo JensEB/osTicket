@@ -1668,10 +1668,10 @@ PO-Revision-Date: 2017-01-31 14:46-0400
   'Mail Fetch Failure Alert' => 'Benachrichtigung bei E-Mail-Abruffehler',
   'Mail Processing Exception' => 'Mailverarbeitungsfehler',
   'Main Domain' => 'Hauptdomain',
-  'Maintain access to current primary department' => 'Zugiff auf die aktuelle Abteilung beibehalten',
-  'Maintain referral access to %s' => 'Zugiff für %s durch einen Verweis beibehalten',
-  'Maintain referral access to current assignees' => 'Zugiff für die aktuellen Bearbeiter durch einen Verweis beibehalten',
-  'Maintain referral access to current department' => 'Zugiff für die aktuelle Abteilung durch einen Verweis beibehalten',
+  'Maintain access to current primary department' => 'Zugriff auf die aktuelle Abteilung beibehalten',
+  'Maintain referral access to %s' => 'Zugriff für %s durch einen Verweis beibehalten',
+  'Maintain referral access to current assignees' => 'Zugriff für die aktuellen Bearbeiter durch einen Verweis beibehalten',
+  'Maintain referral access to current department' => 'Zugriff für die aktuelle Abteilung durch einen Verweis beibehalten',
   'Make Internal' => 'Intern sichtbar machen',
   'Make Private' => 'Intern sichtbar machen (vertraulich)',
   'Make Public' => 'Öffentlich sichtbar machen',
@@ -4484,6 +4484,10 @@ Thank you for choosing osTicket!' => 'Herzlichen Glückwunsch! Die osTicket-Grun
   'Creatable' => 'Erstellbar',
   'Making fields <em>Creatable</em> allows agents and endusers to create information in this field.' => 'Wenn Felder <em>erstellbar</em> gemacht werden, ist es für Kunden und Agenten möglich, Inhalte in dieses Feld einzutragen.',
 // PlusAnpassung Ende: dynamic form fields - set view flags to viewOnly and add createFlag to allow/deny create information
+  'Global Search' => 'Globale Suche',
+  'Temporary folder' => 'Temporäres Verzeichnis',
+  'Temporary folder is not defined or not a valid folder' => 'Temporäres Verzeichnis ist nicht definiert oder kein gültiges Verzeichns',
+  'Temporary folder is not writable' => 'Temporäres Verzeichnis ist nicht beschreibbar',
 
   0 => 
   array (
