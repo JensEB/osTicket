@@ -72,7 +72,6 @@ foreach ($columns as $C) {
     }
 }
 //Anpassung Anfang: Fälligkeitsampel
-$tickets->values('sla','duedate','est_duedate','status__state','isoverdue');
 if (isset($sort['col']) && $sort['col'] == 9 && $sorted == false) {
     $tickets->order_by('est_duedate', (($sort['dir'])?'DESC':'ASC'));
     $sorted = true;
@@ -87,18 +86,25 @@ if (!$sorted) {
     else // otherwise sort by created DESC
         $tickets->order_by('-created');
 }
+// Anpassung Anfang: Abteilungsauswahl
+if($ds->isEnabled()) {
+    $selectorQuery = clone $tickets;
+    $ds->setCurrentQueue($queue);
+    $ds->printSelector($selectorQuery);
+    // Prüfen, ob die ausgewählte Abteilung überhaupt in dieser Queue angezeigt wird
+    if(($dsId=$ds->getCurrentDept())) {
+        $tickets->filter(array('dept_id'=>$dsId));
+    }
+    $countTickets = clone $tickets;
+    $count = $countTickets->distinct('ticket_id')->count();
+}
+// Anpassung Ende: Abteilungsauswahl
 
 // Apply pagination
 
-// Anpassung Anfang: Abteilungsauswahl
-if(!$ds->isEnabled()) {
-// Anpassung Ende: Abteilungsauswahl
 $page = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
 $pageNav = new Pagenate(PHP_INT_MAX, $page, PAGE_LIMIT);
 $tickets = $pageNav->paginateSimple($tickets);
-// Anpassung Anfang: Abteilungsauswahl
-}
-// Anpassung Ende: Abteilungsauswahl
 
 if (isset($tickets->extra['tables'])) {
     // Creative twist here. Create a new query copying the query criteria, sort, limit,
@@ -134,26 +140,12 @@ if (($Q->extra && isset($Q->extra['tables'])) || !$Q->constraints || $empty) {
     $count = '-';
 }
 
-// Anpassung Anfang: Abteilungsauswahl
-if($ds->isEnabled()) {
-    $tickets->values('dept_id');
-    $ds->setCurrentQueue($queue);
-    $ds->printSelector(clone $tickets);
-    // Prüfen, ob die ausgewählte Abteilung überhaupt in dieser Queue angezeigt wird
-    if(($dsId=$ds->getCurrentDept())) {
-        $tickets->filter(array('dept_id'=>$dsId));
-    }
-    $count = $tickets->count();
-
-    // Apply pagination
-    $page = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
-    $pageNav = new Pagenate(PHP_INT_MAX, $page, PAGE_LIMIT);
-    $tickets = $pageNav->paginateSimple($tickets);
-} else
-// Anpassung Ende: Abteilungsauswahl
 $count = $count ?? $queue->getCount($thisstaff);
 $pageNav->setTotal($count, true);
 $pageNav->setURL('tickets.php', $args);
+//Anpassung Anfang: Fälligkeitsampel
+$tickets->values('sla','duedate','est_duedate','status__state','isoverdue');
+//Anpassung Ende: Fälligkeitsampel
 ?>
 
 <!-- SEARCH FORM START -->

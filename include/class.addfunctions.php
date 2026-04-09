@@ -267,7 +267,7 @@ class ds {
 
     public function getCurrentDept() {
         // returns $currentDeptId, if set and available otherwise 0
-        $cdid =$this->currentDept;
+        $cdid = intval($this->currentDept);
         if( !$cdid
            || $this->hiddenDepts && in_array($cdid, $this->hiddenDepts)
            || $this->restrictToDepts && !in_array($cdid, $this->restrictToDepts)
@@ -296,36 +296,43 @@ class ds {
     }
 
     private function createDeptStats ($source) {
-        $counter = array(0=>array('name'=>__('All'), 'count'=>0));
         $depts = $this->getFilteredDepts();
-        
-        $source->distinct = $source->annotations = $source->values = $source->ordering = [];
-        $source->values('dept_id');
-        $source->filter(['dept_id__in' => array_keys($depts)]);
-        $source->distinct('dept_id');
-        $sql = preg_replace('/SELECT/', 'SELECT COUNT(DISTINCT A1.ticket_id) AS `total`,', $source->getQuery(), 1);
 
-        $ticketCounted = [];
-        if (($res=db_query($sql, false))) {
-            while (list($tcount, $did) = db_fetch_row($res)) {
-                $ticketCounted[$did] = $tcount;
+        // remove annotations, conditions, values and ordering
+        $source->_annotations = $source->annotations = [];
+        $source->_conditions  = $source->conditions  = [];
+        $source->values = $source->ordering = $source->limit = [];
+
+        // get only needed stuff
+        $source->values('ticket_id', 'dept_id')
+               ->filter(['dept_id__in' => array_keys($depts)])
+               ->annotate(['total' => SqlAggregate::COUNT('ticket_id', true)])
+               ->distinct('dept_id');
+
+        $counter = [ 0 => ['name' => __('All'), 'count' => 0] ];
+        foreach ($depts as $id => $name) {
+            $counter[$id] = ['name' => $name, 'count' => 0];
+        }
+
+        foreach ($source as $row) {
+            $did = (int) $row['dept_id'];
+            $count = (int) $row['total'];
+
+            if (isset($counter[$did])) {
+                $counter[$did]['count'] = $count;
+                $counter[0]['count'] += $count;
             }
         }
 
-        foreach($depts as $id=>$name) {
-            $counter[0]['count']   = $counter[0]['count'] + $ticketCounted[$id];
-            $counter[$id] = array('name'=>$name, 'count'=>$ticketCounted[$id]?:0);
-        }
         $this->deptStats = $counter;
-        return true;
+
+        return $this->deptStats;
     }
 
     public function printSelector ($source) {
-        $this->createDeptStats($source);
-        
-        $deptStats = $this->deptStats;
-        $allDepts = $deptStats[0];
+        $deptStats = $this->createDeptStats($source);
         $currentDept = $deptStats[$this->getCurrentDept()];
+
         $return = '<div id="deptSelector">';
         if($this->isAutoHideEnabled()) {
             $return .= '<div class="noteCurrentDept">'.__('Current department').':&nbsp;<strong>&raquo;&nbsp;'
@@ -334,6 +341,7 @@ class ds {
             $return .= '</div>';
         }
         $return .= '<table><tr><td class="DSlabel">'.__('Department selection').':</td><td>';
+
         $returnArray = [];
         foreach($deptStats AS $id=>$data) {
             $classDScurrent  = ($id == $this->getCurrentDept())?' DSitemCurrent':'';
@@ -346,14 +354,15 @@ class ds {
             } else {
                 $returnArray[$data['name']] = $returnArrayItem;
             }
-        };
+        }
         ksort($returnArray);
+
         if(isset($returnArrayAll)) {
             $return .= $returnArrayAll;
         }
         foreach($returnArray AS $item) {
             $return .=  $item;
-        };
+        }
         $return .= '</td></tr></table></div>';
         if($this->isAutoHideEnabled()) {
             $return .= '<script type="text/javascript">
