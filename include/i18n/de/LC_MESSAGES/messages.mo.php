@@ -282,6 +282,7 @@ PO-Revision-Date: 2017-01-31 14:46-0400
   'Actions' => 'Aktionen',
   'Actions are executed in the order declared below' => 'Aktionen werden in der unten angegebenen Reihenfolge ausgeführt.',
   'Active' => 'Aktiv',
+  'active' => 'aktiv',
   'Active (Registered)' => 'Aktiv (registriert)',
   'Activity Description' => 'Beschreibung der Aktivität',
   'Activity Title' => 'Titel der Aktivität',
@@ -1639,6 +1640,8 @@ PO-Revision-Date: 2017-01-31 14:46-0400
   'Log Date' => 'Protokolldatum',
   'log entry' => 'Protokolleintrag',
   'Login' => 'Anmelden',
+  'login' => 'anmelden',
+  'logout' => 'abmelden',
   'Log In' => 'Anmelden',
   'Login Backdrop' => 'Anmeldehintergrund',
   'Login required' => 'Anmeldung erforderlich',
@@ -4363,6 +4366,8 @@ Thank you for choosing osTicket!' => 'Herzlichen Glückwunsch! Die osTicket-Grun
   'Auto Collaboration - Primary Contacts' => 'Automatische Zusammenarbeit – Hauptkontakte',
   'Auto Collaboration - Organization Members' => 'Automatische Zusammenarbeit – Organisationsmitglieder',
   'Unlocked' => 'Entsperrt',
+  'Staff Removed' => 'Agent entfernt',
+  'Staff Added' => 'Agent hinzugefügt',
 
 // Anpassung Anfang: Honeypot
   'bot detection' => 'Bot-Erkennung',
