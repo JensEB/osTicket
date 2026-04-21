@@ -26,8 +26,10 @@ if(!defined('SETUPINC')) die('Kwaheri!');
                 <li class="<?php echo extension_loaded('gd')?'yes':'no'; ?>">Gdlib <?php echo __('Extension');?></li>
                 <li class="<?php echo extension_loaded('iconv')?'yes':'no'; ?>">PHP ICONV <?php echo __('Extension');?> &mdash; <em><?php
                     echo __('Useful for email processing');?></em></li>
+<!-- Anpassung Anfang: remove imap extension test - deprecated (only fallback for iconv)
                 <li class="<?php echo extension_loaded('imap')?'yes':'no'; ?>">PHP IMAP <?php echo __('Extension');?> &mdash; <em><?php
                     echo __('Useful for email processing');?></em></li>
+// Anpassung Ende: remove imap extension test - deprecated (only fallback for iconv) -->
                 <li class="<?php echo extension_loaded('ctype')?'yes':'no'; ?>">PHP CTYPE <?php echo __('Extension');?> &mdash; <em><?php
                     echo __('Required for email fetching');?></em></li>
                 <li class="<?php echo extension_loaded('xml') ?'yes':'no'; ?>">PHP XML <?php echo __('Extension');?> &mdash; <?php
