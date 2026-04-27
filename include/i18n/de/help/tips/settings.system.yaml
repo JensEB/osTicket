@@ -48,7 +48,7 @@ force_https:
     dass dies nur funktioniert, wenn Sie ein SSL-Zertifikat installiert und HTTPS auf
     dem Server konfiguriert haben.
     <br/><br/>
-    <b>Hinweis:</b><rb/>
+    <b>Hinweis:</b><br/>
     Dies kann sich auf Remote-Piping-Skripte auswirken. Verweisen Sie auf die neuen Skripte, 
     die in <code>./setup/scripts/</code> enthalten sind, um Updates zu erhalten.
 default_page_size:
