@@ -59,6 +59,10 @@ implements EmailContact, ITicketUser, TemplateVariable {
             return $this->getTicketLink(($ticket &&
                         !$ticket->getNumCollaborators()));
             break;
+// Anpassung Anfang: plugin-ratings - add placeholder %{recipient.client_ratings_box} for email rating
+        case 'client_ratings_box':
+            return class_exists('RatingsEmailBox') ? RatingsEmailBox::getClientEmailRatingsBox($this) : '';
+// Anpassung Ende: plugin-ratings - add placeholder %{recipient.client_ratings_box} for email rating
         }
     }
 

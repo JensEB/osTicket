@@ -369,7 +369,11 @@ class CustomQueue extends VerySimpleModel {
             if (!isset($otherFields)) {
                 $otherFields = array();
                 $dfs = DynamicFormField::objects()
+/* Anpassung Anfang: plugin-ratings - add rating fields to advanced search
                     ->filter(array('form__type' => 'G'))
+*/
+                    ->filter(array('form__type__in' => ['G','TR']))
+// Anpassung Ende: plugin-ratings - add rating fields to advanced search
                     ->select_related('form');
                 foreach ($dfs as $field) {
                     $otherFields[$field->getId()] = array($field->form,
