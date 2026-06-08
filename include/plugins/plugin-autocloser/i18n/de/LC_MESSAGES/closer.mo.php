@@ -30,11 +30,12 @@ return [
     "Testing thread entry: %s : %s\n" => "Teste Verlaufseintrag: %s : %s\n",
     '%s has been uninstalled' => '%s wurde deinstalliert',
     'You wanted that right?' => 'Das wollten Sie doch, oder?',
+    'Invalid calculate date: (string) calculate-date needs to be: %s' => 'Ungültiges Datum für Berechnung: (string) calculate-date muss eines der folgenden Werte haben: %s',
 
     // config.php
     'Auto-closed for being open too long with no updates.' => 'Wurde automatisch geschlossen, weil es zu lange geöffnet war, ohne dass Aktualisierungen vorgenommen wurden.',
-    'Only a numeric value is valid for Purge Number.' => 'Für die Anzahl der zu bearbeitenden Tickets ist nur ein numerischer Wert gültig.',
-    'Max Ticket age only supports numeric values.' => 'Das maximale Ticketalter unterstützt nur numerische Werte.',
+    'Only a positive numeric value is valid for Purge Number.' => 'Für die Anzahl der zu bearbeitenden Tickets ist nur ein positiver numerischer Wert gültig.',
+    'Max Ticket age only supports positive numeric values.' => 'Das maximale Ticketalter unterstützt nur positive numerische Werte.',
     'Please choose a robot-account.' => 'Bitte wählen Sie ein Roboter-Konto.',
     'Please choose an admin-reply.' => 'Bitte wählen Sie eine Adminantwort aus.',
     'Global Config' => 'Globale Konfiguration',
@@ -90,6 +91,16 @@ return [
     'Debug mode' => 'Testmodus',
     'Enable debug mode' => 'Testmodus aktivieren',
     'Enable debug mode to get information about this instance into the syslog on every run.' => 'Aktivieren Sie den Testmodus, um bei jedem Lauf Informationen über diese Instanz in das Systemprotokoll zu schreiben.',
+    'Day X of Month' => 'Tag X des Monats',
+    'Day of Month' => 'Tag des Monats',
+    'Day %s of Month' => 'Tag %s des Monats',
+    'First Day of Month' => 'Erster Tag des Monats',
+    'Last Day of Month' => 'Letzter Tag des Monats',
+    'Time of Execution' => 'Ausführungszeitpunkt',
+    'Time of Selected Day' => 'Zeitpunkt am ausgewählten Tag',
+    'Only used, if „Calculate from date“ is set to „Day X of Month“' => 'Wird nur verwendet, wenn „Datum für Berechnung“ auf „Tag X des Monats“ gesetzt ist',
+    'Not used, if „Calculate from date“ is set to „Day X of Month“' => 'Wird nicht verwendet, wenn „Datum für Berechnung“ auf „Tag X des Monats“ gesetzt ist',
+    'The target status must not be included in the status filter list' => 'Der Zielstatus darf nicht in der Liste des Statusfilters enthalten sein',
 
     // plugin.php
     'Ticket Closer' => 'Automatischer Ticketschließer',

@@ -63,18 +63,17 @@ class CloserPlugin extends Plugin {
      * @see Plugin::bootstrap()
      */
     public function bootstrap() {
-	// ---------------------------------------------------------------------
-	// Fetch the config
-	// ---------------------------------------------------------------------
-	// Save config and instance for use later in the signal, when it is called
-	$config = $this->config;
-	$instance = $this->config->instance;
+        // ---------------------------------------------------------------------
+        // Fetch the config
+        // ---------------------------------------------------------------------
+        $config = $this->config;
 
         // Listen for cron Signal, which only happens at end of class.cron.php:
-        Signal::connect('cron', function ($ignored, $data) use (&$config, $instance) {
+        Signal::connect('cron', function ($ignored, $data) use (&$config) {
 
-            // enable debug mode
-            if($config->get('debug-mode-enabled')) $this->DEBUG = true;
+            // set debug mode (reset debug vars)
+            $this->DEBUG = (bool) $config->get('debug-mode-enabled');
+            $this->LOG   = [];
 
             // Autocron is an admin option, we can filter out Autocron Signals
             // to ensure changing state for potentially hundreds/thousands
@@ -108,7 +107,7 @@ class CloserPlugin extends Plugin {
                 $this->LOG[]=sprintf($__('%s tickets matched the criterias.'), count($open_ticket_ids));
             }
 
-            // Bail if there is no work to do
+            // Bail out if there is no work to do
             if (!count($open_ticket_ids)) {
                 if ($this->DEBUG)
                     $this->print2log();
@@ -130,9 +129,9 @@ class CloserPlugin extends Plugin {
 
             // Fetch the actual content of the reply, "html" means load with images, 
             // I don't think it works with attachments though.
-            $admin_reply_config = $config->get('admin-reply');
+            $admin_reply_config = (int) $config->get('admin-reply');
             $admin_reply = null;
-            if (is_numeric($admin_reply_config) && $admin_reply_config) {
+            if ($admin_reply_config > 0) {
                 // We have a valid Canned_Response ID, fetch the actual Canned:
                 if (   ($admin_reply_config = Canned::lookup($admin_reply_config))
                     && $admin_reply_config instanceof Canned
@@ -148,7 +147,7 @@ class CloserPlugin extends Plugin {
 
             // Get the robot for this config
             $robot_config = (int) $config->get('robot-account');
-            $robot = ($robot_config > 0) ? Staff::lookup($robot_config) : null;
+            $robot = ($robot_config > 0) ? (Staff::lookup($robot_config)?:null) : $robot_config;
 
             // Go through each ticket ID:
             foreach ($open_ticket_ids as $ticket_id) {
@@ -166,16 +165,15 @@ class CloserPlugin extends Plugin {
                 // on the next run.. TRUE means send an alert.
                 if ($new_status->getState() == 'closed' && ($warn = $ticket->isCloseable()) !== true) {
                     $msg = sprintf("%s\n%s"
-                                            ,sprintf($__('Unable to change this ticket\'s status to %s'), $new_status->getLocalName())
-                                            ,$warn
-                                            );
+                                   ,sprintf($__('Unable to change this ticket\'s status to %s'), $new_status->getLocalName())
+                                    ,$warn
+                    );
                     $ticket->LogNote($__('Error auto-changing status'), $msg, self::PLUGIN_NAME, TRUE);
                     if ($this->DEBUG) {
                         $this->LOG[]=sprintf($__("Error set status for ticket #%s (ID: %d)\n\nError: %s\n"), $ticket->getNumber(), $ticket_id, $msg);
                     }
                     continue;
                 }
-
 
                 // Actually change the ticket status
                 if(!$this->change_ticket_status($ticket, $new_status)) {
@@ -222,20 +220,28 @@ class CloserPlugin extends Plugin {
      * @return boolean
      */
     private function is_time_to_run(PluginConfig &$config) {
+        $calculate_date = $config->get('calculate-date');
+
+        // is time for "Day X of Month"?
+        if($calculate_date === 'd') {
+            $day  = (int) $config->get('day-of-month');
+            $time = (int) $config->get('time-of-day');
+            return $this->isDayOfMonthReached($day, $time);
+        }
+
         // We can store arbitrary things in the config, like, when we ran this last:
-        $last_run = $config->get('last-run');
+        $last_run = (int) $config->get('last-run');
         $now = Misc::dbtime(); // Never assume about time.. 
-        $config->set('last-run', $now);
 
         // assume a freqency of "Every Cron" means it is always overdue
         $next_run = 0;
 
         // Convert purge frequency to a comparable format to timestamps:
-	 $fr=($config->get('frequency') > 0) ? $config->get('frequency') : 0;
-        if ($freq_in_config = (int) $fr) {
+        $frequency = (int) $config->get('frequency');
+        if (($fr=($frequency > 0) ? $frequency : 0)) {
             // Calculate when we want to run next, config hours into seconds,
             // plus the last run is the timestamp of the next scheduled run
-            $next_run = $last_run + ($freq_in_config * 3600);
+            $next_run = $last_run + ($fr * 3600);
         }
 
         // See if it's time to check old tickets
@@ -243,9 +249,41 @@ class CloserPlugin extends Plugin {
         // If we don't have a next_run, it's because we want it to run
         // If the next run is in the past, then we are overdue, so, lets go!
         if ($this->DEBUG || !$next_run || $now > $next_run) {
-            return TRUE;
+            $config->set('last-run', $now);
+            return true;
         }
-        return FALSE;
+        return false;
+    }
+
+    private function isDayOfMonthReached(int $day, int $time): bool {
+        global $cfg;
+
+        if ($day < 1)
+            return false;
+        elseif($day > 28)
+            $day = 28;
+
+        if($time > 1435) // 1435 = 24h - 5min
+            $time = 1435;
+
+        try {
+            $tz = $cfg ? $cfg->getDbTimezone() : null;
+            $dbtz = $tz ? new DateTimeZone($tz) : null;
+        } catch (Exception $e) {
+            $dbtz = null;
+        }
+        $now = new DateTimeImmutable('now', $dbtz);
+
+        // day 28 is last day of month
+        $targetDay = ($day === 28) ? (int) $now->format('t') : $day;
+        $currentDay = (int) $now->format('j');
+
+        if ($currentDay !== $targetDay)
+            return false;
+
+        $currentMinuteOfDay = ((int) $now->format('G')) * 60 + (int) $now->format('i');
+
+        return $currentMinuteOfDay >= $time;
     }
 
     /**
@@ -259,10 +297,10 @@ class CloserPlugin extends Plugin {
      * @param TicketStatus $new_status
      */
     private function change_ticket_status(Ticket $ticket, TicketStatus $new_status) {
-	list ($__, $_N) = self::translate('closer');
+        list ($__, $_N) = self::translate('closer');
 
         if ($this->DEBUG) {
-        	$this->LOG[]=sprintf($__('Setting status %s (%s) for ticket with ID %d :: %s')
+            $this->LOG[]=sprintf($__('Setting status %s (%s) for ticket with ID %d :: %s')
                                     ,$new_status->getLocalName()
                                     ,$new_status->getState()
                                     ,$ticket->getId()
@@ -285,45 +323,57 @@ class CloserPlugin extends Plugin {
      * Retrieves an array of ticket_id's from the database
      *
      * @param PluginConfig $config
-     * @return array of integers that are Ticket::lookup compatible ID's of Open
-     *         Tickets
-     * @throws Exception so you have something interesting to read in your cron
-     *         logs..
+     * @return array of integers that are Ticket::lookup compatible ID's of Open Tickets
+     * @throws Exception so you have something interesting to read in your cron logs..
      */
     private function find_ticket_ids(PluginConfig &$config) {
-	list ($__, $_N) = self::translate('closer');
+        list ($__, $_N) = self::translate('closer');
+
+        $whereFilter = $leftJoins = [];
 
         // Limit
         $max = (int) $config->get('purge-num') ?: 20;
+        if ($max < 1)
+            $max = 20;
 
         // Filter
 
         #### time span ###
         $cDates = [
+            'c' => 't.created',         // from ticket table
             'u' => 't.lastupdate',      // from ticket table
             'm' => 'th.lastmessage',    // from thread table
             'r' => 'th.lastresponse',   // from thread table
+            'd' => '1'                  // special handling for on day X
         ];
+
         $calculate_date = $config->get('calculate-date');
-        if(!in_array($calculate_date, ['u','m','r'])) $calculate_date = 'u';
-        $age_days = (int) $config->get('purge-age');
-        if ($age_days < 1) {
-            throw new \Exception($__('Invalid parameter (int) age_days needs to be > 0'));
-        } else {
+        $valid_calculate_dates = array_keys($cDates);
+
+        if(!in_array($calculate_date, $valid_calculate_dates))
+            throw new \Exception(sprintf($__('Invalid calculate date: (string) calculate-date needs to be: %s'),
+                                         implode(', ', $valid_calculate_dates) )
+                                );
+
+        if($calculate_date !== 'd') { // on day X = we do not need a time span
+            $age_days = (int) $config->get('purge-age');
+            if ($age_days < 1)
+                throw new \Exception($__('Invalid parameter (int) age_days needs to be > 0'));
+
             // do we need a left join?
-            $leftJoins = '';
             if(in_array($calculate_date, ['m','r']))
-                $leftJoins = sprintf(" LEFT JOIN `%s` th ON (t.ticket_id = th.object_id AND th.object_type = 'T') ", THREAD_TABLE);
-            $whereFilter = sprintf(' %s < DATE_SUB(NOW(), INTERVAL %d DAY)', $cDates[$calculate_date], $age_days);
+                $leftJoins[] = sprintf(" LEFT JOIN `%s` th ON (t.ticket_id = th.object_id AND th.object_type = 'T') ", THREAD_TABLE);
+            $whereFilter[] = sprintf(' %s < DATE_SUB(NOW(), INTERVAL %d DAY)', $cDates[$calculate_date], $age_days);
         }
 
         #### only answered ###
-        $whereFilter .= ($config->get('close-only-answered')) ? ' AND t.isanswered=1' : '';
+        if($config->get('close-only-answered'))
+            $whereFilter[] = 't.isanswered=1';
         #### only overdue ###
-        $whereFilter .= ($config->get('close-only-overdue'))
-                        // is overdue OR duedate is set and in the past OR duedate not set and est_duedate set and in the past
-                      ? ' AND (t.isoverdue=1 OR (duedate IS NOT NULL AND duedate < NOW()) OR (duedate IS NULL AND est_duedate < NOW()))'
-                      : '';
+        if($config->get('close-only-overdue')) {
+            // is overdue OR duedate is set and in the past OR duedate not set and est_duedate set and in the past
+            $whereFilter[] = '(t.isoverdue=1 OR (t.duedate IS NOT NULL AND t.duedate < NOW()) OR (t.duedate IS NULL AND t.est_duedate < NOW()))';
+        }
 
         ### help topic filter ###
         $help_topics_selector = $config->get('help-topic-selector'); // p=process, i=ignore
@@ -332,10 +382,10 @@ class CloserPlugin extends Plugin {
         if (is_array($help_topics) && count($help_topics)) {
             $topic_ids = array_filter(array_map('intval', array_keys($help_topics)));
             if (count($topic_ids)) {
-                $whereFilter .= sprintf(' AND t.topic_id %s (%s)',
-                                        $help_topics_selector === 'i' ? 'NOT IN' : 'IN',
-                                        implode(',', $topic_ids)
-                                       );
+                $whereFilter[] = sprintf('t.topic_id %s (%s)',
+                                         $help_topics_selector === 'i' ? 'NOT IN' : 'IN',
+                                         implode(',', $topic_ids)
+                                        );
             }
         }
 
@@ -346,23 +396,23 @@ class CloserPlugin extends Plugin {
         if (is_array($depts) && count($depts)) {
             $dept_ids = array_filter(array_map('intval', array_keys($depts)));
             if (count($dept_ids)) {
-                $whereFilter .= sprintf(' AND t.dept_id %s (%s)',
-                                        $department_selector === 'i' ? 'NOT IN' : 'IN',
-                                        implode(',', $dept_ids)
-                                       );
+                $whereFilter[] = sprintf('t.dept_id %s (%s)',
+                                         $department_selector === 'i' ? 'NOT IN' : 'IN',
+                                         implode(',', $dept_ids)
+                                        );
             }
         }
 
         ### status filter ###
         $from_status = $config->get('from-status');
         $from_status_ids = [];
-        if(!is_array($from_status) && (int) $from_status)
-            $from_status_ids[] = (int) $from_status;
-        elseif(is_array($from_status))
+        if(is_array($from_status))
             $from_status_ids = array_filter(array_map('intval', array_keys($from_status)));
-        // extract array keys as dept_ids, if departments selected
+        elseif((int) $from_status > 0)
+            $from_status_ids[] = (int) $from_status;
+        // extract selected status_ids
         if (count($from_status_ids)) {
-            $whereFilter .= sprintf(' AND t.status_id IN (%s)', implode(',', $from_status_ids));
+            $whereFilter[] = sprintf('t.status_id IN (%s)', implode(',', $from_status_ids));
         } else
             throw new \Exception("Invalid parameter (int) / (array) from_status needs to be > 0 or [> 0]");
 
@@ -377,13 +427,13 @@ class CloserPlugin extends Plugin {
 
         $sql = sprintf("SELECT t.ticket_id FROM %s %s WHERE %s ORDER BY t.ticket_id ASC LIMIT %d",
                        TICKET_TABLE.' t',
-                       $leftJoins,
-                       $whereFilter,
+                       implode(' ', $leftJoins),
+                       implode(' AND ', $whereFilter),
                        $max
                       );
 
         if ($this->DEBUG) {
-        	$this->LOG[]=sprintf($__('Looking for tickets with query: %s'), $sql);
+            $this->LOG[]=sprintf($__('Looking for tickets with query: %s'), $sql);
         }
 
         $r = db_query($sql);
@@ -404,14 +454,16 @@ class CloserPlugin extends Plugin {
      * @param TicketStatus $new_status
      * @param string $admin_reply
      */
-    function post_reply(Ticket $ticket, TicketStatus $new_status, $admin_reply, Staff $robot = null) {
+    function post_reply(Ticket $ticket, TicketStatus $new_status, $admin_reply, Staff|int|null $robot = null) {
         // We need to override this for the notifications
         global $thisstaff;
-	    list ($__, $_N) = self::translate('closer');
+        list ($__, $_N) = self::translate('closer');
 
-        if ($robot) {
+        if ($robot instanceof Staff) {
             $assignee = $robot;
-        } else {
+        } elseif($robot == -2) { // send as system
+            $assignee = null;
+        } else {                // send as assigned agent
             $assignee = $ticket->getAssignee();
             if (!$assignee instanceof Staff) {
                 // Nobody, or a Team was assigned, and we haven't been told to use a Robot account.
@@ -422,42 +474,51 @@ class CloserPlugin extends Plugin {
             }
         }
         // This actually bypasses any authentication/validation checks..
-        $thisstaff = $assignee;
-	
-        // Replace any ticket variables in the message:
-        $variables = [
-            'recipient' => $ticket->getOwner()
-        ];
+        $realThisstaff = $thisstaff ?? null;
+        try {
+            $thisstaff = $assignee;
 
-        // Provide extra variables.. because. :-)
-        $options = [
-            'wholethread' => 'fetch_whole_thread',
-            'firstresponse' => 'fetch_first_response',
-            'lastresponse' => 'fetch_last_response'
-        ];
+            // Replace any ticket variables in the message:
+            $variables = [
+                'recipient' => $ticket->getOwner()
+            ];
 
-        // See if they've been used, if so, call the function
-        foreach ($options as $option => $method) {
-            if (strpos($admin_reply, $option) !== FALSE) {
-                $variables[$option] = $this->{$method}($ticket);
+            // Provide extra variables.. because. :-)
+            $options = [
+                'wholethread' => 'fetch_whole_thread',
+                'firstresponse' => 'fetch_first_response',
+                'lastresponse' => 'fetch_last_response'
+            ];
+
+            // See if they've been used, if so, call the function
+            foreach ($options as $option => $method) {
+                if (strpos($admin_reply, $option) !== FALSE) {
+                    $variables[$option] = $this->{$method}($ticket);
+                }
             }
-        }
 
-        // Use the Ticket objects own replaceVars method, which replace
-        // any other Ticket variables.
-        $custom_reply = $ticket->replaceVars($admin_reply, $variables);
+            // Use the Ticket objects own replaceVars method, which replace
+            // any other Ticket variables.
+            $custom_reply = $ticket->replaceVars($admin_reply, $variables);
 
-        // Build an array of values to send to the ticket's postReply function
-        // 'emailcollab' => FALSE // don't send notification to all collaborators.. maybe.. dunno.
-        $vars = [
-		'reply-to' => 'all',
-            'response' => $custom_reply
-        ];
-        $errors = [];
+            // Build an array of values to send to the ticket's postReply function
+            // 'emailcollab' => FALSE // don't send notification to all collaborators.. maybe.. dunno.
+            $vars = [
+                'reply-to' => 'all',
+                'response' => $custom_reply
+            ];
+            $errors = [];
 
-        // Send the alert without claiming the ticket on our assignee's behalf.
-        if (!$sent = $ticket->postReply($vars, $errors, TRUE, FALSE)) {
-            $ticket->LogNote($__('Error Notification'), $__('We were unable to post a reply to the ticket creator.'), self::PLUGIN_NAME, FALSE);
+            if(!$thisstaff) { // send as system
+                $vars['poster'] = $__('SYSTEM');
+            }
+
+            // Send the alert without claiming the ticket on our assignee's behalf.
+            if (!$sent = $ticket->postReply($vars, $errors, TRUE, FALSE)) {
+                $ticket->LogNote($__('Error Notification'), $__('We were unable to post a reply to the ticket creator.'), self::PLUGIN_NAME, FALSE);
+            }
+        } finally {
+            $thisstaff = $realThisstaff;
         }
     }
 
@@ -543,16 +604,17 @@ class CloserPlugin extends Plugin {
         list ($__, $_N) = self::translate('closer');
 
         $from = ($entry->get('type') == 'R') ? $__('Sent Date') : $__('Received Date');
-        $tag = ($entry->get('format') == 'text') ? 'pre' : 'p';
+        $tag = ($entry->get('format') == 'text') ? 'pre' : 'div';
         $when = Format::datetime(strtotime($entry->get('created')));
-        // TODO: Maybe make this a CannedResponse or admin template? 
+        // TODO: Maybe make this a CannedResponse or admin template?
+        $title = Format::htmlchars($entry->get('title'));
         return <<<PIECE
 <hr />
-<p class="thread">
-  <h3>{$entry->get('title')}</h3>
+<div class="thread">
+  <h3>$title</h3>
   <p>$from: $when</p>
-  <$tag>{$entry->get('body')}</$tag>
-</p>
+  <$tag>{$entry->model->getBody()}</$tag>
+</div>
 PIECE;
     }
 
@@ -578,7 +640,7 @@ PIECE;
             return FALSE;
         }
         if ($this->DEBUG) {
-        	$this->LOG[]=printf($__("Testing thread entry: %s : %s\n"), $entry->get('type'), $entry->get('title'));
+            $this->LOG[]=sprintf($__("Testing thread entry: %s : %s\n"), $entry->get('type'), $entry->get('title'));
         }
         if (isset($entry->model->ht['type'])) {
             if ($response && $entry->get('type') == 'R') {
@@ -621,11 +683,11 @@ PIECE;
      *
      */
     private function print2log() {
-    	 global $ost;
-    	 if (empty($this->LOG)) {return false;}
- 	 $msg='';
- 	 foreach($this->LOG as $key=>$value) {$msg.=$value."\n";}
-	 $ost->logWarning(self::PLUGIN_NAME, $msg, false);
+        global $ost;
+        if (empty($this->LOG)) {return false;}
+        $msg='';
+        foreach($this->LOG as $key=>$value) {$msg.=$value."\n";}
+        $ost->logWarning(self::PLUGIN_NAME, $msg, false);
          // reset LOG
          $this->LOG = [];
     }
