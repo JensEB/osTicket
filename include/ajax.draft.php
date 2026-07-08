@@ -3,6 +3,7 @@
 if(!defined('INCLUDE_DIR')) die('!');
 
 require_once(INCLUDE_DIR.'class.draft.php');
+require_once(INCLUDE_DIR.'class.file.php');
 
 class DraftAjaxAPI extends AjaxController {
 
@@ -84,7 +85,7 @@ class DraftAjaxAPI extends AjaxController {
 
         // Check file type to ensure image
         $type = $file[0]['type'];
-        if (strpos($file[0]['type'], 'image/') !== 0)
+        if (!AttachmentFile::isInlineSafeImageType($file[0]['type']))
             return Http::response(403,
                 JsonDataEncoder::encode(array(
                     'error' => 'File type is not allowed',
@@ -367,6 +368,9 @@ class DraftAjaxAPI extends AjaxController {
 
         $files = array();
         foreach ($images as $f) {
+            if (!$f->isInlineSafeImage())
+                continue;
+
             $url = $f->getDownloadUrl();
             $files[] = array(
                 // Don't send special sizing for thread items 'cause they

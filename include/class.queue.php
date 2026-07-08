@@ -1008,7 +1008,7 @@ class CustomQueue extends VerySimpleModel {
             // Consider keyword searching
             if ($name === ':keywords') {
                 global $ost;
-                $qs = $ost->searcher->find($value, $qs, false);
+                $qs = $ost->searcher->find($value, $qs, false, ['boolean' => false]);
             }
             else {
                 $nullable = ($method === 'nset') ? false : null;

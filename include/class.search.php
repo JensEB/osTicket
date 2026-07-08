@@ -44,7 +44,7 @@ abstract class SearchBackend {
     );
 
     abstract function update($model, $id, $content, $new=false, $attrs=array());
-    abstract function find($query, QuerySet $criteria, $addRelevance=true);
+    abstract function find($query, QuerySet $criteria, $addRelevance=true, $options=array());
 
     static function register($backend=false) {
         $backend = $backend ?: get_called_class();
@@ -79,9 +79,9 @@ class SearchInterface {
         $this->bootstrap();
     }
 
-    function find($query, QuerySet $criteria, $addRelevance=true) {
+    function find($query, QuerySet $criteria, $addRelevance=true, $options=array()) {
         $query = Format::searchable($query);
-        return $this->backend->find($query, $criteria, $addRelevance);
+        return $this->backend->find($query, $criteria, $addRelevance, $options);
     }
 
     function update($model, $id, $content, $new=false, $attrs=array()) {
@@ -327,7 +327,7 @@ class MysqlSearchBackend extends SearchBackend {
         return implode('', $results);
     }
 
-    function find($query, QuerySet $criteria, $addRelevance=true) {
+    function find($query, QuerySet $criteria, $addRelevance=true, $options=array()) {
         global $thisstaff;
 
         // MySQL usually doesn't handle words shorter than three letters
@@ -338,6 +338,10 @@ class MysqlSearchBackend extends SearchBackend {
         $criteria = clone $criteria;
 
         $mode = ' IN NATURAL LANGUAGE MODE';
+
+        // Allow boolean full-text syntax to be disabled
+        $allow_boolean = !array_key_exists('boolean', $options)
+            || $options['boolean'];
 
         // According to the MySQL full text boolean mode, this grammar is
         // assumed:
@@ -359,7 +363,8 @@ class MysqlSearchBackend extends SearchBackend {
         // Require the use of at least one operator and conform to the
         // boolean mode grammar
         $T = array();
-        if (preg_match('`(^|\s)["()<>~+-]`u', $query, $T)
+        if ($allow_boolean
+            && preg_match('`(^|\s)["()<>~+-]`u', $query, $T)
             && preg_match("`^{$BOOLEAN}$`u", $query, $T)
         ) {
             // If using boolean operators, search in boolean mode. This regex

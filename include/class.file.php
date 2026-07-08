@@ -175,6 +175,10 @@ class AttachmentFile extends VerySimpleModel
     }
 
     function display($scale=false, $ttl=86400) {
+        // Force download if not safe viewable image
+        if (!$this->isInlineSafeImage())
+            return $this->download(false, 'attachment');
+
         $this->makeCacheable($ttl);
 
         if ($scale && extension_loaded('gd')
@@ -213,6 +217,12 @@ class AttachmentFile extends VerySimpleModel
                 && ($a=$this->attachments->findFirst(array(
                             'type' => $options['type']))))
             $options['id'] = $a->getId();
+
+        // Force attachment disposition if not inline-safe image
+        if (isset($options['disposition'])
+                && strcasecmp($options['disposition'], 'inline') == 0
+                && !$this->isInlineSafeImage())
+            $options['disposition'] = 'attachment';
 
         return static::generateDownloadUrl($this->getId(),
                 strtolower($this->getKey()), $this->getSignature(),
@@ -267,7 +277,8 @@ class AttachmentFile extends VerySimpleModel
 
         $check = static::_genUrlSignature($this->getId(), $this->getKey(),
             $this->getSignature(), $expires);
-        return $signature == $check;
+
+        return hash_equals($check, $signature);
     }
 
     static function _genUrlSignature($id, $key, $signature, $expires) {
@@ -288,9 +299,9 @@ class AttachmentFile extends VerySimpleModel
         $disposition = ((($disposition && strcasecmp($disposition, 'inline') == 0)
               || $inline)
 /* Anpassung Anfang: inline Attachments auch für PDFs
-              && strpos($this->getType(), 'image/') !== false)
+              && $this->isInlineSafeImage())
 */
-              && (strpos($this->getType(), 'image/') !== false || strpos($this->getType(), 'pdf') !== false))
+              && ($this->isInlineSafeImage() || strpos($this->getType(), 'pdf') !== false))
 // Anpassung Ende: inline Attachments auch für PDFs
             ? 'inline' : 'attachment';
         $ttl = ($expires) ? $expires - Misc::gmtime() : false;
@@ -724,6 +735,29 @@ class AttachmentFile extends VerySimpleModel
         return static::objects()
             ->filter(array('ft' => 'B'))
             ->order_by('created');
+    }
+
+    /**
+     * Determines whether a MIME type is safe to render inline as a passive image.
+     *
+     * @param string $type
+     * @return bool
+     */
+    static function isInlineSafeImageType($type) {
+        $type = strtolower(trim((string) $type));
+
+        return strpos($type, 'image/') === 0
+            && $type !== 'image/svg+xml'
+            && $type !== 'image/svg';
+    }
+
+    /**
+     * Determines whether this file is safe to render inline as a passive image.
+     *
+     * @return bool
+     */
+    function isInlineSafeImage() {
+        return static::isInlineSafeImageType($this->getType());
     }
 }
 

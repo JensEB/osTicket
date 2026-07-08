@@ -370,11 +370,10 @@ class Format {
                   ':<html[^>]+:i',              # drop html attributes
                   ':<(a|span) (name|style)="(mso-bookmark\:)?_MailEndCompose">(.+)?<\/(a|span)>:', # Drop _MailEndCompose
                   ':<div dir=(3D)?"ltr">(.*?)<\/div>(.*):is', # drop Gmail "ltr" attributes
-                  ':data-cid="[^"]*":',         # drop image cid attributes
                   '(position: ?(-webkit-)?(static|relative|fixed|absolute|sticky|initial|inherit);?)', # Position styling
                   ':[\x{2002}-\x{200B}]+:u',    # unicode spaces
             ),
-            array('', '', '', '', '<html', '$4', '$2 $3', '', '', ' '),
+            array('', '', '', '', '<html', '$4', '$2 $3', '', ' '),
             $html);
 
         // HtmLawed specific config only
@@ -384,7 +383,7 @@ class Format {
             'comment' => 1, //Remove html comments (OUTLOOK LOVE THEM)
             'tidy' => -1,
             'elements' => '*-form-input-button',
-            'deny_attribute' => 'id, formaction, action, srcset, on*',
+            'deny_attribute' => 'id, formaction, action, srcset, data*, on*',
             'schemes' => 'href: aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, telnet; *:file, http, https; src: cid, http, https, data',
             'hook_tag' => function($e, $a=0) { return Format::__html_cleanup($e, $a); },
         );
@@ -634,6 +633,9 @@ class Format {
         $html = preg_replace_callback('/("|&quot;)cid:([\w._-]{32})("|&quot;)/',
         function($match) use ($options, $images) {
             if (!($file = AttachmentFile::lookup($match[2])))
+                return $match[0];
+
+            if (!$file->isInlineSafeImage())
                 return $match[0];
 
             return sprintf('"%s" data-cid="%s"',

@@ -4772,8 +4772,8 @@ implements RestrictedAccess, Threadable, Searchable {
 // check permissions on new ticket, if response without message is sent
         // ticket filter can change dept and change permissions for reply -> ignore here to prevent empty threads
         if ($vars['response'] && $role->hasPerm(Ticket::PERM_REPLY) || $_SESSION['noMessageRequired']) {
-// Anpassung Ende: message not required by response
             $vars['response'] = $ticket->replaceVars($vars['response']);
+// Anpassung Ende: message not required by response
             // $vars['cannedatachments'] contains the attachments placed on
             // the response form.
             $response = $ticket->postReply($vars, $errors, ($alert &&

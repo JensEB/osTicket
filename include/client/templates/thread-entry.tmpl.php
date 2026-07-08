@@ -30,7 +30,7 @@ if ($cfg->isAvatarsEnabled() && $user)
             </span>
         </div>
 <?php
-            echo sprintf(__('<b>%s</b> posted %s'), $name,
+            echo sprintf(__('<b>%s</b> posted %s'), Format::htmlchars($name),
                 sprintf('<time datetime="%s" title="%s">%s</time>',
                     date(DateTime::W3C, Misc::db2gmtime($entry->created)),
                     Format::daydatetime($entry->created),
@@ -38,7 +38,7 @@ if ($cfg->isAvatarsEnabled() && $user)
                 )
             ); ?>
             <span style="max-width:500px" class="faded title truncate"><?php
-                echo $entry->title; ?>
+                echo Format::htmlchars($entry->title); ?>
             </span>
     </div>
     <div class="thread-body" id="thread-id-<?php echo $entry->getId(); ?>">
