@@ -1892,9 +1892,9 @@ class ChoiceField extends FormField {
                 ),
             )),
             'multiselect' => new BooleanField(array(
-                'id'=>1, 'label'=>'Multiselect', 'required'=>false, 'default'=>false,
+                'id'=>1, 'label'=>__('Multiselect'), 'required'=>false, 'default'=>false,
                 'configuration'=>array(
-                    'desc'=>'Allow multiple selections')
+                    'desc'=>__('Allow multiple selections'))
             )),
         );
     }
@@ -4030,7 +4030,7 @@ class FileUploadField extends FormField {
             )),
             'strictmimecheck' => new BooleanField([
                 'id' => 4, 'label'=>__('Strict Mime Type Check'), 'required' => false, 'default' => false,
-                'hint' => 'File Mime Type associations is OS dependent',
+                'hint' => __('File Mime Type associations is OS dependent'),
                 'configuration' => ['desc' => __('Enable strict Mime Type check')]]),
             'max' => new TextboxField(array(
                 'label'=>__('Maximum Files'),
